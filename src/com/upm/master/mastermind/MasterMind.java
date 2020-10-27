@@ -17,7 +17,7 @@ public final class MasterMind {
       rating = new Rating();
    }
 
-   void start() {
+   void play() {
       if (!validFigures.isCompleted())
          throw new RuntimeException("Figures are not completed");
 
@@ -29,12 +29,11 @@ public final class MasterMind {
          Game game = new Game(this);
          rating.sum(game.play());
          visualizer.summary(rating);
-         startNewGame = (nplay >= maxPlay) ? false: askStartNewGame();
-         nplay ++;
+         startNewGame = (++ nplay < maxPlay) && askPlayNewGame();
       }
    }
 
-   private boolean askStartNewGame() {
+   private boolean askPlayNewGame() {
       visualizer.askNextPlay();
       return reader.readYesOrNo().equals('Y');
    }

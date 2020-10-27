@@ -6,7 +6,6 @@ import java.util.Map;
 
 public final class CodeBreaker {
    private Game game;
-   private Map<Code, Response> responses = new HashMap<>();
 
    public CodeBreaker(Game game) {
       this.game = game;
@@ -23,10 +22,6 @@ public final class CodeBreaker {
       return builder.build();
    }
 
-   public void store(Code code, Response response) {
-      responses.put(code, response);
-   }
-
    private Character readCharacter() {
       Character result;
 
@@ -38,7 +33,7 @@ public final class CodeBreaker {
             result = '-';
          }
 
-         if (game.getValidFigures().contains(result) == true) {
+         if (game.getValidFigures().contains(result)) {
             break;
          }
 

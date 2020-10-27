@@ -30,13 +30,11 @@ public class Game {
             return result;
          }
 
-         codeBreaker.store(code, response);
          masterMind.visualizer.codeAndResponse(code, response);
       }
 
       result.playForMaker();
       masterMind.visualizer.makerWins();
-
       return result;
    }
 }
