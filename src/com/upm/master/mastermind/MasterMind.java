@@ -7,7 +7,6 @@ public final class MasterMind {
 
    public MasterMind(Configuration configuration) {
       this.configuration = configuration;
-      rating = new Rating();
    }
    public boolean continuePlaying() { return nplay < configuration.getMaxPlay(); }
    public void summarize(Rating rating) {  this.rating.summarize(rating);  nplay ++; }
