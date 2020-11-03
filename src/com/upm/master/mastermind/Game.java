@@ -2,39 +2,38 @@ package com.upm.master.mastermind;
 
 public class Game {
    static final public int FIGURES_TO_GUESS = 4;
-   private final MasterMind masterMind;
+   private final Configuration configuration;
+   private int attempt = 0;
+   private CodeMaker codeMaker;
 
-   public Game(MasterMind masterMind) {
-      this.masterMind = masterMind;
+   public Game(Configuration configuration) {
+      this.configuration = configuration;
+      this.codeMaker = new CodeMaker(configuration);
    }
+
+   public boolean continuePlaying() { return ++ attempt < configuration.getMaxAttempt(); }
+
+   public void generateSecretCode() {
+      codeMaker.generateSecretCode();
+   }
+
+   public Response evaluate(Code guessCode) {
+      return codeMaker.evaluate(guessCode);
+   }
+
+   public Code getSecretCode() {
+      return codeMaker.getCode();
+   }
+
+   public int getAttempt() {
+      return attempt;
+   }
+
+   public int getMaxAttempt() {
+      return configuration.getMaxAttempt();
+   }
+
    public ValidFigures getValidFigures() {
-      return masterMind.validFigures;
-   }
-   public Visualizer getVisualizer() { return masterMind.visualizer; }
-   public Reader getReader() { return masterMind.reader; }
-   public int getMaxAttempt() {  return masterMind.maxAttempt; }
-
-   Rating play() {
-      CodeMaker codeMaker = new CodeMaker(this);
-      CodeBreaker codeBreaker = new CodeBreaker(this);
-      Rating result = new Rating();
-
-      int attempt = 0;
-      while (++ attempt < masterMind.maxAttempt) {
-         Code code = codeBreaker.play(attempt);
-         Response response = codeMaker.evaluate(code);
-
-         if (response.codeWasBroken()) {
-            result.playForBreaker();
-            masterMind.visualizer.breakerWins();
-            return result;
-         }
-
-         masterMind.visualizer.codeAndResponse(code, response);
-      }
-
-      result.playForMaker();
-      masterMind.visualizer.makerWins();
-      return result;
+      return configuration.getValidFigures();
    }
 }

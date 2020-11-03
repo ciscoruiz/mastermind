@@ -1,40 +1,17 @@
 package com.upm.master.mastermind;
 
 public final class MasterMind {
-   int maxAttempt;
-   int maxPlay;
-   ValidFigures validFigures;
-   Visualizer visualizer;
-   Reader reader;
-   Rating rating;
+   Configuration configuration;
+   int nplay = 0;
+   Rating rating = new Rating();
 
-   public MasterMind(int maxAttempt, int maxPlay, ValidFigures validFigures, Visualizer visualizer, Reader reader) {
-      this.maxAttempt = maxAttempt;
-      this.maxPlay = maxPlay;
-      this.validFigures = validFigures;
-      this.visualizer = visualizer;
-      this.reader = reader;
+   public MasterMind(Configuration configuration) {
+      this.configuration = configuration;
       rating = new Rating();
    }
-
-   void play() {
-      if (!validFigures.isCompleted())
-         throw new RuntimeException("Figures are not completed");
-
-      int nplay = 0;
-      boolean startNewGame = true;
-
-      while (nplay < maxPlay && startNewGame) {
-         visualizer.startPlay(nplay, maxPlay);
-         Game game = new Game(this);
-         rating.sum(game.play());
-         visualizer.summary(rating);
-         startNewGame = (++ nplay < maxPlay) && askPlayNewGame();
-      }
-   }
-
-   private boolean askPlayNewGame() {
-      visualizer.askNextPlay();
-      return reader.readYesOrNo().equals('Y');
-   }
+   public boolean continuePlaying() { return nplay < configuration.getMaxPlay(); }
+   public void summarize(Rating rating) {  this.rating.summarize(rating);  nplay ++; }
+   public int getNplay() {  return nplay;  }
+   public int getMaxPlay() { return configuration.getMaxPlay(); }
+   public Rating getRating() {  return rating; }
 }

@@ -4,7 +4,7 @@ public final class Rating {
    private int breaker;
    private int maker;
 
-   Rating() { breaker = maker = 0; }
+   public Rating() { breaker = maker = 0; }
 
    public int getBreaker() {
       return breaker;
@@ -14,10 +14,10 @@ public final class Rating {
       return maker;
    }
 
-   public void playForBreaker() { breaker = 1; }
-   public void playForMaker() { maker = 1; }
+   public void setBreakerWins() { breaker = 1; }
+   public void setMakerWins() { maker = 1; }
 
-   public void sum(Rating other) {
+   public void summarize(Rating other) {
       breaker += other.breaker;
       maker += other.maker;
    }

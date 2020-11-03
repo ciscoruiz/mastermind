@@ -2,29 +2,32 @@ package com.upm.master.mastermind;
 
 import java.util.HashSet;
 
-public class CodeMaker {
-   private Code code;
-   private HashSet<Character> figuresWithoutRepetition;
+public final class CodeMaker {
+   private final Configuration configuration;
+   private Code code = null;
+   private HashSet<Character> figuresWithoutRepetition = new HashSet<Character>();
 
-   public CodeMaker(Game game) {
+   public CodeMaker(Configuration configuration) {
+      this.configuration = configuration;
+   }
+
+   void generateSecretCode() {
       Code.Builder builder = new Code.Builder();
 
-      ValidFigures validFigures = game.getValidFigures();
+      ValidFigures validFigures = configuration.getValidFigures();
 
       for (int ii = 0; ii < Game.FIGURES_TO_GUESS; ++ ii) {
          int pos = (int) (Math.random() * (validFigures.size()));
          builder.add(validFigures.at(pos));
       }
       code = builder.build();
-      game.getVisualizer().codeToBreak(code);
 
-      figuresWithoutRepetition = new HashSet<Character>();
       for(int ii = 0; ii < code.size(); ++ ii) {
          figuresWithoutRepetition.add(code.figureAt(ii));
       }
    }
 
-   public Response evaluate(Code guess) {
+   Response evaluate(Code guess) {
       Response result = new Response(code.size());
 
       if (code.size() != guess.size()) {
@@ -43,5 +46,9 @@ public class CodeMaker {
       }
 
       return result;
+   }
+
+   public Code getCode() {
+      return code;
    }
 }

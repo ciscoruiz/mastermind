@@ -6,7 +6,7 @@ import java.util.Set;
 import java.util.Vector;
 
 public final class Code {
-   static final class Builder {
+   public static final class Builder {
       private Vector<Character> figures = new Vector<>(2);
       public Builder add(Character cc) { figures.add(cc); return this; }
       public int size() { return figures.size(); }

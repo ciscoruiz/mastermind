@@ -1,15 +1,20 @@
 package com.upm.master.mastermind;
 
+import com.upm.master.mastermind.controller.ConfigurationController;
+import com.upm.master.mastermind.controller.GameController;
+import com.upm.master.mastermind.controller.MasterMindController;
+import com.upm.master.mastermind.view.ConfigurationView;
+import com.upm.master.mastermind.view.auto.ConfigurationAuto;
+import com.upm.master.mastermind.view.console.GameConsole;
+import com.upm.master.mastermind.view.console.MasterMindConsole;
+
 public class Main {
     public static void main(String[] args) {
-        ValidFigures validFigures = new ValidFigures();
-        validFigures.add('A').add('B').add('C').add('D').add('E').add('F');
+       ConfigurationController configurationController = new ConfigurationController(new ConfigurationAuto());
+       GameController gameController = new GameController(new GameConsole());
 
-        Visualizer visualizer = new TtyVisualizer();
-        Reader reader = new TtyReader();
+       MasterMindController masterMindController = new MasterMindController(new MasterMindConsole(), configurationController, gameController);
 
-	     MasterMind masterMind = new MasterMind(5, 3, validFigures, visualizer, reader);
-
-	     masterMind.play();
+       masterMindController.play();
     }
 }
