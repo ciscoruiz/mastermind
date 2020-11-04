@@ -6,10 +6,6 @@ import com.upm.master.mastermind.Response;
 import com.upm.master.mastermind.ValidFigures;
 import com.upm.master.mastermind.view.GameView;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-
 public class GameConsole implements GameView {
    CharacterReader reader = new CharacterReader();
 
@@ -30,8 +26,6 @@ public class GameConsole implements GameView {
 
    @Override
    public Code askGuessCode(Game game) {
-      Character chr;
-
       System.out.println(
          "--- Choose " + Game.FIGURES_TO_GUESS + " figures to try to guess code. Attempt " +
          game.getAttempt() + " of " + game.getMaxAttempt()
