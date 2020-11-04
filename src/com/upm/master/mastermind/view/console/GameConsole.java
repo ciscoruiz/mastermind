@@ -20,12 +20,12 @@ public class GameConsole implements GameView {
 
    @Override
    public void breakerWins(Game game) {
-      System.out.println("CodeMaker WINS!!");
+      System.out.println("CodeBreaker WINS!!");
    }
 
    @Override
    public void makerWins(Game game) {
-      System.out.println("CodeBreaker WINS!!");
+      System.out.println("CodeMaker WINS!!");
    }
 
    @Override
