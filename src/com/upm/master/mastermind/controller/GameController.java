@@ -1,6 +1,6 @@
 package com.upm.master.mastermind.controller;
 
-import com.upm.master.mastermind.*;
+import com.upm.master.mastermind.model.*;
 import com.upm.master.mastermind.view.GameView;
 
 public class GameController {

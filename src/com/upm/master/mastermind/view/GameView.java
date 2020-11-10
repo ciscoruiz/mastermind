@@ -1,8 +1,8 @@
 package com.upm.master.mastermind.view;
 
-import com.upm.master.mastermind.Code;
-import com.upm.master.mastermind.Game;
-import com.upm.master.mastermind.Response;
+import com.upm.master.mastermind.model.Code;
+import com.upm.master.mastermind.model.Game;
+import com.upm.master.mastermind.model.Response;
 
 public interface GameView {
    void showSecretCode(Game game);

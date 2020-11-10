@@ -1,7 +1,7 @@
 package com.upm.master.mastermind.view.console;
 
-import com.upm.master.mastermind.MasterMind;
-import com.upm.master.mastermind.Rating;
+import com.upm.master.mastermind.model.MasterMind;
+import com.upm.master.mastermind.model.Rating;
 import com.upm.master.mastermind.view.MasterMindView;
 
 public class MasterMindConsole implements MasterMindView {

@@ -1,4 +1,4 @@
-package com.upm.master.mastermind;
+package com.upm.master.mastermind.model;
 
 public final class Rating {
    private int breaker;

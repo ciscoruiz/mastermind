@@ -1,9 +1,9 @@
 package com.upm.master.mastermind.view.console;
 
-import com.upm.master.mastermind.Code;
-import com.upm.master.mastermind.Game;
-import com.upm.master.mastermind.Response;
-import com.upm.master.mastermind.ValidFigures;
+import com.upm.master.mastermind.model.Code;
+import com.upm.master.mastermind.model.Game;
+import com.upm.master.mastermind.model.Response;
+import com.upm.master.mastermind.model.ValidFigures;
 import com.upm.master.mastermind.view.GameView;
 
 public class GameConsole implements GameView {

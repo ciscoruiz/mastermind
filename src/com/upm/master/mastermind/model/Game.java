@@ -1,4 +1,4 @@
-package com.upm.master.mastermind;
+package com.upm.master.mastermind.model;
 
 public class Game {
    static final public int FIGURES_TO_GUESS = 4;

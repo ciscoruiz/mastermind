@@ -1,7 +1,7 @@
 package com.upm.master.mastermind.view.auto;
 
-import com.upm.master.mastermind.Configuration;
-import com.upm.master.mastermind.ValidFigures;
+import com.upm.master.mastermind.model.Configuration;
+import com.upm.master.mastermind.model.ValidFigures;
 import com.upm.master.mastermind.view.ConfigurationView;
 
 public class ConfigurationAuto implements ConfigurationView {

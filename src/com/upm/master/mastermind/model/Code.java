@@ -1,8 +1,5 @@
-package com.upm.master.mastermind;
+package com.upm.master.mastermind.model;
 
-import java.time.temporal.ChronoField;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.Vector;
 
 public final class Code {

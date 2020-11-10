@@ -1,4 +1,4 @@
-package com.upm.master.mastermind;
+package com.upm.master.mastermind.model;
 
 public class Configuration {
    private static final int N_FIGURES = 6;

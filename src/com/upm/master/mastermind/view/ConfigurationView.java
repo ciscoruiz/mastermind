@@ -1,7 +1,6 @@
 package com.upm.master.mastermind.view;
 
-import com.upm.master.mastermind.Configuration;
-import com.upm.master.mastermind.ValidFigures;
+import com.upm.master.mastermind.model.Configuration;
 
 public interface ConfigurationView {
    public void setMaxAttempt(Configuration configuration);

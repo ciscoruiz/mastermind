@@ -1,6 +1,6 @@
 package com.upm.master.mastermind.view;
 
-import com.upm.master.mastermind.MasterMind;
+import com.upm.master.mastermind.model.MasterMind;
 
 public interface MasterMindView {
    void startGame(MasterMind masterMind);

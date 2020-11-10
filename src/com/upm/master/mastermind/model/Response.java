@@ -1,4 +1,4 @@
-package com.upm.master.mastermind;
+package com.upm.master.mastermind.model;
 
 // See https://mesadejuegos.top/mastermind/
 public final class Response {
