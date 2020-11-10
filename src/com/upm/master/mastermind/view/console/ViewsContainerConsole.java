@@ -22,9 +22,7 @@ public class ViewsContainerConsole implements ViewsContainer, ControllerVisitor 
    }
 
    @Override
-   public void visit(ResumeController resumeController) {
-      resumeConsole.update(resumeController);
-   }
+   public void visit(ResumeController resumeController) { resumeConsole.update(resumeController); }
 
    @Override
    public void updateView(Controller controller) {
