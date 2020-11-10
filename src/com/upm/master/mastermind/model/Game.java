@@ -8,14 +8,16 @@ public class Game {
 
    public Game(Configuration configuration) {
       this.configuration = configuration;
-      this.codeMaker = new CodeMaker(configuration);
+   }
+
+   public void initalize() {
+      codeMaker = new CodeMaker(configuration);
+      attempt = 0;
    }
 
    public boolean continuePlaying() { return ++ attempt < configuration.getMaxAttempt(); }
 
-   public void generateSecretCode() {
-      codeMaker.generateSecretCode();
-   }
+   public void generateSecretCode() {  codeMaker.generateSecretCode();  }
 
    public Response evaluate(Code guessCode) {
       return codeMaker.evaluate(guessCode);
