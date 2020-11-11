@@ -12,6 +12,9 @@ public abstract class Controller {
       this.state = state;
    }
 
-   public void setNextState() {  state.setNextValue();  }
+   public void setNextState() {
+      state.setNextValue();
+   }
+
    public abstract void accept(ControllerVisitor controllerVisitor);
 }

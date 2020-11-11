@@ -12,6 +12,12 @@ public class ResumeController extends Controller {
    public void accept(ControllerVisitor controllerVisitor) {
       controllerVisitor.visit(this);
    }
-   public void resume() { state.setValue(State.Value.INITIAL); }
-   public void stop() { state.setValue(State.Value.STOP); }
+
+   public void resume() {
+      state.setValue(State.Value.INITIAL);
+   }
+
+   public void stop() {
+      state.setValue(State.Value.STOP);
+   }
 }

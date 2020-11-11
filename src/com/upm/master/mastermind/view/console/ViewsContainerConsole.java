@@ -3,8 +3,6 @@ package com.upm.master.mastermind.view.console;
 import com.upm.master.mastermind.controller.*;
 import com.upm.master.mastermind.view.ViewsContainer;
 
-import java.util.HashMap;
-
 public class ViewsContainerConsole implements ViewsContainer, ControllerVisitor {
    private StartConsole startConsole = new StartConsole();
    private PlayConsole playConsole = new PlayConsole();
@@ -21,10 +19,12 @@ public class ViewsContainerConsole implements ViewsContainer, ControllerVisitor 
    }
 
    @Override
-   public void visit(ResumeController resumeController) { resumeConsole.update(resumeController); }
+   public void visit(ResumeController resumeController) {
+      resumeConsole.update(resumeController);
+   }
 
    @Override
    public void updateView(Controller controller) {
-         controller.accept(this);
+      controller.accept(this);
    }
 }

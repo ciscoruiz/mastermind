@@ -15,20 +15,30 @@ public class Game {
       attempt = 0;
    }
 
-   public boolean continuePlaying() { return ++ attempt < configuration.getMaxAttempt(); }
-   public void generateSecretCode() {  codeMaker.generateSecretCode();  }
+   public boolean continuePlaying() {
+      return ++attempt < configuration.getMaxAttempt();
+   }
+
+   public void generateSecretCode() {
+      codeMaker.generateSecretCode();
+   }
+
    public Response evaluate(Code guessCode) {
       return codeMaker.evaluate(guessCode);
    }
+
    public Code getSecretCode() {
       return codeMaker.getCode();
    }
+
    public int getAttempt() {
       return attempt;
    }
+
    public int getMaxAttempt() {
       return configuration.getMaxAttempt();
    }
+
    public ValidFigures getValidFigures() {
       return configuration.getValidFigures();
    }

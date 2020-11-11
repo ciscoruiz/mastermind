@@ -6,14 +6,14 @@ import com.upm.master.mastermind.view.ViewsContainer;
 import com.upm.master.mastermind.view.console.ViewsContainerConsole;
 
 public class Main {
-    public static void main(String[] args) {
-       ViewsContainer viewsContainer = new ViewsContainerConsole();
-       Configuration configuration = createHardcodedConfiguration();
+   public static void main(String[] args) {
+      ViewsContainer viewsContainer = new ViewsContainerConsole();
+      Configuration configuration = createHardcodedConfiguration();
 
-       MasterMind masterMind = new MasterMind(viewsContainer, configuration);
+      MasterMind masterMind = new MasterMind(viewsContainer, configuration);
 
-       masterMind.play();
-    }
+      masterMind.play();
+   }
 
    private static Configuration createHardcodedConfiguration() {
       Configuration configuration = new Configuration();

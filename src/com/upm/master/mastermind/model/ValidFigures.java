@@ -11,8 +11,20 @@ public class ValidFigures {
    public ValidFigures() {
    }
 
-   public ValidFigures add(Character cc) { figures.add(cc); return this; }
-   public boolean contains(Character cc) { return figures.contains(cc); }
-   public int size() { return figures.size(); }
-   public Character at(int pos) { return figures.elementAt(pos); }
+   public ValidFigures add(Character cc) {
+      figures.add(cc);
+      return this;
+   }
+
+   public boolean contains(Character cc) {
+      return figures.contains(cc);
+   }
+
+   public int size() {
+      return figures.size();
+   }
+
+   public Character at(int pos) {
+      return figures.elementAt(pos);
+   }
 }

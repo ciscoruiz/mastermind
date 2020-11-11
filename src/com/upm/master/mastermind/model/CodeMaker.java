@@ -16,13 +16,13 @@ public final class CodeMaker {
 
       ValidFigures validFigures = configuration.getValidFigures();
 
-      for (int ii = 0; ii < Game.FIGURES_TO_GUESS; ++ ii) {
+      for (int ii = 0; ii < Game.FIGURES_TO_GUESS; ++ii) {
          int pos = (int) (Math.random() * (validFigures.size()));
          builder.add(validFigures.at(pos));
       }
       code = builder.build();
 
-      for(int ii = 0; ii < code.size(); ++ ii) {
+      for (int ii = 0; ii < code.size(); ++ii) {
          figuresWithoutRepetition.add(code.figureAt(ii));
       }
    }
@@ -34,13 +34,12 @@ public final class CodeMaker {
          return result;
       }
 
-      for (int ii = 0; ii < guess.size(); ++ ii) {
+      for (int ii = 0; ii < guess.size(); ++ii) {
          Character guessFigure = guess.figureAt(ii);
 
          if (code.figureAt(ii) == guessFigure) {
             result.putBlack(ii);
-         }
-         else if (figuresWithoutRepetition.contains(guessFigure)) {
+         } else if (figuresWithoutRepetition.contains(guessFigure)) {
             result.putWhite(ii);
          }
       }

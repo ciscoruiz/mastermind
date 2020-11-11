@@ -14,5 +14,7 @@ public class ControllersContainer {
       controllers.put(State.Value.RESUME, new ResumeController(game, state));
    }
 
-   public Controller getController(State state) { return controllers.get(state.getValue()); }
+   public Controller getController(State state) {
+      return controllers.get(state.getValue());
+   }
 }

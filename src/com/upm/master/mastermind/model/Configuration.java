@@ -14,7 +14,9 @@ public class Configuration {
       this.maxAttempt = maxAttempt;
    }
 
-   public ValidFigures getValidFigures() {  return validFigures;  }
+   public ValidFigures getValidFigures() {
+      return validFigures;
+   }
 
    public void setValidFigures(ValidFigures validFigures) {
       if (validFigures.size() != N_FIGURES) {

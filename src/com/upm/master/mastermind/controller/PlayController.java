@@ -12,11 +12,31 @@ public class PlayController extends Controller {
       controllerVisitor.visit(this);
    }
 
-   public boolean continuePlaying() { return game.continuePlaying(); }
-   public Response evaluate(Code guessCode) {  return game.evaluate(guessCode); }
-   public ValidFigures getValidFigures() { return game.getValidFigures(); }
-   public int getAttempt() { return game.getAttempt(); }
-   public int getMaxAttempt() { return game.getMaxAttempt(); }
-   public void codeBreakerWins() { setNextState(); }
-   public void codeMakerWins() { setNextState(); }
+   public boolean continuePlaying() {
+      return game.continuePlaying();
+   }
+
+   public Response evaluate(Code guessCode) {
+      return game.evaluate(guessCode);
+   }
+
+   public ValidFigures getValidFigures() {
+      return game.getValidFigures();
+   }
+
+   public int getAttempt() {
+      return game.getAttempt();
+   }
+
+   public int getMaxAttempt() {
+      return game.getMaxAttempt();
+   }
+
+   public void codeBreakerWins() {
+      setNextState();
+   }
+
+   public void codeMakerWins() {
+      setNextState();
+   }
 }

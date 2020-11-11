@@ -33,8 +33,8 @@ public class PlayConsole {
 
    private Code askGuessCode(PlayController playController) {
       System.out.println(
-         "--- Choose " + Game.FIGURES_TO_GUESS + " figures to try to guess code. Attempt " +
-         playController.getAttempt() + " of " + playController.getMaxAttempt()
+      "--- Choose " + Game.FIGURES_TO_GUESS + " figures to try to guess code. Attempt " +
+      playController.getAttempt() + " of " + playController.getMaxAttempt()
       );
 
       Code.Builder builder = new Code.Builder();
@@ -66,7 +66,7 @@ public class PlayConsole {
 
    private void printValidFigures(ValidFigures validFigures) {
       System.out.print("   Press key for one of character on the list { ");
-      for (int ii = 0; ii < validFigures.size(); ++ ii) {
+      for (int ii = 0; ii < validFigures.size(); ++ii) {
          System.out.print(validFigures.at(ii));
          System.out.print(" ");
       }
