@@ -14,17 +14,7 @@ public class Configuration {
       this.maxAttempt = maxAttempt;
    }
 
-   public int getMaxPlay() {
-      return maxPlay;
-   }
-
-   public void setMaxPlay(int maxPlay) {
-      this.maxPlay = maxPlay;
-   }
-
-   public ValidFigures getValidFigures() {
-      return validFigures;
-   }
+   public ValidFigures getValidFigures() {  return validFigures;  }
 
    public void setValidFigures(ValidFigures validFigures) {
       if (validFigures.size() != N_FIGURES) {

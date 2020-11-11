@@ -22,21 +22,4 @@ public final class Code {
    public String toString() {
       return "Code{" + "figures=" + figures + '}';
    }
-
-   @Override
-   public int hashCode() {
-      StringBuilder builder = new StringBuilder();
-      for (Character cc : figures) {  builder.append(cc); }
-      return builder.toString().hashCode();
-   }
-
-   @Override
-   public boolean equals(Object o) {
-      if (this == o) return true;
-      if (o == null || getClass() != o.getClass()) return false;
-
-      Code code = (Code) o;
-
-      return figures.equals(code.figures);
-   }
 }
