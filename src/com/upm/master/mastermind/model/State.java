@@ -10,7 +10,6 @@ public class State {
    public Value getValue() {
       return value;
    }
-
    public void setValue(Value value) {
       this.value = value;
    }
