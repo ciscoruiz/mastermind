@@ -12,7 +12,7 @@ public class ResumeConsole {
          resumeController.stop();
    }
 
-   public boolean askPlayNewGame() {
+   private boolean askPlayNewGame() {
       Character character = null;
 
       while (character == null) {

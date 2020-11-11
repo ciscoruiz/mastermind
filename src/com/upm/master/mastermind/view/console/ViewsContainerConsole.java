@@ -1,7 +1,6 @@
 package com.upm.master.mastermind.view.console;
 
 import com.upm.master.mastermind.controller.*;
-import com.upm.master.mastermind.model.State;
 import com.upm.master.mastermind.view.ViewsContainer;
 
 import java.util.HashMap;

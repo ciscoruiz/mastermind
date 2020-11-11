@@ -1,0 +1,48 @@
+@startuml
+
+package mastermind.model {
+    class Game
+    class State
+}
+
+
+package mastermind.controller {
+class Controller {
+   void setNextState()
+   {abstract} void accept(ControllerVisitor controllerVisitor)
+}
+
+class ControllersContainer {
+    Controller getController(State state) 
+}
+
+class StartController
+class PlayController
+class ResumeController
+
+interface ControllerVisitor {
+   void visit(StartController startController);
+   void visit(PlayController playController);
+   void visit(ResumeController resumeController);
+}
+}
+
+Controller <|-down- StartController
+Controller <|- PlayController
+Controller <|- ResumeController
+
+
+ControllerVisitor -[dashed]-> StartController
+ControllerVisitor -[dashed]-> PlayController
+ControllerVisitor -[dashed]-> ResumeController
+
+ControllersContainer  *-up-> StartController
+ControllersContainer  *-up-> PlayController
+ControllersContainer  *-up-> ResumeController
+
+Controller --> Game
+Controller --> State
+
+
+@enduml
+

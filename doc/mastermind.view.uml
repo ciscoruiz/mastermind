@@ -1,0 +1,80 @@
+@startuml
+
+package mastermind.model {
+    class Game
+    class State
+}
+
+package mastermind.view {
+interface ViewsContainer {
+   void updateView(Controller controller)
+}
+}
+
+package mastermind.view.console {
+class CharacterReader {
+    Character apply();
+}
+
+class ViewsContainerConsole {
+    void updateView(Controller controller) -> controller.accAept(this)
+    void visit (StartController controller) -> startConsole.update(controller)
+    void visit (PlayController controller) -> playConsole.update(controller)
+    void visit (ResumeController controller) -> resumeConsole.update(controller)
+}
+
+
+class StartConsole {
+    void update(StartController startController)
+}
+class PlayConsole {
+    void update(PlayController playController)
+}
+class ResumeConsole {
+    void update(ResumeController resumeController)
+}
+
+}
+
+
+package mastermind.controller {
+class Controller {
+   void setNextState()
+   {abstract} void accept(ControllerVisitor controllerVisitor)
+}
+
+class StartController
+class PlayController
+class ResumeController
+
+interface ControllerVisitor {
+   void visit(StartController startController);
+   void visit(PlayController playController);
+   void visit(ResumeController resumeController);
+}
+}
+
+ViewsContainer <|- ViewsContainerConsole
+ViewsContainerConsole *--> StartConsole : startConsole
+ViewsContainerConsole *--> PlayConsole : playConsole
+ViewsContainerConsole *--> ResumeConsole : resumeConsole
+
+ControllerVisitor <|- ViewsContainerConsole
+
+PlayConsole --> CharacterReader
+ResumeConsole --> CharacterReader
+
+ViewsContainer -[dashed]-> Controller
+StartConsole -[dashed]-> StartController
+PlayConsole -[dashed]-> PlayController
+ResumeConsole -[dashed]-> ResumeController
+
+Controller --> Game
+Controller --> State
+
+
+@enduml
+
+
+
+
