@@ -10,7 +10,7 @@ public class Game {
       this.configuration = configuration;
    }
 
-   public void initalize() {
+   public void initialize() {
       codeMaker = new CodeMaker(configuration);
       attempt = 0;
    }

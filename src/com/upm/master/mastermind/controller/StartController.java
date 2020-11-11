@@ -11,7 +11,7 @@ public class StartController extends Controller {
    public void accept(ControllerVisitor controllerVisitor) {  controllerVisitor.visit(this); }
 
    public void initializeGame() {
-      game.initalize();
+      game.initialize();
       game.generateSecretCode();
    }
 
