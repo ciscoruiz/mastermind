@@ -6,6 +6,14 @@ public class Game {
    private int attempt = 0;
    private CodeMaker codeMaker;
 
+   public class Memento {
+      final private int attempt;
+
+      private Memento(Game game) {
+         this.attempt = game.attempt;
+      }
+   }
+
    public Game(Configuration configuration) {
       this.configuration = configuration;
    }
@@ -42,4 +50,13 @@ public class Game {
    public ValidFigures getValidFigures() {
       return configuration.getValidFigures();
    }
+
+   Memento createMemento() {
+      return new Memento(this);
+   }
+
+   void restore(Memento memento) {
+      this.attempt = memento.attempt;
+   }
+
 }
