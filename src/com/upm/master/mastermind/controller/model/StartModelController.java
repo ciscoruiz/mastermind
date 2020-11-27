@@ -5,8 +5,8 @@ import com.upm.master.mastermind.model.Code;
 import com.upm.master.mastermind.model.Game;
 import com.upm.master.mastermind.model.State;
 
-public class StartController extends Controller {
-   public StartController(Game game, State state) {
+public class StartModelController extends ModelController {
+   public StartModelController(Game game, State state) {
       super(game, state);
    }
 

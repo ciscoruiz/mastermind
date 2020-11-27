@@ -1,6 +1,6 @@
 package com.upm.master.mastermind.view.console.menu;
 
-import com.upm.master.mastermind.controller.model.PlayController;
+import com.upm.master.mastermind.controller.model.PlayModelController;
 import com.upm.master.mastermind.view.console.PlayConsole;
 
 public class RedoCommand extends Command {
@@ -8,7 +8,7 @@ public class RedoCommand extends Command {
       super(playConsole, 'R', "Apply REDO", (playController) -> { return playController.canApplyRedo(); });
    }
 
-   void execute(PlayController playController) {
+   void execute(PlayModelController playController) {
       playConsole.redo(playController);
    }
 }

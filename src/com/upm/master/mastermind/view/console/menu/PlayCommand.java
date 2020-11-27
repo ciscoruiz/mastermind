@@ -1,6 +1,6 @@
 package com.upm.master.mastermind.view.console.menu;
 
-import com.upm.master.mastermind.controller.model.PlayController;
+import com.upm.master.mastermind.controller.model.PlayModelController;
 import com.upm.master.mastermind.view.console.PlayConsole;
 
 public class PlayCommand extends Command {
@@ -8,7 +8,7 @@ public class PlayCommand extends Command {
       super(playConsole, 'P', "Play a new combination", (playController) -> { return true; });
    }
 
-   void execute(PlayController playController) {
+   void execute(PlayModelController playController) {
       playConsole.play(playController);
    }
 }

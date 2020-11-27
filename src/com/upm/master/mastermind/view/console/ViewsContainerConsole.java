@@ -10,22 +10,22 @@ public class ViewsContainerConsole implements ViewsContainer, ControllerVisitor 
    private ResumeConsole resumeConsole = new ResumeConsole();
 
    @Override
-   public void visit(StartController startController) {
+   public void visit(StartModelController startController) {
       startConsole.update(startController);
    }
 
    @Override
-   public void visit(PlayController playController) {
+   public void visit(PlayModelController playController) {
       playConsole.update(playController);
    }
 
    @Override
-   public void visit(ResumeController resumeController) {
+   public void visit(ResumeModelController resumeController) {
       resumeConsole.update(resumeController);
    }
 
    @Override
-   public void updateView(Controller controller) {
+   public void updateView(ModelController controller) {
       controller.accept(this);
    }
 }

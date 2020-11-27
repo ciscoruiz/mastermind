@@ -1,11 +1,11 @@
 package com.upm.master.mastermind.view.console.menu;
 
-import com.upm.master.mastermind.controller.model.PlayController;
+import com.upm.master.mastermind.controller.model.PlayModelController;
 import com.upm.master.mastermind.view.console.PlayConsole;
 
 public abstract class Command {
    public interface ActivationEvaluator {
-      boolean evaluate(PlayController playController);
+      boolean evaluate(PlayModelController playController);
    }
 
    protected PlayConsole playConsole;
@@ -28,9 +28,9 @@ public abstract class Command {
       return title;
    }
 
-   public boolean isActivated(PlayController playController) {
+   public boolean isActivated(PlayModelController playController) {
       return activationEvaluator.evaluate(playController);
    }
 
-   abstract void execute(PlayController playController);
+   abstract void execute(PlayModelController playController);
 }

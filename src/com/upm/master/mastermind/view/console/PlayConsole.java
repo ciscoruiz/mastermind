@@ -1,6 +1,6 @@
 package com.upm.master.mastermind.view.console;
 
-import com.upm.master.mastermind.controller.model.PlayController;
+import com.upm.master.mastermind.controller.model.PlayModelController;
 import com.upm.master.mastermind.model.Code;
 import com.upm.master.mastermind.model.Game;
 import com.upm.master.mastermind.model.Response;
@@ -20,7 +20,7 @@ public class PlayConsole {
       menuConsole.add(new QuitCommand(this));
    }
 
-   public void update(PlayController playController) {
+   public void update(PlayModelController playController) {
       while (playController.continueGame()) {
          menuConsole.choose(playController);
       }
@@ -31,7 +31,7 @@ public class PlayConsole {
       }
    }
 
-   public void play(PlayController playController) {
+   public void play(PlayModelController playController) {
       playController.registry();
 
       Code guessCode = askGuessCode(playController);
@@ -45,21 +45,21 @@ public class PlayConsole {
       }
    }
 
-   public void undo(PlayController playController) {
+   public void undo(PlayModelController playController) {
       playController.undo();
       System.out.println(
          "--- UNDO to Attempt " + playController.getAttempt() + " of " + playController.getMaxAttempt()
       );
    }
 
-   public void redo(PlayController playController) {
+   public void redo(PlayModelController playController) {
       playController.redo();
       System.out.println(
          "--- REDO to Attempt " + playController.getAttempt() + " of " + playController.getMaxAttempt()
       );
    }
 
-   public void quit(PlayController playController) {
+   public void quit(PlayModelController playController) {
       playController.quit();
    }
 
@@ -67,7 +67,7 @@ public class PlayConsole {
       System.out.println(code.toString() + " -> " + response.toString());
    }
 
-   private Code askGuessCode(PlayController playController) {
+   private Code askGuessCode(PlayModelController playController) {
       System.out.println(
          "--- Choose " + Game.FIGURES_TO_GUESS + " figures to try to guess code. Attempt " +
          playController.getAttempt() + " of " + playController.getMaxAttempt()

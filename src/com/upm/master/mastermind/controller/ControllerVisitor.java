@@ -1,14 +1,14 @@
 package com.upm.master.mastermind.controller;
 
-import com.upm.master.mastermind.controller.model.PlayController;
-import com.upm.master.mastermind.controller.model.ResumeController;
-import com.upm.master.mastermind.controller.model.StartController;
+import com.upm.master.mastermind.controller.model.PlayModelController;
+import com.upm.master.mastermind.controller.model.ResumeModelController;
+import com.upm.master.mastermind.controller.model.StartModelController;
 
 public interface ControllerVisitor {
-   void visit(StartController startController);
+   void visit(StartModelController startController);
 
-   void visit(PlayController playController);
+   void visit(PlayModelController playController);
 
-   void visit(ResumeController resumeController);
+   void visit(ResumeModelController resumeController);
 }
 
