@@ -6,7 +6,7 @@ import java.io.InputStreamReader;
 import java.util.Vector;
 
 public class CharacterReader {
-   private BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+   private final BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
 
    public Character apply(String text, Vector<Character> validCharacters) {
       Character result;
@@ -32,7 +32,7 @@ public class CharacterReader {
       try {
          String line;
          while ((line = bufferedReader.readLine()) == null || line.isEmpty()) ;
-            result = line.charAt(0);
+         result = line.charAt(0);
       } catch (IOException none) {
       }
 

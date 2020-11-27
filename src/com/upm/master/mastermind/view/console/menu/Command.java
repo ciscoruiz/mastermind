@@ -11,9 +11,7 @@ public abstract class Command {
    protected PlayConsole playConsole;
    private Character character;
    private String title;
-   ActivationEvaluator activationEvaluator;
-
-   boolean activate = true;
+   private ActivationEvaluator activationEvaluator;
 
    protected Command(PlayConsole playConsole, Character character, String title, ActivationEvaluator activationEvaluator) {
       this.playConsole = playConsole;
@@ -33,7 +31,6 @@ public abstract class Command {
    public boolean isActivated(PlayController playController) {
       return activationEvaluator.evaluate(playController);
    }
-
 
    abstract void execute(PlayController playController);
 }

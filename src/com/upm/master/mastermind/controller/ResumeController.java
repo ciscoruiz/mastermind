@@ -1,11 +1,15 @@
 package com.upm.master.mastermind.controller;
 
 import com.upm.master.mastermind.model.Game;
+import com.upm.master.mastermind.model.GameHistoryKeeper;
 import com.upm.master.mastermind.model.State;
 
 public class ResumeController extends Controller {
-   public ResumeController(Game game, State state) {
+   private GameHistoryKeeper gameHistoryKeeper;
+
+   public ResumeController(Game game, State state, GameHistoryKeeper gameHistoryKeeper) {
       super(game, state);
+      this.gameHistoryKeeper = gameHistoryKeeper;
    }
 
    @Override
@@ -15,6 +19,7 @@ public class ResumeController extends Controller {
 
    public void resume() {
       state.setValue(State.Value.INITIAL);
+      gameHistoryKeeper.clear();
    }
 
    public void stop() {

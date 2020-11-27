@@ -9,6 +9,6 @@ public class QuitCommand extends Command {
    }
 
    void execute(PlayController playController) {
-      playConsole.quit();
+      playConsole.quit(playController);
    }
 }

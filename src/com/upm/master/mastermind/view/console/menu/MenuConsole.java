@@ -17,14 +17,16 @@ public class MenuConsole {
    }
 
    public void choose(PlayController playController) {
+      Vector<Character>  validOptions = new Vector<>();
+
       for (Command command : commands) {
          if (command.isActivated(playController)) {
             System.out.println(command.getCharacter() + ".- " + command.getTitle());
+            validOptions.add(command.getCharacter());
          }
       }
-      System.out.print("Choose an option: ");
 
-      Character option = reader.apply("Choose an option", getValidOptions(playController));
+      Character option = reader.apply("Choose an option", validOptions);
 
       for (Command command : commands)  {
          if (command.getCharacter().equals(option)) {
@@ -33,17 +35,4 @@ public class MenuConsole {
          }
       }
    }
-
-   private Vector<Character> getValidOptions(PlayController playController) {
-      Vector<Character> result = new Vector<>();
-
-      for (Command command : commands) {
-         if (command.isActivated(playController)) {
-            result.add(command.getCharacter());
-         }
-      }
-
-      return result;
-   }
-
 }

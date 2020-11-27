@@ -12,7 +12,7 @@ public class ControllersContainer {
    public ControllersContainer(Game game, State state, GameHistoryKeeper gameHistoryKeeper) {
       controllers.put(State.Value.INITIAL, new StartController(game, state));
       controllers.put(State.Value.PLAYING, new PlayController(game, state, gameHistoryKeeper));
-      controllers.put(State.Value.RESUME, new ResumeController(game, state));
+      controllers.put(State.Value.RESUME, new ResumeController(game, state, gameHistoryKeeper));
    }
 
    public Controller getController(State state) {

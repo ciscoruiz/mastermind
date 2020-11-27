@@ -34,4 +34,9 @@ public class GameHistoryKeeper {
    public void undo() {
       game.restore(history.get(-- position));
    }
+
+   public void clear() {
+      history.clear();
+      position = 0;
+   }
 }

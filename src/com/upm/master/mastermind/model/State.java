@@ -1,8 +1,9 @@
 package com.upm.master.mastermind.model;
 
 public class State {
+
    public enum Value {
-      INITIAL, PLAYING, RESUME, STOP
+      INITIAL, PLAYING, RESUME, STOP, QUIT
    }
 
    private Value value = Value.INITIAL;
@@ -29,6 +30,6 @@ public class State {
    }
 
    public boolean continuePlaying() {
-      return value != Value.STOP;
+      return value != Value.STOP && value != Value.QUIT;
    }
 }

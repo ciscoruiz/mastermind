@@ -23,9 +23,7 @@ public class Game {
       attempt = 0;
    }
 
-   public boolean continuePlaying() {
-      return ++attempt < configuration.getMaxAttempt();
-   }
+   public boolean continuePlaying() {  return ++attempt < configuration.getMaxAttempt();  }
 
    public void generateSecretCode() {
       codeMaker.generateSecretCode();

@@ -4,7 +4,6 @@ import com.upm.master.mastermind.controller.PlayController;
 import com.upm.master.mastermind.model.Code;
 import com.upm.master.mastermind.model.Game;
 import com.upm.master.mastermind.model.Response;
-import com.upm.master.mastermind.model.ValidFigures;
 import com.upm.master.mastermind.view.console.menu.*;
 
 import java.util.Vector;
@@ -13,7 +12,6 @@ public class PlayConsole {
    private final CharacterReader reader = new CharacterReader();
    private final MenuConsole menuConsole = new MenuConsole();
    private Command undoCommand;
-   private boolean quit = false;
 
    PlayConsole() {
       menuConsole.add(new UndoCommand(this));
@@ -23,12 +21,14 @@ public class PlayConsole {
    }
 
    public void update(PlayController playController) {
-      while (playController.continuePlaying() && !quit) {
+      while (playController.continueGame()) {
          menuConsole.choose(playController);
       }
 
-      System.out.println("CodeMaker WINS!!");
-      playController.codeMakerWins();
+      if (playController.reachMaxAttempt()) {
+         System.out.println("CodeMaker WINS!!");
+         playController.codeMakerWins();
+      }
    }
 
    public void play(PlayController playController) {
@@ -59,8 +59,8 @@ public class PlayConsole {
       );
    }
 
-   public void quit() {
-      quit = true;
+   public void quit(PlayController playController) {
+      playController.quit();
    }
 
    private void showResponse(Code code, Response response) {
@@ -69,14 +69,12 @@ public class PlayConsole {
 
    private Code askGuessCode(PlayController playController) {
       System.out.println(
-      "--- Choose " + Game.FIGURES_TO_GUESS + " figures to try to guess code. Attempt " +
-      playController.getAttempt() + " of " + playController.getMaxAttempt()
+         "--- Choose " + Game.FIGURES_TO_GUESS + " figures to try to guess code. Attempt " +
+         playController.getAttempt() + " of " + playController.getMaxAttempt()
       );
 
-      Code.Builder builder = new Code.Builder();
-
       Vector<Character> figures = playController.getValidFigures().getFigures();
-
+      Code.Builder builder = new Code.Builder();
       while (builder.size() < Game.FIGURES_TO_GUESS) {
          builder.add(reader.apply("Press key for one character", figures));
       }

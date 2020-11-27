@@ -3,7 +3,8 @@ package com.upm.master.mastermind.controller;
 import com.upm.master.mastermind.model.*;
 
 public class PlayController extends Controller {
-   GameHistoryKeeper gameHistoryKeeper;
+   private GameHistoryKeeper gameHistoryKeeper;
+
    public PlayController(Game game, State state, GameHistoryKeeper gameHistoryKeeper) {
       super(game, state);
       this.gameHistoryKeeper = gameHistoryKeeper;
@@ -14,51 +15,31 @@ public class PlayController extends Controller {
       controllerVisitor.visit(this);
    }
 
-   public boolean continuePlaying() {
-      return game.continuePlaying();
-   }
+   public boolean continueGame() { return game.continuePlaying() && state.getValue() == State.Value.PLAYING; }
 
-   public Response evaluate(Code guessCode) {
-      return game.evaluate(guessCode);
-   }
+   public Response evaluate(Code guessCode) {  return game.evaluate(guessCode);  }
 
-   public ValidFigures getValidFigures() {
-      return game.getValidFigures();
-   }
+   public ValidFigures getValidFigures() {  return game.getValidFigures();  }
 
-   public int getAttempt() {
-      return game.getAttempt();
-   }
+   public int getAttempt() {  return game.getAttempt();  }
 
-   public int getMaxAttempt() {
-      return game.getMaxAttempt();
-   }
+   public int getMaxAttempt() { return game.getMaxAttempt(); }
 
-   public void codeBreakerWins() {
-      setNextState();
-   }
+   public void codeBreakerWins() { setNextState();  }
 
-   public void codeMakerWins() {
-      setNextState();
-   }
+   public void codeMakerWins() {  setNextState();  }
 
-   public void registry() {
-      gameHistoryKeeper.registry();
-   }
+   public void registry() {  gameHistoryKeeper.registry(); }
 
-   public void undo() {
-      gameHistoryKeeper.undo();
-   }
+   public void undo() { gameHistoryKeeper.undo(); }
 
-   public void redo() {
-      gameHistoryKeeper.redo();
-   }
+   public void redo() { gameHistoryKeeper.redo(); }
 
-   public boolean canApplyUndo() {
-      return gameHistoryKeeper.canApplyUndo();
-   }
+   public void quit() { state.setValue(State.Value.QUIT); }
 
-   public boolean canApplyRedo() {
-      return gameHistoryKeeper.canApplyRedo();
-   }
+   public boolean reachMaxAttempt() { return !game.continuePlaying(); }
+
+   public boolean canApplyUndo() {  return gameHistoryKeeper.canApplyUndo(); }
+
+   public boolean canApplyRedo() {  return gameHistoryKeeper.canApplyRedo(); }
 }
