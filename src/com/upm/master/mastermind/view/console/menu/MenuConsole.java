@@ -1,7 +1,6 @@
 package com.upm.master.mastermind.view.console.menu;
 
 import com.upm.master.mastermind.controller.PlayController;
-import com.upm.master.mastermind.model.ValidFigures;
 import com.upm.master.mastermind.view.console.CharacterReader;
 
 import java.util.ArrayList;
@@ -19,13 +18,13 @@ public class MenuConsole {
 
    public void choose(PlayController playController) {
       for (Command command : commands) {
-         if (command.isActivate()) {
+         if (command.isActivated(playController)) {
             System.out.println(command.getCharacter() + ".- " + command.getTitle());
          }
       }
-      System.out.print("Elija una opción: ");
+      System.out.print("Choose an option: ");
 
-      Character option = readOption();
+      Character option = readOption(getValidOptions(playController));
 
       for (Command command : commands)  {
          if (command.getCharacter().equals(option)) {
@@ -35,9 +34,8 @@ public class MenuConsole {
       }
    }
 
-   private Character readOption() {
+   private Character readOption(HashSet<Character> validOptions) {
       Character result;
-      HashSet<Character> validOptions = getValidOptions();
 
       while (true) {
          if ((result = reader.apply()) == null)
@@ -53,11 +51,11 @@ public class MenuConsole {
       return result;
    }
 
-   private HashSet<Character> getValidOptions() {
+   private HashSet<Character> getValidOptions(PlayController playController) {
       HashSet<Character> result = new HashSet<>();
 
       for (Command command : commands) {
-         if (command.isActivate()) {
+         if (command.isActivated(playController)) {
             result.add(command.getCharacter());
          }
       }

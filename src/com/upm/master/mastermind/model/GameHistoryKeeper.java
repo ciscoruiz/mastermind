@@ -13,28 +13,25 @@ public class GameHistoryKeeper {
    }
 
    public void registry() {
-      history.add(game.createMemento());
-      position ++;
+      history.add(position ++, game.createMemento());
    }
 
-   public boolean redo() {
-      if (position >= history.size() - 1)
-         return false;
+   public boolean canApplyRedo() {
+      return (position < history.size() - 1);
+   }
 
+   public void redo() {
       game.restore(history.get(++ position));
-
-      return true;
    }
 
-   public boolean undo() {
+   public boolean canApplyUndo() {
       if (history.isEmpty())
          return false;
 
-      if (position < 1)
-         return false;
+      return position >= 1;
+   }
 
+   public void undo() {
       game.restore(history.get(-- position));
-
-      return true;
    }
 }

@@ -5,7 +5,7 @@ import com.upm.master.mastermind.view.console.PlayConsole;
 
 public class RedoCommand extends Command {
    public RedoCommand(PlayConsole playConsole) {
-      super(playConsole, 'r', "Apply REDO");
+      super(playConsole, 'R', "Apply REDO", (playController) -> { return playController.canApplyRedo(); });
    }
 
    void execute(PlayController playController) {

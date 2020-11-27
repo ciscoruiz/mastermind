@@ -5,7 +5,7 @@ import com.upm.master.mastermind.view.console.PlayConsole;
 
 public class UndoCommand extends Command {
    public UndoCommand(PlayConsole playConsole) {
-      super(playConsole, 'u', "Apply UNDO");
+      super(playConsole, 'U', "Apply UNDO", (playController) -> { return playController.canApplyUndo(); });
    }
 
    void execute(PlayController playController) {

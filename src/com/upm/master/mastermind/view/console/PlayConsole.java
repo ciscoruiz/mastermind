@@ -8,8 +8,8 @@ import com.upm.master.mastermind.model.ValidFigures;
 import com.upm.master.mastermind.view.console.menu.*;
 
 public class PlayConsole {
-   private CharacterReader reader = new CharacterReader();
-   private MenuConsole menuConsole = new MenuConsole();
+   private final CharacterReader reader = new CharacterReader();
+   private final MenuConsole menuConsole = new MenuConsole();
    private Command undoCommand;
    private boolean quit = false;
 
@@ -45,10 +45,16 @@ public class PlayConsole {
 
    public void undo(PlayController playController) {
       playController.undo();
+      System.out.println(
+         "--- UNDO to Attempt " + playController.getAttempt() + " of " + playController.getMaxAttempt()
+      );
    }
 
    public void redo(PlayController playController) {
       playController.redo();
+      System.out.println(
+         "--- REDO to Attempt " + playController.getAttempt() + " of " + playController.getMaxAttempt()
+      );
    }
 
    public void quit() {

@@ -5,7 +5,7 @@ import com.upm.master.mastermind.view.console.PlayConsole;
 
 public class PlayCommand extends Command {
    public PlayCommand(PlayConsole playConsole) {
-      super(playConsole, 't', "Try a new combination");
+      super(playConsole, 'P', "Play a new combination", (playController) -> { return true; });
    }
 
    void execute(PlayController playController) {

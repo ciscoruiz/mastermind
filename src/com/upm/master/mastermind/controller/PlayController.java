@@ -53,4 +53,12 @@ public class PlayController extends Controller {
    public void redo() {
       gameHistoryKeeper.redo();
    }
+
+   public boolean canApplyUndo() {
+      return gameHistoryKeeper.canApplyUndo();
+   }
+
+   public boolean canApplyRedo() {
+      return gameHistoryKeeper.canApplyRedo();
+   }
 }
