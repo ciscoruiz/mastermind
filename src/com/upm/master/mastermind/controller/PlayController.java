@@ -17,6 +17,7 @@ import com.upm.master.mastermind.model.ValidFigures;
     void redo();
     void quit();
     boolean codeDiscovered();
+    boolean isAborted();
     boolean canApplyUndo();
     boolean canApplyRedo();
 }

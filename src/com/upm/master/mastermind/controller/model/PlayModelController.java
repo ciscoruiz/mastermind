@@ -41,6 +41,8 @@ class PlayModelController extends ModelController implements PlayController {
 
    public boolean codeDiscovered() { return state.getValue() == State.Value.RESUME; }
 
+   public boolean isAborted() { return state.getValue() == State.Value.QUIT; }
+
    public boolean canApplyUndo() {  return gameHistoryKeeper.canApplyUndo(); }
 
    public boolean canApplyRedo() {  return gameHistoryKeeper.canApplyRedo(); }

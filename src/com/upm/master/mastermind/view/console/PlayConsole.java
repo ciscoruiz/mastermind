@@ -25,7 +25,7 @@ public class PlayConsole {
          menuConsole.choose(playController);
       }
 
-      if (!playController.codeDiscovered()) {
+      if (!playController.codeDiscovered() && !playController.isAborted()) {
          System.out.println("CodeMaker WINS!!");
          playController.codeMakerWins();
       }
