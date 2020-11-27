@@ -3,8 +3,10 @@ package com.upm.master.mastermind.controller;
 import com.upm.master.mastermind.model.*;
 
 public class PlayController extends Controller {
-   public PlayController(Game game, State state) {
+   GameHistoryKeeper gameHistoryKeeper;
+   public PlayController(Game game, State state, GameHistoryKeeper gameHistoryKeeper) {
       super(game, state);
+      this.gameHistoryKeeper = gameHistoryKeeper;
    }
 
    @Override
@@ -38,5 +40,17 @@ public class PlayController extends Controller {
 
    public void codeMakerWins() {
       setNextState();
+   }
+
+   public void registry() {
+      gameHistoryKeeper.registry();
+   }
+
+   public void undo() {
+      gameHistoryKeeper.undo();
+   }
+
+   public void redo() {
+      gameHistoryKeeper.redo();
    }
 }

@@ -5,26 +5,54 @@ import com.upm.master.mastermind.model.Code;
 import com.upm.master.mastermind.model.Game;
 import com.upm.master.mastermind.model.Response;
 import com.upm.master.mastermind.model.ValidFigures;
+import com.upm.master.mastermind.view.console.menu.*;
 
 public class PlayConsole {
    private CharacterReader reader = new CharacterReader();
+   private MenuConsole menuConsole = new MenuConsole();
+   private Command undoCommand;
+   private boolean quit = false;
+
+   PlayConsole() {
+      menuConsole.add(new UndoCommand(this));
+      menuConsole.add(new RedoCommand(this));
+      menuConsole.add(new PlayCommand(this));
+      menuConsole.add(new QuitCommand(this));
+   }
 
    public void update(PlayController playController) {
-      while (playController.continuePlaying()) {
-         Code guessCode = askGuessCode(playController);
-         Response response = playController.evaluate(guessCode);
-
-         showResponse(guessCode, response);
-
-         if (response.codeWasBroken()) {
-            playController.codeBreakerWins();
-            System.out.println("CodeBreaker WINS!!");
-            return;
-         }
+      while (playController.continuePlaying() && !quit) {
+         menuConsole.choose(playController);
       }
 
       System.out.println("CodeMaker WINS!!");
       playController.codeMakerWins();
+   }
+
+   public void play(PlayController playController) {
+      playController.registry();
+
+      Code guessCode = askGuessCode(playController);
+      Response response = playController.evaluate(guessCode);
+
+      showResponse(guessCode, response);
+
+      if (response.codeWasBroken()) {
+         playController.codeBreakerWins();
+         System.out.println("CodeBreaker WINS!!");
+      }
+   }
+
+   public void undo(PlayController playController) {
+      playController.undo();
+   }
+
+   public void redo(PlayController playController) {
+      playController.redo();
+   }
+
+   public void quit() {
+      quit = true;
    }
 
    private void showResponse(Code code, Response response) {
