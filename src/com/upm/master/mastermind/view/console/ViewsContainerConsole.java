@@ -1,9 +1,6 @@
 package com.upm.master.mastermind.view.console;
 
-import com.upm.master.mastermind.controller.ControllerVisitor;
-import com.upm.master.mastermind.controller.PlayController;
-import com.upm.master.mastermind.controller.StartController;
-import com.upm.master.mastermind.controller.model.*;
+import com.upm.master.mastermind.controller.*;
 import com.upm.master.mastermind.view.ViewsContainer;
 
 public class ViewsContainerConsole implements ViewsContainer, ControllerVisitor {
@@ -22,12 +19,12 @@ public class ViewsContainerConsole implements ViewsContainer, ControllerVisitor 
    }
 
    @Override
-   public void visit(ResumeModelController resumeController) {
+   public void visit(ResumeController resumeController) {
       resumeConsole.update(resumeController);
    }
 
    @Override
-   public void updateView(ModelController controller) {
+   public void updateView(Controller controller) {
       controller.accept(this);
    }
 }

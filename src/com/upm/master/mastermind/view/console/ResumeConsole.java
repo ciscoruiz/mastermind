@@ -1,6 +1,6 @@
 package com.upm.master.mastermind.view.console;
 
-import com.upm.master.mastermind.controller.model.ResumeModelController;
+import com.upm.master.mastermind.controller.ResumeController;
 
 import java.util.Arrays;
 import java.util.Vector;
@@ -9,7 +9,7 @@ public class ResumeConsole {
    private CharacterReader reader = new CharacterReader();
    private final Character characters[] = { 'Y', 'N' };
 
-   public void update(ResumeModelController resumeController) {
+   public void update(ResumeController resumeController) {
       if (askPlayNewGame())
          resumeController.resume();
       else
