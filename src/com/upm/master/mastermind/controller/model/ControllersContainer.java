@@ -1,4 +1,4 @@
-package com.upm.master.mastermind.controller;
+package com.upm.master.mastermind.controller.model;
 
 import com.upm.master.mastermind.model.Game;
 import com.upm.master.mastermind.model.GameHistoryKeeper;

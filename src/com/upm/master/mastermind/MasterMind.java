@@ -1,6 +1,6 @@
 package com.upm.master.mastermind;
 
-import com.upm.master.mastermind.controller.ControllersContainer;
+import com.upm.master.mastermind.controller.model.ControllersContainer;
 import com.upm.master.mastermind.model.Configuration;
 import com.upm.master.mastermind.model.Game;
 import com.upm.master.mastermind.model.GameHistoryKeeper;

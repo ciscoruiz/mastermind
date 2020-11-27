@@ -1,6 +1,6 @@
 package com.upm.master.mastermind.view.console;
 
-import com.upm.master.mastermind.controller.PlayController;
+import com.upm.master.mastermind.controller.model.PlayController;
 import com.upm.master.mastermind.model.Code;
 import com.upm.master.mastermind.model.Game;
 import com.upm.master.mastermind.model.Response;

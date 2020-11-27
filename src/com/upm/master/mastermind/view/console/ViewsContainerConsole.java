@@ -1,6 +1,7 @@
 package com.upm.master.mastermind.view.console;
 
-import com.upm.master.mastermind.controller.*;
+import com.upm.master.mastermind.controller.ControllerVisitor;
+import com.upm.master.mastermind.controller.model.*;
 import com.upm.master.mastermind.view.ViewsContainer;
 
 public class ViewsContainerConsole implements ViewsContainer, ControllerVisitor {

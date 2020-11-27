@@ -1,6 +1,6 @@
 package com.upm.master.mastermind.view.console;
 
-import com.upm.master.mastermind.controller.StartController;
+import com.upm.master.mastermind.controller.model.StartController;
 import com.upm.master.mastermind.model.Code;
 
 public class StartConsole {

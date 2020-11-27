@@ -1,5 +1,6 @@
-package com.upm.master.mastermind.controller;
+package com.upm.master.mastermind.controller.model;
 
+import com.upm.master.mastermind.controller.ControllerVisitor;
 import com.upm.master.mastermind.model.Code;
 import com.upm.master.mastermind.model.Game;
 import com.upm.master.mastermind.model.State;

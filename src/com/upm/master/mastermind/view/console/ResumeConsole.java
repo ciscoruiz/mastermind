@@ -1,8 +1,7 @@
 package com.upm.master.mastermind.view.console;
 
-import com.upm.master.mastermind.controller.ResumeController;
+import com.upm.master.mastermind.controller.model.ResumeController;
 
-import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.Vector;
 
