@@ -1,6 +1,6 @@
 package com.upm.master.mastermind.view.console.menu;
 
-import com.upm.master.mastermind.controller.model.PlayModelController;
+import com.upm.master.mastermind.controller.PlayController;
 import com.upm.master.mastermind.view.console.CharacterReader;
 
 import java.util.ArrayList;
@@ -16,7 +16,7 @@ public class MenuConsole {
       return this;
    }
 
-   public void choose(PlayModelController playController) {
+   public void choose(PlayController playController) {
       Vector<Character>  validOptions = new Vector<>();
 
       for (Command command : commands) {

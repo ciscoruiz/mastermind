@@ -1,6 +1,6 @@
 package com.upm.master.mastermind.view.console;
 
-import com.upm.master.mastermind.controller.model.PlayModelController;
+import com.upm.master.mastermind.controller.PlayController;
 import com.upm.master.mastermind.model.Code;
 import com.upm.master.mastermind.model.Game;
 import com.upm.master.mastermind.model.Response;
@@ -20,18 +20,18 @@ public class PlayConsole {
       menuConsole.add(new QuitCommand(this));
    }
 
-   public void update(PlayModelController playController) {
+   public void update(PlayController playController) {
       while (playController.continueGame()) {
          menuConsole.choose(playController);
       }
 
-      if (playController.reachMaxAttempt()) {
+      if (!playController.codeDiscovered()) {
          System.out.println("CodeMaker WINS!!");
          playController.codeMakerWins();
       }
    }
 
-   public void play(PlayModelController playController) {
+   public void play(PlayController playController) {
       playController.registry();
 
       Code guessCode = askGuessCode(playController);
@@ -45,21 +45,21 @@ public class PlayConsole {
       }
    }
 
-   public void undo(PlayModelController playController) {
+   public void undo(PlayController playController) {
       playController.undo();
       System.out.println(
          "--- UNDO to Attempt " + playController.getAttempt() + " of " + playController.getMaxAttempt()
       );
    }
 
-   public void redo(PlayModelController playController) {
+   public void redo(PlayController playController) {
       playController.redo();
       System.out.println(
          "--- REDO to Attempt " + playController.getAttempt() + " of " + playController.getMaxAttempt()
       );
    }
 
-   public void quit(PlayModelController playController) {
+   public void quit(PlayController playController) {
       playController.quit();
    }
 
@@ -67,7 +67,7 @@ public class PlayConsole {
       System.out.println(code.toString() + " -> " + response.toString());
    }
 
-   private Code askGuessCode(PlayModelController playController) {
+   private Code askGuessCode(PlayController playController) {
       System.out.println(
          "--- Choose " + Game.FIGURES_TO_GUESS + " figures to try to guess code. Attempt " +
          playController.getAttempt() + " of " + playController.getMaxAttempt()

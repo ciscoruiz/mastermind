@@ -1,12 +1,13 @@
 package com.upm.master.mastermind.controller.model;
 
 import com.upm.master.mastermind.controller.ControllerVisitor;
+import com.upm.master.mastermind.controller.PlayController;
 import com.upm.master.mastermind.model.*;
 
-public class PlayModelController extends ModelController {
+class PlayModelController extends ModelController implements PlayController {
    private GameHistoryKeeper gameHistoryKeeper;
 
-   public PlayModelController(Game game, State state, GameHistoryKeeper gameHistoryKeeper) {
+   PlayModelController(Game game, State state, GameHistoryKeeper gameHistoryKeeper) {
       super(game, state);
       this.gameHistoryKeeper = gameHistoryKeeper;
    }
@@ -38,7 +39,7 @@ public class PlayModelController extends ModelController {
 
    public void quit() { state.setValue(State.Value.QUIT); }
 
-   public boolean reachMaxAttempt() { return !game.continuePlaying(); }
+   public boolean codeDiscovered() { return state.getValue() == State.Value.RESUME; }
 
    public boolean canApplyUndo() {  return gameHistoryKeeper.canApplyUndo(); }
 

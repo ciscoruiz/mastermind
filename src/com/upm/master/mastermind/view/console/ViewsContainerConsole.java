@@ -1,6 +1,7 @@
 package com.upm.master.mastermind.view.console;
 
 import com.upm.master.mastermind.controller.ControllerVisitor;
+import com.upm.master.mastermind.controller.PlayController;
 import com.upm.master.mastermind.controller.StartController;
 import com.upm.master.mastermind.controller.model.*;
 import com.upm.master.mastermind.view.ViewsContainer;
@@ -16,7 +17,7 @@ public class ViewsContainerConsole implements ViewsContainer, ControllerVisitor 
    }
 
    @Override
-   public void visit(PlayModelController playController) {
+   public void visit(PlayController playController) {
       playConsole.update(playController);
    }
 
