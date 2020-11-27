@@ -2,8 +2,13 @@ package com.upm.master.mastermind.view.console;
 
 import com.upm.master.mastermind.controller.ResumeController;
 
+import java.lang.reflect.Array;
+import java.util.Arrays;
+import java.util.Vector;
+
 public class ResumeConsole {
    private CharacterReader reader = new CharacterReader();
+   private final Character characters[] = { 'Y', 'N' };
 
    public void update(ResumeController resumeController) {
       if (askPlayNewGame())
@@ -13,25 +18,12 @@ public class ResumeConsole {
    }
 
    private boolean askPlayNewGame() {
-      Character character = null;
+      Character character = reader.apply("Do you want to start a new game?", new Vector<>(Arrays.asList(characters)));
 
-      while (character == null) {
-         System.out.println("Do you want to start a new game (Y/N)?");
-         character = reader.apply();
+      character = Character.toUpperCase(character);
 
-         if (character == null)
-            continue;
-
-         character = Character.toUpperCase(character);
-
-         if (character.equals('N'))
-            return false;
-
-         if (character.equals('Y'))
-            return true;
-
-         character = null;
-      }
+      if (character.equals('Y'))
+         return true;
 
       return false;
    }

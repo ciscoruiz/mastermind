@@ -4,8 +4,8 @@ import com.upm.master.mastermind.controller.PlayController;
 import com.upm.master.mastermind.view.console.CharacterReader;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
+import java.util.Vector;
 
 public class MenuConsole {
    private List<Command> commands = new ArrayList<>();
@@ -24,7 +24,7 @@ public class MenuConsole {
       }
       System.out.print("Choose an option: ");
 
-      Character option = readOption(getValidOptions(playController));
+      Character option = reader.apply("Choose an option", getValidOptions(playController));
 
       for (Command command : commands)  {
          if (command.getCharacter().equals(option)) {
@@ -34,25 +34,8 @@ public class MenuConsole {
       }
    }
 
-   private Character readOption(HashSet<Character> validOptions) {
-      Character result;
-
-      while (true) {
-         if ((result = reader.apply()) == null)
-            continue;
-
-         if (validOptions.contains(result)) {
-            break;
-         }
-
-         System.out.println("Character " + result + " is not a valid selection");
-      }
-
-      return result;
-   }
-
-   private HashSet<Character> getValidOptions(PlayController playController) {
-      HashSet<Character> result = new HashSet<>();
+   private Vector<Character> getValidOptions(PlayController playController) {
+      Vector<Character> result = new Vector<>();
 
       for (Command command : commands) {
          if (command.isActivated(playController)) {

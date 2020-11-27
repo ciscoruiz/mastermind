@@ -7,6 +7,8 @@ import com.upm.master.mastermind.model.Response;
 import com.upm.master.mastermind.model.ValidFigures;
 import com.upm.master.mastermind.view.console.menu.*;
 
+import java.util.Vector;
+
 public class PlayConsole {
    private final CharacterReader reader = new CharacterReader();
    private final MenuConsole menuConsole = new MenuConsole();
@@ -72,38 +74,12 @@ public class PlayConsole {
       );
 
       Code.Builder builder = new Code.Builder();
+
+      Vector<Character> figures = playController.getValidFigures().getFigures();
+
       while (builder.size() < Game.FIGURES_TO_GUESS) {
-         builder.add(readValidFigure(playController));
+         builder.add(reader.apply("Press key for one character", figures));
       }
       return builder.build();
-   }
-
-   private Character readValidFigure(PlayController playController) {
-      Character result;
-      ValidFigures validFigures = playController.getValidFigures();
-
-      while (true) {
-         printValidFigures(validFigures);
-
-         if ((result = reader.apply()) == null)
-            continue;
-
-         if (validFigures.contains(result)) {
-            break;
-         }
-
-         System.out.println("Character " + result + " is not a valid selection");
-      }
-
-      return result;
-   }
-
-   private void printValidFigures(ValidFigures validFigures) {
-      System.out.print("   Press key for one of character on the list { ");
-      for (int ii = 0; ii < validFigures.size(); ++ii) {
-         System.out.print(validFigures.at(ii));
-         System.out.print(" ");
-      }
-      System.out.println("}");
    }
 }

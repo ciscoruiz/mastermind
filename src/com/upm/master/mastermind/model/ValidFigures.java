@@ -27,4 +27,8 @@ public class ValidFigures {
    public Character at(int pos) {
       return figures.elementAt(pos);
    }
+
+   public Vector<Character> getFigures() {
+      return figures;
+   }
 }
