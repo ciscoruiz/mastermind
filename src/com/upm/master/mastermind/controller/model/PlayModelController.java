@@ -4,10 +4,10 @@ import com.upm.master.mastermind.controller.ControllerVisitor;
 import com.upm.master.mastermind.controller.PlayController;
 import com.upm.master.mastermind.model.*;
 
-class PlayModelController extends ModelController implements PlayController {
+public class PlayModelController extends ModelController implements PlayController {
    private GameHistoryKeeper gameHistoryKeeper;
 
-   PlayModelController(Game game, State state, GameHistoryKeeper gameHistoryKeeper) {
+   public PlayModelController(Game game, State state, GameHistoryKeeper gameHistoryKeeper) {
       super(game, state);
       this.gameHistoryKeeper = gameHistoryKeeper;
    }
