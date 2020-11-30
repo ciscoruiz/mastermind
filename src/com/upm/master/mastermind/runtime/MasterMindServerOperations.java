@@ -11,14 +11,15 @@ import com.upm.master.mastermind.model.ValidFigures;
 import com.upm.master.mastermind.rmi.MasterMindOperations;
 
 import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 
-public class MasterMindServerOperations implements MasterMindOperations {
+public class MasterMindServerOperations extends UnicastRemoteObject implements MasterMindOperations {
    private StartController startController;
    private PlayController playController;
    private ResumeController resumeController;
    private State state;
 
-   public MasterMindServerOperations(MasterMind masterMind, State state) {
+   public MasterMindServerOperations(MasterMind masterMind, State state) throws RemoteException {
       this.startController = masterMind.createStartController();
       this.playController = masterMind.createPlayController();
       this.resumeController = masterMind.createResumeController();
