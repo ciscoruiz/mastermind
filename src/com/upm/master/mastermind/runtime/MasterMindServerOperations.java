@@ -30,6 +30,16 @@ public class MasterMindServerOperations implements MasterMindOperations {
       state.setNextValue();
    }
 
+   @Override
+   public boolean stateEnablesContinuePlaying() throws RemoteException {
+      return state.continuePlaying();
+   }
+
+   @Override
+   public State getState() throws RemoteException {
+      return state;
+   }
+
    // Start
    @Override
    public void initializeGame() throws RemoteException {

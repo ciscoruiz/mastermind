@@ -18,8 +18,6 @@ import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 
 public class MasterMindServer extends MasterMindOverModel {
-   private ControllersContainer controllersContainer;
-
    static public MasterMind create() {
       ViewsContainer viewsContainer = new ViewsContainerConsole();
       return new MasterMindServer(viewsContainer);

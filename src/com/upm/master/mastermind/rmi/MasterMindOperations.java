@@ -2,6 +2,7 @@ package com.upm.master.mastermind.rmi;
 
 import com.upm.master.mastermind.model.Code;
 import com.upm.master.mastermind.model.Response;
+import com.upm.master.mastermind.model.State;
 import com.upm.master.mastermind.model.ValidFigures;
 
 import java.rmi.Remote;
@@ -12,6 +13,9 @@ public interface MasterMindOperations extends Remote {
 
    // Global
    void setNextState() throws RemoteException;
+   boolean stateEnablesContinuePlaying() throws RemoteException;
+
+   State getState() throws RemoteException;
 
    // --- Start
    void initializeGame() throws RemoteException;
