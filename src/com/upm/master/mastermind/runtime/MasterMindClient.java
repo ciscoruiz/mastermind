@@ -58,6 +58,7 @@ public class MasterMindClient implements MasterMind {
 
    public void play() {
       try {
+         masterMindOperations.reset();
          while (masterMindOperations.stateEnablesContinuePlaying()) {
             viewsContainer.updateView(controllersContainer.getController(masterMindOperations.getState()));
          }

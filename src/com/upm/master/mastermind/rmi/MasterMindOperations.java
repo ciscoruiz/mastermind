@@ -15,8 +15,8 @@ public interface MasterMindOperations extends Remote {
    // Global
    void setNextState() throws RemoteException;
    boolean stateEnablesContinuePlaying() throws RemoteException;
-
    State getState() throws RemoteException;
+   void reset() throws RemoteException;
 
    // --- Start
    void initializeGame() throws RemoteException;
