@@ -33,7 +33,7 @@ public class MasterMindServer extends MasterMindOverModel {
       try {
          Registry registry = LocateRegistry.getRegistry();
 
-         MasterMindOperations masterMindServerOperations = new MasterMindServerOperations(this);
+         MasterMindOperations masterMindServerOperations = new MasterMindServerOperations(this, state);
          MasterMindOperations stub = (MasterMindOperations) UnicastRemoteObject.exportObject(masterMindServerOperations, 0);
 
          Naming.bind(MasterMindOperations.SERVICE_NAME, stub);

@@ -6,6 +6,7 @@ import com.upm.master.mastermind.controller.ResumeController;
 import com.upm.master.mastermind.controller.StartController;
 import com.upm.master.mastermind.model.Code;
 import com.upm.master.mastermind.model.Response;
+import com.upm.master.mastermind.model.State;
 import com.upm.master.mastermind.model.ValidFigures;
 import com.upm.master.mastermind.rmi.MasterMindOperations;
 
@@ -15,21 +16,28 @@ public class MasterMindServerOperations implements MasterMindOperations {
    private StartController startController;
    private PlayController playController;
    private ResumeController resumeController;
+   private State state;
 
-   public MasterMindServerOperations(MasterMind masterMind) {
+   public MasterMindServerOperations(MasterMind masterMind, State state) {
       this.startController = masterMind.createStartController();
       this.playController = masterMind.createPlayController();
       this.resumeController = masterMind.createResumeController();
+      this.state = state;
+   }
+
+   @Override
+   public void setNextState() throws RemoteException {
+      state.setNextValue();
    }
 
    // Start
    @Override
-   public void initializeGame() {
+   public void initializeGame() throws RemoteException {
       startController.initializeGame();
    }
 
    @Override
-   public Code getSecretCode() {
+   public Code getSecretCode() throws RemoteException {
       return startController.getSecretCode();
    }
 
@@ -40,7 +48,7 @@ public class MasterMindServerOperations implements MasterMindOperations {
    }
 
    @Override
-   public Response evaluate(Code guessCode) {
+   public Response evaluate(Code guessCode) throws RemoteException {
       return playController.evaluate(guessCode);
    }
 
@@ -111,12 +119,12 @@ public class MasterMindServerOperations implements MasterMindOperations {
 
    // Resume
    @Override
-   public void resume() {
+   public void resume() throws RemoteException {
       resumeController.resume();
    }
 
    @Override
-   public void stop() {
+   public void stop() throws RemoteException {
       resumeController.stop();
    }
 }
