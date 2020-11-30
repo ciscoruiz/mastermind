@@ -8,6 +8,8 @@ import java.rmi.Remote;
 import java.rmi.RemoteException;
 
 public interface MasterMindOperations extends Remote {
+   public static String SERVICE_NAME = "MasterMindOperations";
+
    // --- Start
    void initializeGame() throws RemoteException;
    Code getSecretCode() throws RemoteException;

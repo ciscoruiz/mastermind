@@ -1,5 +1,6 @@
-package com.upm.master.mastermind.impl;
+package com.upm.master.mastermind.runtime;
 
+import com.upm.master.mastermind.MasterMind;
 import com.upm.master.mastermind.controller.PlayController;
 import com.upm.master.mastermind.controller.ResumeController;
 import com.upm.master.mastermind.controller.StartController;
@@ -15,10 +16,10 @@ public class MasterMindServerOperations implements MasterMindOperations {
    private PlayController playController;
    private ResumeController resumeController;
 
-   public MasterMindServerOperations(StartController startController, PlayController playController, ResumeController resumeController) {
-      this.startController = startController;
-      this.playController = playController;
-      this.resumeController = resumeController;
+   public MasterMindServerOperations(MasterMind masterMind) {
+      this.startController = masterMind.createStartController();
+      this.playController = masterMind.createPlayController();
+      this.resumeController = masterMind.createResumeController();
    }
 
    // Start

@@ -1,6 +1,12 @@
-package com.upm.master.mastermind.impl;
+package com.upm.master.mastermind.runtime;
 
 import com.upm.master.mastermind.MasterMind;
+import com.upm.master.mastermind.controller.PlayController;
+import com.upm.master.mastermind.controller.ResumeController;
+import com.upm.master.mastermind.controller.StartController;
+import com.upm.master.mastermind.controller.model.PlayModelController;
+import com.upm.master.mastermind.controller.model.ResumeModelController;
+import com.upm.master.mastermind.controller.model.StartModelController;
 import com.upm.master.mastermind.model.*;
 import com.upm.master.mastermind.view.ViewsContainer;
 
@@ -27,4 +33,12 @@ public abstract class MasterMindOverModel implements MasterMind {
 
       return configuration;
    }
+
+   public StartController createStartController() {
+      return new StartModelController(game, state);
+   }
+   public PlayController createPlayController() {
+      return new PlayModelController(game,state, gameHistoryKeeper);
+   }
+   public ResumeController createResumeController() {  return new ResumeModelController(game, state, gameHistoryKeeper); }
 }

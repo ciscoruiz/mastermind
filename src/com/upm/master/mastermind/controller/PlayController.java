@@ -4,7 +4,7 @@ import com.upm.master.mastermind.model.Code;
 import com.upm.master.mastermind.model.Response;
 import com.upm.master.mastermind.model.ValidFigures;
 
- public interface PlayController {
+ public interface PlayController extends Controller {
     boolean continueGame();
     Response evaluate(Code guessCode);
     ValidFigures getValidFigures();

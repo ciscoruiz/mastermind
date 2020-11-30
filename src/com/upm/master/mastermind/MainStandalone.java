@@ -1,6 +1,6 @@
 package com.upm.master.mastermind;
 
-import com.upm.master.mastermind.impl.MasterMindStandalone;
+import com.upm.master.mastermind.runtime.MasterMindStandalone;
 
 public class MainStandalone {
    public static void main(String[] args) {

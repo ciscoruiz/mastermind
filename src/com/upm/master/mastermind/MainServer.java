@@ -1,8 +1,6 @@
 package com.upm.master.mastermind;
 
-import com.upm.master.mastermind.MasterMind;
-import com.upm.master.mastermind.impl.MasterMindServer;
-import com.upm.master.mastermind.impl.MasterMindStandalone;
+import com.upm.master.mastermind.runtime.MasterMindServer;
 
 public class MainServer {
    public static void main(String[] args) {
