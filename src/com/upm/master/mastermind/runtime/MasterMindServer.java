@@ -30,10 +30,6 @@ public class MasterMindServer extends MasterMindOverModel {
    }
 
    public void play() {
-      StartController startController = new StartModelController(game, state);
-      PlayController playController = new PlayModelController(game, state, gameHistoryKeeper);
-      ResumeController resumeController = new ResumeModelController(game, state, gameHistoryKeeper);
-
       try {
          Registry registry = LocateRegistry.getRegistry();
 
