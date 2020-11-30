@@ -10,6 +10,7 @@ import java.rmi.RemoteException;
 
 public interface MasterMindOperations extends Remote {
    public static String SERVICE_NAME = "MasterMindOperations";
+   public static int PORT = 2020;
 
    // Global
    void setNextState() throws RemoteException;

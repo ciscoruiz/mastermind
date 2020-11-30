@@ -27,7 +27,7 @@ public class MasterMindClient implements MasterMind {
       Registry registry = null;
 
       try {
-         registry = LocateRegistry.getRegistry();
+         registry = LocateRegistry.getRegistry(MasterMindOperations.PORT);
       }
       catch (RemoteException e) {
          throw new RuntimeException(e);
@@ -44,6 +44,8 @@ public class MasterMindClient implements MasterMind {
       catch (NotBoundException e) {
          throw new RuntimeException(e);
       }
+
+      System.out.println("Client connected to " + MasterMindOperations.SERVICE_NAME + ":" + MasterMindOperations.PORT);
 
       return new MasterMindClient(viewsContainer, masterMindOperations);
    }

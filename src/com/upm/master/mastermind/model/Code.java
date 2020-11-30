@@ -1,8 +1,9 @@
 package com.upm.master.mastermind.model;
 
+import java.io.Serializable;
 import java.util.Vector;
 
-public final class Code {
+public final class Code implements Serializable {
    public static final class Builder {
       private Vector<Character> figures = new Vector<>(2);
 

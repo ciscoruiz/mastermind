@@ -1,7 +1,9 @@
 package com.upm.master.mastermind.model;
 
+import java.io.Serializable;
+
 // See https://mesadejuegos.top/mastermind/
-public final class Response {
+public final class Response implements Serializable {
    private static final int NONE = 0;
    private static final int WHITE = 1;
    private static final int BLACK = 2;

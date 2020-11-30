@@ -23,7 +23,7 @@ public class MasterMindServer extends MasterMindOverModel {
 
    public void play() {
       try {
-         Registry registry = java.rmi.registry.LocateRegistry.createRegistry(2022);
+         Registry registry = java.rmi.registry.LocateRegistry.createRegistry(MasterMindOperations.PORT);
 
          MasterMindOperations masterMindServerOperations = new MasterMindServerOperations(this, state);
 
@@ -33,7 +33,7 @@ public class MasterMindServer extends MasterMindOverModel {
          //      from the directory where the classes are compiled
          registry.bind(MasterMindOperations.SERVICE_NAME, masterMindServerOperations);
 
-         System.out.println("MasterMindServer accepting requests ...");
+         System.out.println("Server accepting connections  " + MasterMindOperations.SERVICE_NAME + ":" + MasterMindOperations.PORT);
       }
       catch (Exception e) {
          System.err.println("Server exception: " + e.toString());

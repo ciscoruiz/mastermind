@@ -1,11 +1,12 @@
 package com.upm.master.mastermind.model;
 
+import java.io.Serializable;
 import java.util.Vector;
 
 /**
  * Set of figures that will be valid for one execution of our MasterMind
  */
-public class ValidFigures {
+public class ValidFigures implements Serializable {
    private Vector<Character> figures = new Vector<>();
 
    public ValidFigures() {
