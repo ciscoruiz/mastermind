@@ -126,6 +126,7 @@ Controller <|-down- PlayController
 Controller <|-down- ResumeController
 
 Controller <|-down- ModelController
+Controller <|-down- RmiController
 
 ControllerVisitor -[dashed]-> StartController
 ControllerVisitor -[dashed]-> PlayController

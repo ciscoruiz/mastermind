@@ -42,7 +42,7 @@ package mastermind.controller {
 
 package mastermind.view.console {
    class CharacterReader {
-       Character apply();
+       Character apply(Vector<Character> validKeys);
    }
 
    class ViewsContainerConsole {
@@ -72,6 +72,7 @@ package mastermind.view.console {
    }
    class Command {
       Command(PlayConsole, character, title, ActivationEvaluator)
+      {abstract} void execute(PlayController playController);
    }
 
    PlayConsole *--> MenuConsole
@@ -79,11 +80,28 @@ package mastermind.view.console {
    MenuConsole *--> Command
    MenuConsole *-left-> CharacterReader
 
-   Command <|-- PlayCommand
+   Command <|--- PlayCommand
    Command <|-- QuitCommand
-   Command <|-- RedoCommand
+   Command <|--- RedoCommand
    Command <|-- UndoCommand
    Command *-right-> ActivationEvaluator
+
+   class PlayCommand {
+      void execute(PlayController playController) <b>{ playConsole.play(playController);  }</b>
+   }
+
+   class QuitCommand {
+      void execute(PlayController playController) <b>{ playConsole.quit(playController);  }</b>
+   }
+
+   class RedoCommand {
+      void execute(PlayController playController) <b>{ playConsole.redo(playController);  }</b>
+   }
+
+   class UndoCommand {
+      void execute(PlayController playController) <b>{ playConsole.undo(playController);  }</b>
+   }
+
 }
 
 ViewsContainer <|-- ViewsContainerConsole
