@@ -61,6 +61,29 @@ package mastermind.view.console {
    class ResumeConsole <<ConcreteVisitor>> {
        void update(ResumeController resumeController)
    }
+
+   interface ActivationEvaluator <<Lambda>>{
+      {abstract} evaluate(PlayController playController)
+   }
+
+   class MenuConsole {
+      MenuConsole add(Command command)
+      void choose(PlayController playController)
+   }
+   class Command {
+      Command(PlayConsole, character, title, ActivationEvaluator)
+   }
+
+   PlayConsole *--> MenuConsole
+
+   MenuConsole *--> Command
+   MenuConsole *-left-> CharacterReader
+
+   Command <|-- PlayCommand
+   Command <|-- QuitCommand
+   Command <|-- RedoCommand
+   Command <|-- UndoCommand
+   Command *-right-> ActivationEvaluator
 }
 
 ViewsContainer <|-- ViewsContainerConsole
