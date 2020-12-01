@@ -4,6 +4,7 @@ package mastermind.view {
 interface ViewsContainer {
    {abstract} void updateView(Controller controller)
 }
+note right: Some MasterMind instance will call <b>ViewsContainer.updateView</b>
 }
 
 package mastermind.controller {
@@ -21,15 +22,15 @@ package mastermind.controller {
    Controller <|-- ResumeController
 
    class StartController {
-      void updateView(Controller controller) <b>{controller.visit(this)}</b>
+      void accept(Controller controller) <b>{controller.visit(this)}</b>
    }
 
    class PlayController {
-      void updateView(Controller controller) <b>{controller.visit(this)}</b>
+      void accept(Controller controller) <b>{controller.visit(this)}</b>
    }
 
    class ResumeController {
-      void updateView(Controller controller) <b>{controller.visit(this)}</b>
+      void accept(Controller controller) <b>{controller.visit(this)}</b>
    }
 
    interface ControllerVisitor <<Visitor>> {
