@@ -5,44 +5,131 @@ package mastermind.model {
     class State
 }
 
-
 package mastermind.controller {
-class Controller {
-   void setNextState()
+interface Controller {
+   {abstract} void setNextState()
    {abstract} void accept(ControllerVisitor controllerVisitor)
 }
 
 class ControllersContainer {
+    ControllersContainer(MasterMind mastermind)
     Controller getController(State state) 
 }
 
-class StartController
-class PlayController
-class ResumeController
+interface StartController {
+   void initializeGame();
+   Code getSecretCode();
+}
+
+interface PlayController {
+    boolean continueGame();
+    Response evaluate(Code guessCode);
+    ValidFigures getValidFigures();
+    int getAttempt();
+    int getMaxAttempt();
+    void codeBreakerWins();
+    void codeMakerWins();
+    void registry();
+    void undo();
+    void redo();
+    void quit();
+    boolean codeDiscovered();
+    boolean isAborted();
+    boolean canApplyUndo();
+    boolean canApplyRedo();
+}
+
+interface ResumeController {
+   void resume();
+   void stop();
+}
 
 interface ControllerVisitor {
-   void visit(StartController startController);
-   void visit(PlayController playController);
-   void visit(ResumeController resumeController);
+   {abstract}void visit(StartController startController);
+   {abstract}void visit(PlayController playController);
+   {abstract}void visit(ResumeController resumeController);
 }
 }
+
+package mastermind.controller.model {
+    class ModelController {
+       void setNextState()
+    }
+    note left: Performs operations based on Game and State
+    ModelController -up-> Game
+    ModelController -up-> State
+
+    class StarModelController
+    class PlayModelController
+    class ResumeModelController
+
+    ModelController <|-down-- StarModelController
+    ModelController <|-down-- PlayModelController
+    ModelController <|-down-- ResumeModelController
+
+    StartController <|-down- StarModelController
+    PlayController <|-down- PlayModelController
+    ResumeController <|-down- ResumeModelController
+}
+
+package mastermind.controller.rmi {
+    class RmiController {
+       void setNextState()
+    }
+    note left: Performs operations based on RMI interface
+
+    interface  mastermind.rmi.MasterMindOperations {
+       {abstract}void setNextState()
+       {abstract}boolean stateEnablesContinuePlaying()
+       {abstract}State getState()
+       {abstract}void reset()
+       {abstract}void initializeGame()
+       {abstract}Code getSecretCode()
+       {abstract}boolean continueGame()
+       {abstract}Response evaluate(Code guessCode)
+       {abstract}ValidFigures getValidFigures()
+       {abstract}int getAttempt()
+       {abstract}int getMaxAttempt()
+       {abstract}void codeBreakerWins()
+       {abstract}void codeMakerWins()
+       {abstract}void registry()
+       {abstract}void undo()
+       {abstract}void redo()
+       {abstract}void quit()
+       {abstract}boolean codeDiscovered()
+       {abstract}boolean isAborted()
+       {abstract}boolean canApplyUndo()
+       {abstract}boolean canApplyRedo()
+       {abstract}void resume()
+       {abstract}void stop()
+    }
+
+    RmiController *-up-> mastermind.rmi.MasterMindOperations
+
+    class StarRmiController
+    class PlayRmiController
+    class ResumeRmiController
+
+    RmiController <|-down-- StarRmiController
+    RmiController <|-down-- PlayRmiController
+    RmiController <|-down-- ResumeRmiController
+
+    StartController <|-down- StarRmiController
+    PlayController <|-down- PlayRmiController
+    ResumeController <|-down- ResumeRmiController
+}
+
+ControllersContainer  *--> Controller
 
 Controller <|-down- StartController
-Controller <|- PlayController
-Controller <|- ResumeController
+Controller <|-down- PlayController
+Controller <|-down- ResumeController
 
+Controller <|-down- ModelController
 
 ControllerVisitor -[dashed]-> StartController
 ControllerVisitor -[dashed]-> PlayController
 ControllerVisitor -[dashed]-> ResumeController
-
-ControllersContainer  *-up-> StartController
-ControllersContainer  *-up-> PlayController
-ControllersContainer  *-up-> ResumeController
-
-Controller --> Game
-Controller --> State
-
 
 @enduml
 

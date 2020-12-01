@@ -1,11 +1,21 @@
+@startuml
+
 package java.util {
 class Vector
 class HashMap
 }
 
 package mastermind {
-class MasterMind
+interface MasterMind {
+   {abstract}void play();
+   {abstract}StartController createStartController();
+   {abstract}PlayController createPlayController();
+   {abstract}ResumeController createResumeController();
 }
+}
+
+MasterMind <|-down- mastermind.runtime.MasterMindOverModel
+
 
 package mastermind.model {
 class Code {
@@ -32,7 +42,7 @@ void setValidFigures(ValidFigures validFigures)
 }
 
 class Game {
-   Game(Configuration configuration) 
+   Game(Configuration configuration)
    void initialize()
    boolean continuePlaying()
    void generateSecretCode()
@@ -41,8 +51,17 @@ class Game {
    int getAttempt()
    int getMaxAttempt()
    ValidFigures getValidFigures()
-
+   -- Memento --
+   Game.Memento createMemento()
+   void restore(Game.Memento)
 }
+
+class Game.Memento {
+    Game.Memento(Game)
+}
+
+Game -[dashed]- Game.Memento
+
 
 class Response {
    void putBlack(int ii);
@@ -51,7 +70,7 @@ class Response {
 }
 
 class State {
-    enum Value { INITIAL, PLAYING, RESUME, STOP }
+    enum Value { INITIAL, PLAYING, RESUME, STOP, QUIT }
     
     Value getValue()
     void setValue(Value value)
@@ -59,10 +78,24 @@ class State {
     boolean continuePlaying() 
 }
 
+Configuration *-right-> ValidFigures
+
+class GameHistoryKeeper {
+   GameHistoryKeeper(Game)
+   public void registry()
+   public boolean canApplyRedo()
+   public void redo()
+   public boolean canApplyUndo()
+   public void undo()
+   public void clear()
 }
 
-MasterMind *--> State
-MasterMind *--> Game
+GameHistoryKeeper *--> Game.Memento
+
+}
+
+mastermind.runtime.MasterMindOverModel *--> State
+mastermind.runtime.MasterMindOverModel *--> Game
 
 Code.Builder -[dashed]-> Code
 Code -[dashed]-> Vector : figures
@@ -70,8 +103,11 @@ Code.Builder -[dashed]-> Vector : figures
 CodeMaker  *--> Code
 CodeMaker  *--> HashMap : figuresWithoutRepetion
 CodeMaker --[dashed]-> Code.Builder
+CodeMaker --[dashed]-> Response
 
 Game --> Configuration
 Game *--> CodeMaker
 Game -[dashed]-> Response
+Game -[dashed]-> ValidFigures
 
+@enduml

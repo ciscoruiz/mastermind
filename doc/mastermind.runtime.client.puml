@@ -1,0 +1,86 @@
+@startuml
+
+package mastermind {
+   interface MasterMind  <<Abstract Factory>>  {
+      {abstract}void play();
+      __Abstract Factory__
+      {abstract}StartController createStartController();
+      {abstract}PlayController createPlayController();
+      {abstract}ResumeController createResumeController();
+   }
+}
+
+package mastermind.view {
+   interface ViewsContainer {
+      {abstract}void updateView(Controller controller);
+   }
+}
+
+
+package mastermind.controller {
+   class ControllersContainer {
+      Controller getController(State state)
+   }
+}
+
+package mastermind.rmi {
+   interface MasterMindOperations {
+       {abstract}void setNextState()
+       {abstract}boolean stateEnablesContinuePlaying()
+       {abstract}State getState()
+       {abstract}void reset()
+       {abstract}void initializeGame()
+       {abstract}Code getSecretCode()
+       {abstract}boolean continueGame()
+       {abstract}Response evaluate(Code guessCode)
+       {abstract}ValidFigures getValidFigures()
+       {abstract}int getAttempt()
+       {abstract}int getMaxAttempt()
+       {abstract}void codeBreakerWins()
+       {abstract}void codeMakerWins()
+       {abstract}void registry()
+       {abstract}void undo()
+       {abstract}void redo()
+       {abstract}void quit()
+       {abstract}boolean codeDiscovered()
+       {abstract}boolean isAborted()
+       {abstract}boolean canApplyUndo()
+       {abstract}boolean canApplyRedo()
+       {abstract}void resume()
+       {abstract}void stop()
+   }
+}
+
+package mastermind.runtime {
+   class MasterMindClient {
+      StartController createStartController();
+      PlayController createPlayController();
+      ResumeController createResumeController();
+   }
+
+   MasterMindClient *-left-> MasterMindOperations
+}
+
+package mastermind.controller.rmi {
+   class StartRmiController
+   class PlayRmiController
+   class ResumeRmiController
+}
+package mastermind.controller {
+    class ControllersContainer
+}
+
+MasterMind <|--- MasterMindClient
+
+MasterMindClient *-right-> ViewsContainer
+
+MasterMindClient -down- StartRmiController
+MasterMindClient -down- PlayRmiController
+MasterMindClient -down- ResumeRmiController
+
+MasterMindClient *-up--> ControllersContainer
+
+
+@enduml
+
+

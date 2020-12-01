@@ -1,0 +1,108 @@
+@startuml
+
+package mastermind {
+   interface MasterMind  <<Abstract Factory>>  {
+      {abstract}void play();
+      __Abstract Factory__
+      {abstract}StartController createStartController();
+      {abstract}PlayController createPlayController();
+      {abstract}ResumeController createResumeController();
+   }
+}
+
+package mastermind.controller {
+   class ControllersContainer {
+      Controller getController(State state)
+   }
+}
+
+package mastermind.rmi {
+   interface MasterMindOperations {
+       {abstract}void setNextState()
+       {abstract}boolean stateEnablesContinuePlaying()
+       {abstract}State getState()
+       {abstract}void reset()
+       {abstract}void initializeGame()
+       {abstract}Code getSecretCode()
+       {abstract}boolean continueGame()
+       {abstract}Response evaluate(Code guessCode)
+       {abstract}ValidFigures getValidFigures()
+       {abstract}int getAttempt()
+       {abstract}int getMaxAttempt()
+       {abstract}void codeBreakerWins()
+       {abstract}void codeMakerWins()
+       {abstract}void registry()
+       {abstract}void undo()
+       {abstract}void redo()
+       {abstract}void quit()
+       {abstract}boolean codeDiscovered()
+       {abstract}boolean isAborted()
+       {abstract}boolean canApplyUndo()
+       {abstract}boolean canApplyRedo()
+       {abstract}void resume()
+       {abstract}void stop()
+   }
+}
+
+package mastermind.runtime {
+   class MasterMindOverModel {
+      MasterMindOverModel(ViewsContainer viewsContainer)
+      StartController createStartController();
+      PlayController createPlayController();
+      ResumeController createResumeController();
+   }
+
+   class MasterMindServerOperations <<RMI Implementation>>{
+      StartController startController
+      PlayController playController
+      ResumeController resumeController
+      __Every method will use one controller__
+   }
+
+   MasterMindOverModel <|-- MasterMindStandalone
+   MasterMindOverModel <|-- MasterMindServer
+
+   MasterMindServer *--- MasterMindServerOperations
+
+   MasterMindOperations <|--- MasterMindServerOperations
+}
+
+package mastermind.controller.model {
+   class StartModelController
+   class PlayModelController
+   class ResumeModelController
+}
+
+package mastermind.model {
+   class Configuration
+   class Game
+   class State
+}
+
+package mastermind.view {
+   interface ViewsContainer {
+      {abstract}void updateView(Controller controller);
+   }
+}
+
+package mastermind.controller {
+    class ControllersContainer
+}
+
+MasterMind <|--- MasterMindOverModel
+
+MasterMindOverModel *-> Game
+MasterMindOverModel *-> State
+MasterMindOverModel *--> Configuration
+MasterMindOverModel *-left-> ViewsContainer
+
+MasterMindStandalone *-down--> ControllersContainer
+
+MasterMindOverModel -up- StartModelController
+MasterMindOverModel -up- PlayModelController
+MasterMindOverModel -up- ResumeModelController
+
+
+@enduml
+
+

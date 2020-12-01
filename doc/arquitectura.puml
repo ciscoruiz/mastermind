@@ -14,25 +14,50 @@ package mastermind.view #DDDDDD {
 package mastermind.view.console #DDDDDD {
 }
 
-package java.util {
+package mastermind.view.console.menu {
 }
 
-package java.io {
+package java.util #DDDDFF {
 }
+
+package java.io #DDDDFF {
+}
+
+package mastermind.controller.model {
+}
+
+package mastermind.controller.rmi {
+}
+
+package mastermind.runtime {
+}
+
+package mastermind.rmi {
+}
+
 
 mastermind -[dashed]-> mastermind.controller
 mastermind -[dashed]-> mastermind.view
 mastermind -[dashed]-> mastermind.model
 
+mastermind.view -[dashed]-> mastermind.controller
 mastermind.view.console -[dashed]-> mastermind.view
 mastermind.view.console -[dashed]-> mastermind.model
 mastermind.view.console -[dashed]-> mastermind.controller
 mastermind.view.console -[dashed]-> java.io
+mastermind.view.console -[dashed]-> mastermind.view.console.menu
 
-mastermind.controller -[dashed]-> mastermind.model
-mastermind.controller -[dashed]-> java.util
+mastermind.controller.model -[dashed]-> mastermind.model
+mastermind.controller.model -[dashed]-> mastermind.controller
+mastermind.controller -[dashed]--> java.util
 
-mastermind.model -[dashed]-> java.util
+mastermind.controller.rmi -[dashed]--> mastermind.controller
+mastermind.controller.rmi -[dashed]--> mastermind.rmi
+
+mastermind.model -[dashed].-> java.util
+
+mastermind.runtime -[dashed]--> mastermind.controller.model
+mastermind.runtime -[dashed]--> mastermind.controller.rmi
 
 @enduml
 
