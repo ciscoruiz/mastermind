@@ -9,3 +9,6 @@ instances associates to this controller.
 by using the associated controller-B.
 
 
+![system overview](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://github.com/ciscoruiz/mastermind/blob/distributed/doc/arquitectura.puml)
+
+blablabbla
