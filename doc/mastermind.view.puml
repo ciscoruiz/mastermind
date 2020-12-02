@@ -12,20 +12,20 @@ package mastermind.view.console {
        Character apply(Vector<Character> validKeys);
    }
 
-   class ViewsContainerConsole {
+   class ViewsContainerConsole <<ConcreteVisitor>> {
        void updateView(Controller controller) <b> { controller.accept(this) }</b>
        void visit (StartController controller) <b> { startConsole.update(controller) }</b>
        void visit (PlayController controller) <b> { playConsole.update(controller) }</b>
        void visit (ResumeController controller) <b> { resumeConsole.update(controller) }</b>
    }
 
-   class StartConsole <<ConcreteVisitor>> {
+   class StartConsole {
        void update(StartController startController)
    }
-   class PlayConsole <<ConcreteVisitor>> {
+   class PlayConsole {
        void update(PlayController playController)
    }
-   class ResumeConsole <<ConcreteVisitor>> {
+   class ResumeConsole {
        void update(ResumeController resumeController)
    }
 }
