@@ -34,7 +34,7 @@ diferentes versiones de MasterMind, ejecutando partes comunes de código. Las pa
     interfaz RMI. Los controladores se instancian en la aplicación Cliente, pero las clases del modelo se instancia en la
     aplicación Servidor.
 
-* El paquete [`mastermind.runtime`](#mastermindruntime)  contiene las diferentes implementaciones para la interfaz _**Mastermind**_ (Cliente, Servidor y Standalone).
+* El paquete [`mastermind.runtime`](#mastermindruntime) contiene las diferentes implementaciones para la interfaz _**Mastermind**_ (Cliente, Servidor y Standalone).
  
 ![system overview](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/ciscoruiz/mastermind/distributed/doc/arquitectura.puml)
 
@@ -102,5 +102,31 @@ parte Server de la aplicación distribuida.
 
 Los controladores del paquete _**mastermind.controller.rmi**_ serán usados por la parte Cliente de la aplicación distribuida.
 
+## mastermind.runtime
 
+Este paquete contiene las diferentes implementaciones para la interfaz _**Mastermind**_ (Cliente, Servidor y Standalone).
 
+El siguiente diagrama muestra las clases usadas en la aplicación Server y Standalone:
+
+![system overview](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/ciscoruiz/mastermind/distributed/doc/mastermind.runtime.overmodel.puml)
+
+Las clases mostradas en el diagrama son:
+* El interface _**MasterMind**_ actúa como [Abstract Factory](https://en.wikipedia.org/wiki/Abstract_factory_pattern#:~:text=The%20abstract%20factory%20pattern%20provides,without%20specifying%20their%20concrete%20classes.)
+  para generar los distintos _**Controllers**_ requeridos por la aplicación en curso.
+* La clase _**MasterMindOverModel**_ implementa el interface requerido para instanciar los controladores que trabajan directamente
+sobre el modelo, además instancia las clases requeridas por el modelo (_**ViewsContainer**_, _**Game**_, _**State**_, _**Configuration**_, etc)
+* La clase _**MasterMindStandalone**_ especializa su clase base para ejecutar todo el código en un mismo programa. Configura la
+clase _**ControllersContainer**_ para que el Modelo-Vista-Controlador se desarrolle correctamente.
+* La clase _**MasterMindServer**_ especializa su clase base para que las operaciones requeridas se realizen mediante una 
+  la interface RMI definida, cada uno de estos métodos tendrá que hacer uso de un correspondiente controller que será 
+  el que actúe sobre el modelo.
+  
+  
+El siguiente diagrama muestras las clases usadas en la aplicación Client:
+
+![system overview](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/ciscoruiz/mastermind/distributed/doc/mastermind.runtime.client.puml)
+
+La clase _**MasterMindClient**_ implementa el interface requerido para instanciar los controladores que trabajan sobre
+el cliente RMI, además instancia y configura el _**ViewsContainer**_ y el _**ControllersContainer**_.
+  
+Los controladores usados por este módulo transfieren todas sus operaciones al interfaz RMI que han recibido en su constructor.
