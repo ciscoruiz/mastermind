@@ -24,15 +24,8 @@ public class MasterMindServer extends MasterMindOverModel {
    public void play() {
       try {
          Registry registry = java.rmi.registry.LocateRegistry.createRegistry(MasterMindOperations.PORT);
-
          MasterMindOperations masterMindServerOperations = new MasterMindServerOperations(this, state);
-
-         // See https://stackoverflow.com/questions/10454037/java-security-accesscontrolexception-access-denied-java-io-filepermission
-         // jdks/openjdk-15.0.1/conf/security/java.policy
-         // run: ~/IdeaProjects/mastermind/out/production/mastermind$ rmiregistry -J-Djava.class.path=./
-         //      from the directory where the classes are compiled
          registry.bind(MasterMindOperations.SERVICE_NAME, masterMindServerOperations);
-
          System.out.println("Server accepting connections  " + MasterMindOperations.SERVICE_NAME + ":" + MasterMindOperations.PORT);
       }
       catch (Exception e) {
