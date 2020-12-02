@@ -126,6 +126,11 @@ que sólo definen las interfaces que serán usadas por el resto de la aplicació
 directamente sobre las clases del modelo y el paquete de controladores que usan peticiones RMI para acceder a las diferentes
 operaciones que se pueden realizar sobre el modelo.
 
+Las distintas familias de controladores se consiguen mediante la clase [ControllerAbstractFactory](https://github.com/ciscoruiz/mastermind/blob/distributed/src/com/upm/master/mastermind/controller/ControllerAbstractFactory.java)
+que implementa el patrón [Abstract Factory](https://en.wikipedia.org/wiki/Abstract_factory_pattern#:~:text=The%20abstract%20factory%20pattern%20provides,without%20specifying%20their%20concrete%20classes.)
+para facilitar la instanciación de los distintos controladores necesarios para cada una de las aplicaciones que podemos
+ejecutar.
+
 Los controladores del paquete [mastermind.controller.model](https://github.com/ciscoruiz/mastermind/tree/distributed/src/com/upm/master/mastermind/controller/model) 
 será usados por las aplicaciones Standalone y por la parte Server de la aplicación distribuida. 
 
@@ -143,8 +148,7 @@ El siguiente diagrama muestra las clases usadas en la aplicación Server y Stand
 
 Las clases mostradas en el diagrama son:
 * El interface [Mastermind](https://github.com/ciscoruiz/mastermind/blob/distributed/src/com/upm/master/mastermind/MasterMind.java)
-  actúa como [Abstract Factory](https://en.wikipedia.org/wiki/Abstract_factory_pattern#:~:text=The%20abstract%20factory%20pattern%20provides,without%20specifying%20their%20concrete%20classes.)
-  para generar los distintos _**Controllers**_ requeridos por la aplicación en curso.
+  establece cómo se realiza la ejecución del juego.
 * La clase [MasterMindOverModel](https://github.com/ciscoruiz/mastermind/blob/distributed/src/com/upm/master/mastermind/runtime/MasterMindOverModel.java) 
   implementa el interface requerido para instanciar los controladores que trabajan directamente sobre el modelo, además 
   instancia las clases requeridas por el modelo,
@@ -161,6 +165,8 @@ El siguiente diagrama muestras las clases usadas en la aplicación Client:
 
 La clase [MasterMindClient](https://github.com/ciscoruiz/mastermind/blob/distributed/src/com/upm/master/mastermind/runtime/MasterMindClient.java) 
 implementa el interface requerido para instanciar los controladores que trabajan sobre el cliente RMI, además instancia 
-y configura el _**ViewsContainer**_ y el _**ControllersContainer**_.
-  
+y configura el [ViewsContainer](https://github.com/ciscoruiz/mastermind/blob/distributed/src/com/upm/master/mastermind/view/ViewsContainer.java)
+y el [ControllersContainer](https://github.com/ciscoruiz/mastermind/blob/distributed/src/com/upm/master/mastermind/controller/ControllersContainer.java)
+que recibe una factoría de controladores que realizan sus operaciones mediante las llamadas a la interfaz RMI.
+
 Los controladores usados por este módulo transfieren todas sus operaciones al interfaz RMI que han recibido en su constructor.
