@@ -5,11 +5,7 @@ import com.upm.master.mastermind.rmi.MasterMindOperations;
 import com.upm.master.mastermind.view.ViewsContainer;
 import com.upm.master.mastermind.view.console.ViewsContainerConsole;
 
-import java.rmi.Naming;
-import java.rmi.RMISecurityManager;
-import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
-import java.rmi.server.UnicastRemoteObject;
 
 public class MasterMindServer extends MasterMindOverModel {
    static public MasterMind create() {
