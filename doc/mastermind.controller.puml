@@ -6,56 +6,62 @@ package mastermind.model {
 }
 
 package mastermind.controller {
-interface Controller {
-   {abstract} void setNextState()
-   {abstract} void accept(ControllerVisitor controllerVisitor)
-}
+   interface Controller {
+      {abstract} void setNextState()
+      {abstract} void accept(ControllerVisitor controllerVisitor)
+   }
 
-class ControllersContainer {
-    ControllersContainer(MasterMind mastermind)
-    Controller getController(State state) 
-}
+   class ControllersContainer {
+       ControllersContainer(ControllerAbstractFactory controllerFactory)
+       Controller getController(State state)
+   }
 
-interface StartController {
-   void initializeGame();
-   Code getSecretCode();
-}
+   interface ControllerAbstractFactory <<Abstract Factory>> {
+      {abstract}StartController createStartController();
+      {abstract}PlayController createPlayController();
+      {abstract}ResumeController createResumeController();
+   }
 
-interface PlayController {
-    boolean continueGame();
-    Response evaluate(Code guessCode);
-    ValidFigures getValidFigures();
-    int getAttempt();
-    int getMaxAttempt();
-    void codeBreakerWins();
-    void codeMakerWins();
-    void registry();
-    void undo();
-    void redo();
-    void quit();
-    boolean codeDiscovered();
-    boolean isAborted();
-    boolean canApplyUndo();
-    boolean canApplyRedo();
-}
+   interface StartController {
+      void initializeGame();
+      Code getSecretCode();
+   }
 
-interface ResumeController {
-   void resume();
-   void stop();
-}
+   interface PlayController {
+       boolean continueGame();
+       Response evaluate(Code guessCode);
+       ValidFigures getValidFigures();
+       int getAttempt();
+       int getMaxAttempt();
+       void codeBreakerWins();
+       void codeMakerWins();
+       void registry();
+       void undo();
+       void redo();
+       void quit();
+       boolean codeDiscovered();
+       boolean isAborted();
+       boolean canApplyUndo();
+       boolean canApplyRedo();
+   }
 
-interface ControllerVisitor {
-   {abstract}void visit(StartController startController);
-   {abstract}void visit(PlayController playController);
-   {abstract}void visit(ResumeController resumeController);
-}
+   interface ResumeController {
+      void resume();
+      void stop();
+   }
+
+   interface ControllerVisitor {
+      {abstract}void visit(StartController startController);
+      {abstract}void visit(PlayController playController);
+      {abstract}void visit(ResumeController resumeController);
+   }
 }
 
 package mastermind.controller.model {
     class ModelController {
        void setNextState()
     }
-    note left: Performs operations based on Game and State
+    note right: Performs operations based on Game and State
     ModelController -up-> Game
     ModelController -up-> State
 
@@ -63,8 +69,10 @@ package mastermind.controller.model {
     class PlayModelController
     class ResumeModelController
 
+    ControllerAbstractFactory <|-- ControllerModelFactory
+
     ModelController <|-down-- StarModelController
-    ModelController <|-down-- PlayModelController
+    ModelController <|-down- PlayModelController
     ModelController <|-down-- ResumeModelController
 
     StartController <|-down- StarModelController
@@ -110,8 +118,10 @@ package mastermind.controller.rmi {
     class PlayRmiController
     class ResumeRmiController
 
+    ControllerAbstractFactory <|-- ControllerRmiFactory
+
     RmiController <|-down-- StarRmiController
-    RmiController <|-down-- PlayRmiController
+    RmiController <|-down- PlayRmiController
     RmiController <|-down-- ResumeRmiController
 
     StartController <|-down- StarRmiController
