@@ -77,12 +77,13 @@ Las vistas mantienen por completo el [principio de sustitución de Liskov](https
 
 ### mastermind.view.menu
 
-La vista _**PlayConsole**_ es la responsable de presentar las opciones y verificar que el usuario elije una opción válida entre todas las
-posible opciones que pueden estar activas.
+El componente _**PlayConsole**_ es el responsable de presentar las opciones y verificar que el usuario elija una opción 
+válida entre todas las posibles opciones que pueden estar activas, ya qye hay algunas opciones de menú como (Undo/Redo) 
+que sólo estarán disponibles si el correspondiente _**ActivationEvaluator**_ devuelve **true**.
+
+Las opciones de menú se han implementado siguiente el patrón [Command](https://en.wikipedia.org/wiki/Command_pattern).
 
 ![system overview](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/ciscoruiz/mastermind/distributed/doc/mastermind.view.menu.puml)
-
-Hay algunas opciones de menú como (Undo/Redo) que sólo estarán disponibles si el correspondiente _**ActivationEvaluator**_ devuelve **true**.
 
 ## mastermind.controller
 
@@ -90,5 +91,16 @@ The **Controller**[[1]](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%9
 en comandos para el modelo o la vista.
 
 ![system overview](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/ciscoruiz/mastermind/distributed/doc/mastermind.controller.puml)
+
+En el diagrama de clases se puede apreciar que hay tres partes totalmente definidas. El paquete con las clases abstractas 
+que sólo definen las interfaces que serán usadas por el resto de la aplicación, el paquete de controladores que trabajan
+directamente sobre las clases del modelo y el paquete de controladores que usan peticiones RMI para acceder a las diferentes
+operaciones que se pueden realizar sobre el modelo.
+
+Los controladores del paquete _**mastermind.controller.model**_ será usados por las aplicaciones Standalone y por la 
+parte Server de la aplicación distribuida. 
+
+Los controladores del paquete _**mastermind.controller.rmi**_ serán usados por la parte Cliente de la aplicación distribuida.
+
 
 
