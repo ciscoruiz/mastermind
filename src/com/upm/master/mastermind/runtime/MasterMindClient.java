@@ -2,12 +2,7 @@ package com.upm.master.mastermind.runtime;
 
 import com.upm.master.mastermind.MasterMind;
 import com.upm.master.mastermind.controller.ControllersContainer;
-import com.upm.master.mastermind.controller.PlayController;
-import com.upm.master.mastermind.controller.ResumeController;
-import com.upm.master.mastermind.controller.StartController;
-import com.upm.master.mastermind.controller.rmi.PlayRmiController;
-import com.upm.master.mastermind.controller.rmi.ResumeRmiController;
-import com.upm.master.mastermind.controller.rmi.StartRmiController;
+import com.upm.master.mastermind.controller.rmi.ControllerRmiFactory;
 import com.upm.master.mastermind.rmi.MasterMindOperations;
 import com.upm.master.mastermind.view.ViewsContainer;
 import com.upm.master.mastermind.view.console.ViewsContainerConsole;
@@ -50,10 +45,10 @@ public class MasterMindClient implements MasterMind {
       return new MasterMindClient(viewsContainer, masterMindOperations);
    }
 
-   MasterMindClient(ViewsContainer viewsContainer, MasterMindOperations masterMindOperations) {
+   private MasterMindClient(ViewsContainer viewsContainer, MasterMindOperations masterMindOperations) {
       this.viewsContainer = viewsContainer;
       this.masterMindOperations = masterMindOperations;
-      this.controllersContainer = new ControllersContainer(this);
+      this.controllersContainer = new ControllersContainer(new ControllerRmiFactory(masterMindOperations));
    }
 
    public void play() {
@@ -67,8 +62,4 @@ public class MasterMindClient implements MasterMind {
          e.printStackTrace();
       }
    }
-
-   public StartController createStartController() {  return new StartRmiController(masterMindOperations); }
-   public PlayController createPlayController() { return new PlayRmiController(masterMindOperations); }
-   public ResumeController createResumeController() {  return new ResumeRmiController(masterMindOperations); }
 }

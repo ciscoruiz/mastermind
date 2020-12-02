@@ -13,14 +13,14 @@ public class MasterMindServer extends MasterMindOverModel {
       return new MasterMindServer(viewsContainer);
    }
 
-   MasterMindServer(ViewsContainer viewsContainer) {
+   private MasterMindServer(ViewsContainer viewsContainer) {
       super(viewsContainer);
    }
 
    public void play() {
       try {
          Registry registry = java.rmi.registry.LocateRegistry.createRegistry(MasterMindOperations.PORT);
-         MasterMindOperations masterMindServerOperations = new MasterMindServerOperations(this, state);
+         MasterMindOperations masterMindServerOperations = new MasterMindServerOperations(controllerFactory, state);
          registry.bind(MasterMindOperations.SERVICE_NAME, masterMindServerOperations);
          System.out.println("Server accepting connections  " + MasterMindOperations.SERVICE_NAME + ":" + MasterMindOperations.PORT);
       }

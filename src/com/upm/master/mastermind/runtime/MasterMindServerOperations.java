@@ -1,6 +1,6 @@
 package com.upm.master.mastermind.runtime;
 
-import com.upm.master.mastermind.MasterMind;
+import com.upm.master.mastermind.controller.ControllerAbstractFactory;
 import com.upm.master.mastermind.controller.PlayController;
 import com.upm.master.mastermind.controller.ResumeController;
 import com.upm.master.mastermind.controller.StartController;
@@ -21,10 +21,10 @@ public class MasterMindServerOperations extends UnicastRemoteObject implements M
    private ResumeController resumeController;
    private State state;
 
-   public MasterMindServerOperations(MasterMind masterMind, State state) throws RemoteException {
-      this.startController = masterMind.createStartController();
-      this.playController = masterMind.createPlayController();
-      this.resumeController = masterMind.createResumeController();
+   public MasterMindServerOperations(ControllerAbstractFactory controllerFactory, State state) throws RemoteException {
+      this.startController = controllerFactory.createStartController();
+      this.playController = controllerFactory.createPlayController();
+      this.resumeController = controllerFactory.createResumeController();
       this.state = state;
    }
 
