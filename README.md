@@ -8,12 +8,15 @@ muy bien conocido [Model-View-Controller](https://en.wikipedia.org/wiki/Model%E2
 base para este diseño.
 
 Estas son las tres versiones diferentes de este programa MasterMind:
-* [MainStandalone](https://github.com/ciscoruiz/mastermind/blob/distributed/src/com/upm/master/mastermind/MainStandalone.java) y [MasterMindStandalone](https://github.com/ciscoruiz/mastermind/blob/distributed/src/com/upm/master/mastermind/MasterMindStandalone.java) 
+* [MainStandalone](https://github.com/ciscoruiz/mastermind/blob/distributed/src/com/upm/master/mastermind/MainStandalone.java) 
+  y [MasterMindStandalone](https://github.com/ciscoruiz/mastermind/blob/distributed/src/com/upm/master/mastermind/runtime/MasterMindStandalone.java) 
   ejecutan MasterMind como una aplicación todo en uno.
-* [MainServer](https://github.com/ciscoruiz/mastermind/blob/distributed/src/com/upm/master/mastermind/MainServer.java) y [MasterMindServer](https://github.com/ciscoruiz/mastermind/blob/distributed/src/com/upm/master/mastermind/runtime/MasterMindServer.java) 
+* [MainServer](https://github.com/ciscoruiz/mastermind/blob/distributed/src/com/upm/master/mastermind/MainServer.java) 
+  y [MasterMindServer](https://github.com/ciscoruiz/mastermind/blob/distributed/src/com/upm/master/mastermind/runtime/MasterMindServer.java) 
   que ejecutan el servidor RMI de MasterMind. Esta versión no tendrá ningún tipo de la consola, pero registrará todos 
   los comandos recibidos desde cliente, que actuará como GUI con el usuario.
-* [MainClient](https://github.com/ciscoruiz/mastermind/blob/distributed/src/com/upm/master/mastermind/MainClient.java) y [MasterMindClient](https://github.com/ciscoruiz/mastermind/blob/distributed/src/com/upm/master/mastermind/runtime/MasterMindClient.java) 
+* [MainClient](https://github.com/ciscoruiz/mastermind/blob/distributed/src/com/upm/master/mastermind/MainClient.java) 
+  y [MasterMindClient](https://github.com/ciscoruiz/mastermind/blob/distributed/src/com/upm/master/mastermind/runtime/MasterMindClient.java) 
   actúa como GUI con el usuario del juego y utiliza la interfaz RMI de MasterMind para solicitar todas las operaciones 
   necesarias al servidor RMI. Esta versión mostrará la misma consola que la versión standalone, pero las operaciones se 
   realizan en el Servidor RMI.
@@ -103,9 +106,10 @@ El siguiente diagrama muestras las clases requeridas para interactuar con el usu
 ![system overview](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/ciscoruiz/mastermind/distributed/doc/mastermind.view.menu.puml)
 
 El componente [PlayConsole](https://github.com/ciscoruiz/mastermind/blob/distributed/src/com/upm/master/mastermind/view/console/PlayConsole.java) 
-es el responsable de presentar las opciones y verificar que el usuario elija una opción válida entre todas las posibles 
-opciones que pueden estar activas, ya qye hay algunas opciones de menú como (Undo/Redo) que sólo estarán disponibles si 
-el correspondiente [ActivationEvaluator](https://github.com/ciscoruiz/mastermind/blob/ead474cbbe7370310082ae1a40787709aa77bb1d/src/com/upm/master/mastermind/view/console/menu/Command.java#L7)
+es el responsable de invocar al [MenuConsole](https://github.com/ciscoruiz/mastermind/blob/distributed/src/com/upm/master/mastermind/view/console/menu/MenuConsole.java)
+, éste es el encargado de gestionar las opciones y verificar que el usuario elija una opción válida entre todas las posibles 
+opciones que pueden estar activas. Hay algunas opciones de menú como (Undo/Redo) que sólo estarán disponibles si el 
+correspondiente [ActivationEvaluator](https://github.com/ciscoruiz/mastermind/blob/ead474cbbe7370310082ae1a40787709aa77bb1d/src/com/upm/master/mastermind/view/console/menu/Command.java#L7)
 devuelve **true**.
 
 Las opciones de menú se han implementado siguiente el patrón [Command](https://en.wikipedia.org/wiki/Command_pattern).
@@ -144,7 +148,7 @@ Las clases mostradas en el diagrama son:
 * La clase [MasterMindOverModel](https://github.com/ciscoruiz/mastermind/blob/distributed/src/com/upm/master/mastermind/runtime/MasterMindOverModel.java) 
   implementa el interface requerido para instanciar los controladores que trabajan directamente sobre el modelo, además 
   instancia las clases requeridas por el modelo,
-* La clase [MasterMindStandalone](https://github.com/ciscoruiz/mastermind/blob/distributed/src/com/upm/master/mastermind/MasterMindStandalone.java)
+* La clase [MasterMindStandalone](https://github.com/ciscoruiz/mastermind/blob/distributed/src/com/upm/master/mastermind/runtime/MasterMindStandalone.java)
   especializa su clase base para ejecutar todo el código en un mismo programa. Configura la clase [ControllersContainer](https://github.com/ciscoruiz/mastermind/blob/distributed/src/com/upm/master/mastermind/controller/ControllersContainer.java) 
   para que el Modelo-Vista-Controlador se desarrolle correctamente.
 * La clase [MasterMindServer](https://github.com/ciscoruiz/mastermind/blob/distributed/src/com/upm/master/mastermind/runtime/MasterMindServer.java)
