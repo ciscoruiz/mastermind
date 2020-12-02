@@ -1,0 +1,90 @@
+@startuml
+
+package mastermind.view {
+interface ViewsContainer {
+   {abstract} void updateView(Controller controller)
+}
+note right: Some MasterMind instance will call <b>ViewsContainer.updateView</b>
+}
+
+package mastermind.view.console {
+   class CharacterReader {
+       Character apply(Vector<Character> validKeys);
+   }
+
+   class ViewsContainerConsole {
+       void updateView(Controller controller) <b> { controller.accept(this) }</b>
+       void visit (StartController controller) <b> { startConsole.update(controller) }</b>
+       void visit (PlayController controller) <b> { playConsole.update(controller) }</b>
+       void visit (ResumeController controller) <b> { resumeConsole.update(controller) }</b>
+   }
+
+   class StartConsole <<ConcreteVisitor>> {
+       void update(StartController startController)
+   }
+   class PlayConsole <<ConcreteVisitor>> {
+       void update(PlayController playController)
+   }
+   class ResumeConsole <<ConcreteVisitor>> {
+       void update(ResumeController resumeController)
+   }
+
+   namespace mastermind.view.console.menu {
+      interface ActivationEvaluator <<Lambda>>{
+         {abstract} evaluate(PlayController playController)
+      }
+
+      class MenuConsole {
+         MenuConsole add(Command command)
+         void choose(PlayController playController)
+      }
+      class Command {
+         Command(PlayConsole, character, title, ActivationEvaluator)
+         {abstract} void execute(PlayController playController);
+      }
+
+      MenuConsole *--> Command
+
+      Command *-right-> ActivationEvaluator
+      Command <|--- PlayCommand
+      Command <|-- QuitCommand
+      Command <|--- RedoCommand
+      Command <|-- UndoCommand
+
+      class PlayCommand {
+         void execute(PlayController playController) <b>{ playConsole.play(playController);  }</b>
+      }
+
+      class QuitCommand {
+         void execute(PlayController playController) <b>{ playConsole.quit(playController);  }</b>
+      }
+
+      class RedoCommand {
+         void execute(PlayController playController) <b>{ playConsole.redo(playController);  }</b>
+      }
+
+      class UndoCommand {
+         void execute(PlayController playController) <b>{ playConsole.undo(playController);  }</b>
+      }
+   }
+
+   mastermind.view.console.menu.MenuConsole *-left-> CharacterReader
+
+   PlayConsole *--> mastermind.view.console.menu.MenuConsole
+}
+
+ViewsContainer <|-- ViewsContainerConsole
+ControllerVisitor <|-- ViewsContainerConsole
+
+ViewsContainerConsole *--> StartConsole : startConsole
+ViewsContainerConsole *--> PlayConsole : playConsole
+ViewsContainerConsole *--> ResumeConsole : resumeConsole
+
+PlayConsole --> CharacterReader
+ResumeConsole --> CharacterReader
+
+@enduml
+
+
+
+

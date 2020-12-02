@@ -1,43 +1,10 @@
 @startuml
 
 package mastermind.view {
-interface ViewsContainer {
-   {abstract} void updateView(Controller controller)
-}
-note right: Some MasterMind instance will call <b>ViewsContainer.updateView</b>
-}
-
-package mastermind.controller {
-   interface Controller <<Element>>{
-      {abstract} void setNextState()
-      {abstract} void accept(ControllerVisitor controllerVisitor)
+   interface ViewsContainer {
+      {abstract} void updateView(Controller controller)
    }
-
-   interface StartController <<ConcreteElement>>
-   interface PlayController <<ConcreteElement>>
-   interface ResumeController <<ConcreteElement>>
-
-   Controller <|-- StartController
-   Controller <|-- PlayController
-   Controller <|-- ResumeController
-
-   class StartController {
-      void accept(Controller controller) <b>{controller.visit(this)}</b>
-   }
-
-   class PlayController {
-      void accept(Controller controller) <b>{controller.visit(this)}</b>
-   }
-
-   class ResumeController {
-      void accept(Controller controller) <b>{controller.visit(this)}</b>
-   }
-
-   interface ControllerVisitor <<Visitor>> {
-      {abstract} void visit(StartController startController);
-      {abstract} void visit(PlayController playController);
-      {abstract} void visit(ResumeController resumeController);
-   }
+note left: Some MasterMind instance will call <b>ViewsContainer.updateView</b>
 }
 
 package mastermind.view.console {
@@ -61,50 +28,41 @@ package mastermind.view.console {
    class ResumeConsole <<ConcreteVisitor>> {
        void update(ResumeController resumeController)
    }
+}
 
-   namespace mastermind.view.console.menu {
-      interface ActivationEvaluator <<Lambda>>{
-         {abstract} evaluate(PlayController playController)
-      }
-
-      class MenuConsole {
-         MenuConsole add(Command command)
-         void choose(PlayController playController)
-      }
-      class Command {
-         Command(PlayConsole, character, title, ActivationEvaluator)
-         {abstract} void execute(PlayController playController);
-      }
-
-      MenuConsole *--> Command
-
-      Command <|--- PlayCommand
-      Command <|-- QuitCommand
-      Command <|--- RedoCommand
-      Command <|-- UndoCommand
-      Command *-right-> ActivationEvaluator
-
-      class PlayCommand {
-         void execute(PlayController playController) <b>{ playConsole.play(playController);  }</b>
-      }
-
-      class QuitCommand {
-         void execute(PlayController playController) <b>{ playConsole.quit(playController);  }</b>
-      }
-
-      class RedoCommand {
-         void execute(PlayController playController) <b>{ playConsole.redo(playController);  }</b>
-      }
-
-      class UndoCommand {
-         void execute(PlayController playController) <b>{ playConsole.undo(playController);  }</b>
-      }
+package mastermind.controller {
+   interface Controller <<Element>>{
+      {abstract} void setNextState()
+      {abstract} void accept(ControllerVisitor controllerVisitor)
    }
 
-   mastermind.view.console.menu.MenuConsole *-left-> CharacterReader
+   interface StartController <<ConcreteElement>>
+   interface PlayController <<ConcreteElement>>
+   interface ResumeController <<ConcreteElement>>
 
-   PlayConsole *--> mastermind.view.console.menu.MenuConsole
+   Controller <|--- StartController
+   Controller <|-- PlayController
+   Controller <|-- ResumeController
+
+   class StartController {
+      void accept(Controller controller) <b>{controller.visit(this)}</b>
+   }
+
+   class PlayController {
+      void accept(Controller controller) <b>{controller.visit(this)}</b>
+   }
+
+   class ResumeController {
+      void accept(Controller controller) <b>{controller.visit(this)}</b>
+   }
+
+   interface ControllerVisitor <<Visitor>> {
+      {abstract} void visit(StartController startController);
+      {abstract} void visit(PlayController playController);
+      {abstract} void visit(ResumeController resumeController);
+   }
 }
+
 
 ViewsContainer <|-- ViewsContainerConsole
 ControllerVisitor <|-- ViewsContainerConsole
@@ -113,14 +71,8 @@ ViewsContainerConsole *--> StartConsole : startConsole
 ViewsContainerConsole *--> PlayConsole : playConsole
 ViewsContainerConsole *--> ResumeConsole : resumeConsole
 
-
 PlayConsole --> CharacterReader
 ResumeConsole --> CharacterReader
-
-StartConsole -[dashed]--> StartController
-PlayConsole -[dashed]--> PlayController
-ResumeConsole -[dashed]--> ResumeController
-
 
 @enduml
 
