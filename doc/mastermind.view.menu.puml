@@ -24,6 +24,9 @@ package mastermind.view.console {
    }
    class PlayConsole <<ConcreteVisitor>> {
        void update(PlayController playController)
+       void play(PlayController playController)
+       void undo(PlayController playController)
+       void redo(PlayController playController)
    }
    class ResumeConsole <<ConcreteVisitor>> {
        void update(ResumeController resumeController)
@@ -31,7 +34,7 @@ package mastermind.view.console {
 
    namespace mastermind.view.console.menu {
       interface ActivationEvaluator <<Lambda>>{
-         {abstract} evaluate(PlayController playController)
+         {abstract} boolean evaluate(PlayController playController)
       }
 
       class MenuConsole {
