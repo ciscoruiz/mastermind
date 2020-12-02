@@ -10,21 +10,21 @@ Estas son las tres versiones diferentes de este programa MasterMind:
   de la consola, pero registrará todos los comandos recibidos desde cliente, que actuará como GUI con el usuario.
 * **MainClient** y **MasterMindClient** actúa como GUI con el usuario del juego y utiliza la interfaz RMI de MasterMind 
   para solicitar todas las operaciones necesarias al servidor RMI. Esta versión mostrará la misma consola que la versión 
-  independiente, pero las operaciones se realizan en el Servidor RMI.
+  standalone, pero las operaciones se realizan en el Servidor RMI.
 
 El siguiente diagrama muestra las diferentes partes que componen estas aplicaciones y cómo se relaciona para ejecutar 
 diferentes versiones de MasterMind, ejecutando partes comunes de código. Las partes que componen estas aplicaciones son:
 
-* El paquete [`mastermind.model`](#mastermind.model) contiene todas las clases necesarias para jugar Mastermind. [[1]](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller)
+* El paquete [`mastermind.model`](#mastermindmodel) contiene todas las clases necesarias para jugar Mastermind. [[1]](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller)
   El componente central del patrón. Es la estructura de datos dinámica de la aplicación, independiente de la interfaz 
   de usuario. Gestiona directamente los datos, la lógica y reglas de la aplicación. Las clases _**mastermind.model.Game**_
   y _ **mastermind.model.State**_ podrían considerarse como las clases más importantes para este paquete.
 
-* El paquete [`mastermind.view`](#mastermind.view) contiene todas las definiciones abstractas para **Vistas** que interactúan con el Usuario
+* El paquete [`mastermind.view`](#mastermindview) contiene todas las definiciones abstractas para **Vistas** que interactúan con el Usuario
   y el Controlador.  Hasta ahora, este paquete tiene solo una especialización:
   * El paquete _**mastermind.view.console**_ contiene todas las vistas para interactuar con el usuario usando la consola y el teclado.
 
-* El paquete [`mastermind.controller`](#mastermind.controller)  contiene todas las definiciones abstractas para **Controladores** necesarios para interactuar
+* El paquete [`mastermind.controller`](#mastermindcontroller)  contiene todas las definiciones abstractas para **Controladores** necesarios para interactuar
   las diferentes **Vistas **. [[1]](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller) Acepta entrada y
   lo convierte en comandos para el modelo o la vista. El enfoque principal de estas clases es acceder al **Modelo** de la 
   forma requerida por la vista. Hasta ahora su paquete tiene dos especializaciones diferentes:
@@ -34,7 +34,7 @@ diferentes versiones de MasterMind, ejecutando partes comunes de código. Las pa
     interfaz RMI. Los controladores se instancian en la aplicación Cliente, pero las clases del modelo se instancia en la
     aplicación Servidor.
 
-* El paquete [`mastermind.runtime`](#mastermind.runtime)  contiene las diferentes implementaciones para la interfaz _**Mastermind**_ (Cliente, Servidor y Standalone).
+* El paquete [`mastermind.runtime`](#mastermindruntime)  contiene las diferentes implementaciones para la interfaz _**Mastermind**_ (Cliente, Servidor y Standalone).
  
 ![system overview](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/ciscoruiz/mastermind/distributed/doc/arquitectura.puml)
 
@@ -60,11 +60,11 @@ que el usuario va seleccionando. La evaluación de la clave se devolverá como u
 
 ## mastermind.view
 
-La **Vista**[[1]](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller) acepta entrada y la convierte en 
-comandos para el modelo o la vista. El enfoque principal de estas clases es acceder al **Modelo** de la forma requerida por la vista.
+La **Vista**[[1]](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller) consisten en cualquier representación 
+de información, como un gráfico, diagrama o tabla. Son posibles varias vistas de la misma información, como un gráfico de 
+barras para la gestión y una vista tabular para los contables. 
 
 ![system overview](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/ciscoruiz/mastermind/distributed/doc/mastermind.view.puml)
-
 
 Las vistas mantienen por completo el [principio de sustitución de Liskov](https://en.wikipedia.org/wiki/Liskov_substitution_principle).
 
