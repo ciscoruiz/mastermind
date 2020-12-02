@@ -1,19 +1,22 @@
 @startuml
 
-package mastermind {
-   interface MasterMind  <<Abstract Factory>>  {
-      {abstract}void play();
-      __Abstract Factory__
+package mastermind.controller {
+   class ControllersContainer {
+      ControllersContainer(ControllerAbstractFactory)
+      Controller getController(State state)
+   }
+
+   class ControllerAbstractFactory {
       {abstract}StartController createStartController();
       {abstract}PlayController createPlayController();
       {abstract}ResumeController createResumeController();
    }
-}
 
-package mastermind.controller {
-   class ControllersContainer {
-      Controller getController(State state)
+   package model {
+      class ControllerModelFactory
    }
+
+   ControllerAbstractFactory <|-- ControllerModelFactory
 }
 
 package mastermind.rmi {
@@ -47,9 +50,6 @@ package mastermind.rmi {
 package mastermind.runtime {
    class MasterMindOverModel {
       MasterMindOverModel(ViewsContainer viewsContainer)
-      StartController createStartController();
-      PlayController createPlayController();
-      ResumeController createResumeController();
    }
 
    class MasterMindServerOperations <<RMI Implementation>>{
@@ -67,12 +67,6 @@ package mastermind.runtime {
    MasterMindOperations <|--- MasterMindServerOperations
 }
 
-package mastermind.controller.model {
-   class StartModelController
-   class PlayModelController
-   class ResumeModelController
-}
-
 package mastermind.model {
    class Configuration
    class Game
@@ -85,23 +79,15 @@ package mastermind.view {
    }
 }
 
-package mastermind.controller {
-    class ControllersContainer
-}
-
 MasterMind <|--- MasterMindOverModel
 
 MasterMindOverModel *-> Game
 MasterMindOverModel *-> State
 MasterMindOverModel *--> Configuration
 MasterMindOverModel *-left-> ViewsContainer
+MasterMindOverModel *--> ControllerAbstractFactory
 
 MasterMindStandalone *-down--> ControllersContainer
-
-MasterMindOverModel -up- StartModelController
-MasterMindOverModel -up- PlayModelController
-MasterMindOverModel -up- ResumeModelController
-
 
 @enduml
 

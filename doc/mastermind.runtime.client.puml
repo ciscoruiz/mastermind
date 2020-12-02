@@ -1,30 +1,32 @@
 @startuml
 
-package mastermind {
-   interface MasterMind  <<Abstract Factory>>  {
-      {abstract}void play();
-      __Abstract Factory__
-      {abstract}StartController createStartController();
-      {abstract}PlayController createPlayController();
-      {abstract}ResumeController createResumeController();
-   }
-}
-
 package mastermind.view {
    interface ViewsContainer {
       {abstract}void updateView(Controller controller);
    }
 }
 
-
 package mastermind.controller {
    class ControllersContainer {
+      ControllersContainer(ControllerAbstractFactory)
       Controller getController(State state)
    }
+
+   class ControllerAbstractFactory {
+      {abstract}StartController createStartController();
+      {abstract}PlayController createPlayController();
+      {abstract}ResumeController createResumeController();
+   }
+
+   package rmi {
+      class ControllerRmiFactory
+   }
+
+   ControllerAbstractFactory <|-- ControllerRmiFactory
 }
 
 package mastermind.rmi {
-   interface MasterMindOperations {
+   interface MasterMindOperations <<RMI Client>> {
        {abstract}void setNextState()
        {abstract}boolean stateEnablesContinuePlaying()
        {abstract}State getState()
@@ -52,34 +54,14 @@ package mastermind.rmi {
 }
 
 package mastermind.runtime {
-   class MasterMindClient {
-      StartController createStartController();
-      PlayController createPlayController();
-      ResumeController createResumeController();
-   }
-
    MasterMindClient *-left-> MasterMindOperations
 }
 
-package mastermind.controller.rmi {
-   class StartRmiController
-   class PlayRmiController
-   class ResumeRmiController
-}
-package mastermind.controller {
-    class ControllersContainer
-}
-
-MasterMind <|--- MasterMindClient
+MasterMind <|-down- MasterMindClient
 
 MasterMindClient *-right-> ViewsContainer
-
-MasterMindClient -down- StartRmiController
-MasterMindClient -down- PlayRmiController
-MasterMindClient -down- ResumeRmiController
-
-MasterMindClient *-up--> ControllersContainer
-
+MasterMindClient *-down-> ControllersContainer
+MasterMindClient *-down-> ControllerAbstractFactory
 
 @enduml
 
