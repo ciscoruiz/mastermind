@@ -1,10 +1,5 @@
 @startuml
 
-package java.util {
-class Vector
-class HashMap
-}
-
 package mastermind {
 interface MasterMind {
    {abstract}void play();
@@ -91,14 +86,12 @@ GameHistoryKeeper *--> Game.Memento
 
 }
 
+mastermind.runtime.MasterMindOverModel *--> GameHistoryKeeper
 mastermind.runtime.MasterMindOverModel *--> State
 mastermind.runtime.MasterMindOverModel *--> Game
 
 Code.Builder -[dashed]-> Code
-Code -[dashed]-> Vector : figures
-Code.Builder -[dashed]-> Vector : figures
 CodeMaker  *--> Code
-CodeMaker  *--> HashMap : figuresWithoutRepetion
 CodeMaker --[dashed]-> Code.Builder
 CodeMaker --[dashed]-> Response
 
