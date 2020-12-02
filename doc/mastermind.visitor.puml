@@ -1,7 +1,20 @@
 @startuml
-Alice -> Bob: Authentication Request
-Bob --> Alice: Authentication Response
+autonumber "<b>[00]"
 
-Alice -> Bob: Another authentication Request
-Alice <-- Bob: another authentication Response
+MasterMind -> ControllersContainer: getController(State)
+ControllersContainer --> MasterMind: controller
+
+MasterMind -> ViewsContainer: updateView(controller)
+create ViewsContainerConsole
+ViewsContainer -> ViewsContainerConsole: resolve_inheritance
+ViewsContainer -> ViewsContainerConsole: updateView(controller)
+
+ViewsContainerConsole -> Controller : accept(this)
+
+create ConcreteController
+Controller -> ConcreteController :  resolve_inheritance
+Controller -> ConcreteController : accept(this)
+
+ConcreteController -> ViewsContainerConsole : visit(this)
+
 @enduml
