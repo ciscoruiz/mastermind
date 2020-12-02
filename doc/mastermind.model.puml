@@ -8,9 +8,6 @@ class HashMap
 package mastermind {
 interface MasterMind {
    {abstract}void play();
-   {abstract}StartController createStartController();
-   {abstract}PlayController createPlayController();
-   {abstract}ResumeController createResumeController();
 }
 }
 
