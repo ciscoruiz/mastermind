@@ -1,67 +1,77 @@
 # mastermind
 
-Next diagram shows the design package architecture used to develop the three different version of this program. The 
-very well know [Model-View-Controller](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller) is the
-base for this design. 
+El siguiente diagrama muestra la arquitectura del paquetes utilizada para desarrollar las tres versiones diferentes de este programa. El
+muy bien conocido [Model-View-Controller](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller) es la
+base para este diseño.
 
-* **MainStandalone** and **MasterMindStandalone** which execute the MasterMind as an all-in-one application.
-* **MainServer** and **MasterMindServer** which execute the RMI-Server of MasterMind. This version will not have any kind
-of console, but it will log all commands received from the client.
-* **MainClient** and **MasterMindClient** which uses the RMI-interface of MasterMind to request all needed operations to
-the RMI-Server. This version will show the same console that standalone version, but operations are performed into the
-RMI-Server.  
+Estas son las tres versiones diferentes de este programa MasterMind:
+* **MainStandalone** y **MasterMindStandalone** ejecutan MasterMind como una aplicación todo en uno.
+* **MainServer** y **MasterMindServer** que ejecutan el servidor RMI de MasterMind. Esta versión no tendrá ningún tipo 
+  de la consola, pero registrará todos los comandos recibidos desde cliente, que actuará como GUI con el usuario.
+* **MainClient** y **MasterMindClient** actúa como GUI con el usuario del juego y utiliza la interfaz RMI de MasterMind 
+  para solicitar todas las operaciones necesarias al servidor RMI. Esta versión mostrará la misma consola que la versión 
+  independiente, pero las operaciones se realizan en el Servidor RMI.
 
-The different parts that compose these applications and how it relates to run different versions
-of MasterMind running common parts of the code. Parts which composes these applications are:
+El siguiente diagrama muestra las diferentes partes que componen estas aplicaciones y cómo se relaciona para ejecutar 
+diferentes versiones de MasterMind, ejecutando partes comunes de código. Las partes que componen estas aplicaciones son:
 
-* The _**mastermind.runtime**_ package contains the different implementations for the interface _**Mastermind**_ 
-(Client, Server and Standalone).
+* El paquete [`mastermind.model`](#mastermind.model) contiene todas las clases necesarias para jugar Mastermind. [[1]](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller)
+  El componente central del patrón. Es la estructura de datos dinámica de la aplicación, independiente de la interfaz 
+  de usuario. Gestiona directamente los datos, la lógica y reglas de la aplicación. Las clases _**mastermind.model.Game**_
+  y _ **mastermind.model.State**_ podrían considerarse como las clases más importantes para este paquete.
 
-* The _**mastermind.model**_ package contains all classes needed to play Mastermind. [[1]](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller)
-The central component of the pattern. It is the application's dynamic data structure, independent of the user interface. It directly manages the data, logic 
-and rules of the application.Classes _**mastermind.model.Game**_ 
-and _**mastermind.model.State**_ could be considered as the more important classes for this package.
+* El paquete [`mastermind.view`](#mastermind.view) contiene todas las definiciones abstractas para **Vistas** que interactúan con el Usuario
+  y el Controlador.  Hasta ahora, este paquete tiene solo una especialización:
+  * El paquete _**mastermind.view.console**_ contiene todas las vistas para interactuar con el usuario usando la consola y el teclado.
 
-* The _**mastermind.controller**_ package contains all abstract definitions for **Controllers** needed to interact with 
-the different **Views**. [[1]](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller) Accepts input and 
-converts it to commands for the model or vieW. The main focus of these classes is to access the **Model** in the way required
-for views. So far his package has two different specializations: 
-    * The _**mastermind.controller.model**_ package contains all **Controllers** that interact with the model. The Model 
-    classes and the controllers are instantiate on the same application.
-    * The _**mastermind.controller.rmi**_ package contains all **Controllers** that interact with the model by using the
-    RMI-interface. The controllers are instantiated in the Client application but the model are defined in the Server application.
-    
-* The _**mastermind.view**_ package contains all abstract definitions for **Views** that interact with the User and the Controller.
-So far this package has only one specialization:
-    * The _**mastermind.view.console**_ package contains all view to interact with the user by using te console and the keyboard.
-  
+* El paquete [`mastermind.controller`](#mastermind.controller)  contiene todas las definiciones abstractas para **Controladores** necesarios para interactuar
+  las diferentes **Vistas **. [[1]](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller) Acepta entrada y
+  lo convierte en comandos para el modelo o la vista. El enfoque principal de estas clases es acceder al **Modelo** de la 
+  forma requerida por la vista. Hasta ahora su paquete tiene dos especializaciones diferentes:
+  * El paquete _**mastermind.controller.model**_ contiene todos los **Controladores** que interactúan con el modelo. El modelo,
+    las clases y los controladores se instancian en la misma aplicación.
+  * El paquete _**mastermind.controller.rmi**_ contiene todos los **Controladores** que interactúan con el modelo mediante el
+    interfaz RMI. Los controladores se instancian en la aplicación Cliente, pero las clases del modelo se instancia en la
+    aplicación Servidor.
+
+* El paquete [`mastermind.runtime`](#mastermind.runtime)  contiene las diferentes implementaciones para la interfaz _**Mastermind**_ (Cliente, Servidor y Standalone).
+ 
 ![system overview](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/ciscoruiz/mastermind/distributed/doc/arquitectura.puml)
 
-# Class diagrams
+# Diagrama de Clases por paquetes
 
 ## mastermind.model
 
-The **Model** [[1]](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller) are the central component of the 
-pattern. It is the application's dynamic data structure, independent of the user interface. It directly manages the data, 
-logic and rules of the application.
+El **Modelo** es la estructura de datos dinámica de la aplicación, independiente de la interfaz de usuario. Gestiona directamente los
+datos, la lógica y reglas de la aplicación. Las clases _**mastermind.model.Game**_
+y _ **mastermind.model.State**_ podrían considerarse como las clases más importantes para este paquete.
 
 ![system overview](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/ciscoruiz/mastermind/distributed/doc/mastermind.model.puml)
 
+Las clases mostradas en el diagrama son:
+* _**Game**_: contiene todos los detalles referentes al juego en curso, como número de reintentos, número máximo de reintentos, etc
+* _**Configuration**_: establece los parámetros del juego, como las letras válidas para formar los códigos a descubrir, nº de reintentos.
+* Mediante el valor de _**State**_ se establece el vínculo apropiado entre una Vista y un Controlador. Cada valor de _**State*_ tendrá asociado
+un controlador, que recibirá las operaciones de la vista en curso.
+* _**CodeMaker**_: genera el código secreto (_**Code**_) que el usuario del juego debe descubrir, además evalúa la calidad de las claves
+que el usuario va seleccionando. La evaluación de la clave se devolverá como una instancia de _**Response**_.
+* _**ValidFigures**_: contiene la lista de caracteres válidos para generar/descubrir la clave secreta.   
+* _**GameHistoryKeeper**_ y _**Game.Memento**_ son las clases usadas para implementar el [patrón memento](https://en.wikipedia.org/wiki/Memento_pattern).
+
 ## mastermind.view
 
-The **View** [[1]](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller) enables any representation of 
-information such as a chart, diagram or table. Multiple views of the same information are possible, such as a bar chart 
-for management and a tabular view for accountants.
+La **Vista**[[1]](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller) acepta entrada y la convierte en 
+comandos para el modelo o la vista. El enfoque principal de estas clases es acceder al **Modelo** de la forma requerida por la vista.
 
 ![system overview](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/ciscoruiz/mastermind/distributed/doc/mastermind.view.puml)
 
-These views will work with the interface of the different **controllers**, this way they keep the [Liskov substitution principle](https://en.wikipedia.org/wiki/Liskov_substitution_principle)
-in the best way.
 
-## mastermind.view
+Las vistas mantienen por completo el [principio de sustitución de Liskov](https://en.wikipedia.org/wiki/Liskov_substitution_principle).
 
-The **Controller** [[1]](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller) accepts input and converts
-it to commands for the model or view. 
+## mastermind.controller
+
+The **Controller**[[1]](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller) acepta la entrada y lo convierte 
+en comandos para el modelo o la vista.
 
 ![system overview](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/ciscoruiz/mastermind/distributed/doc/mastermind.controller.puml)
 
