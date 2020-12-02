@@ -77,13 +77,16 @@ Las vistas mantienen por completo el [principio de sustitución de Liskov](https
 
 ### mastermind.view.console
 
+El siguiente diagrama muestras las clases requeridas para interacturar con el usuario mediante la consola y el teclado.
+
+![system overview](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/ciscoruiz/mastermind/distributed/doc/mastermind.view.menu.puml)
+
 El componente _**PlayConsole**_ es el responsable de presentar las opciones y verificar que el usuario elija una opción 
 válida entre todas las posibles opciones que pueden estar activas, ya qye hay algunas opciones de menú como (Undo/Redo) 
 que sólo estarán disponibles si el correspondiente _**ActivationEvaluator**_ devuelve **true**.
 
 Las opciones de menú se han implementado siguiente el patrón [Command](https://en.wikipedia.org/wiki/Command_pattern).
 
-![system overview](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/ciscoruiz/mastermind/distributed/doc/mastermind.view.menu.puml)
 
 ## mastermind.controller
 
