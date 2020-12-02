@@ -22,7 +22,7 @@ diferentes versiones de MasterMind, ejecutando partes comunes de código. Las pa
 
 * El paquete [`mastermind.view`](#mastermindview) contiene todas las definiciones abstractas para **Vistas** que interactúan con el Usuario
   y el Controlador.  Hasta ahora, este paquete tiene solo una especialización:
-  * El paquete _**mastermind.view.console**_ contiene todas las vistas para interactuar con el usuario usando la consola y el teclado.
+  * El paquete [`mastermind.view,console`](#mastermindviewconsole) contiene todas las vistas para interactuar con el usuario usando la consola y el teclado.
 
 * El paquete [`mastermind.controller`](#mastermindcontroller)  contiene todas las definiciones abstractas para **Controladores** necesarios para interactuar
   las diferentes **Vistas**. [[1]](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller) Acepta entrada y
@@ -42,9 +42,9 @@ diferentes versiones de MasterMind, ejecutando partes comunes de código. Las pa
 
 ## mastermind.model
 
-El **Modelo** es la estructura de datos dinámica de la aplicación, independiente de la interfaz de usuario. Gestiona directamente los
-datos, la lógica y reglas de la aplicación. Las clases _**mastermind.model.Game**_
-y _ **mastermind.model.State**_ podrían considerarse como las clases más importantes para este paquete.
+El **Modelo** es la estructura de datos dinámica de la aplicación, independiente de la interfaz de usuario. Gestiona 
+directamente los datos, la lógica y reglas de la aplicación. Las clases _**mastermind.model.Game**_y _**mastermind.model.State**_ 
+podrían considerarse como las clases más importantes para este paquete.
 
 ![system overview](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/ciscoruiz/mastermind/distributed/doc/mastermind.model.puml)
 
@@ -75,7 +75,7 @@ como evolucionan las llamadas desde que se inician en el _**ViewContainer**_ has
 
 Las vistas mantienen por completo el [principio de sustitución de Liskov](https://en.wikipedia.org/wiki/Liskov_substitution_principle).
 
-### mastermind.view.menu
+### mastermind.view.console
 
 El componente _**PlayConsole**_ es el responsable de presentar las opciones y verificar que el usuario elija una opción 
 válida entre todas las posibles opciones que pueden estar activas, ya qye hay algunas opciones de menú como (Undo/Redo) 
