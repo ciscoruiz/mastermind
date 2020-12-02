@@ -8,7 +8,7 @@ muy bien conocido [Model-View-Controller](https://en.wikipedia.org/wiki/Model%E2
 base para este diseño.
 
 Estas son las tres versiones diferentes de este programa MasterMind:
-* [MainStandalone](https://github.com/ciscoruiz/mastermind/blob/distributed/src/com/upm/master/mastermind/MainStandalone.java) y [MasterMindStandalone](https://github.com/ciscoruiz/mastermind/blob/distributed/src/com/upm/master/mastermind/MainStandalone.java) 
+* [MainStandalone](https://github.com/ciscoruiz/mastermind/blob/distributed/src/com/upm/master/mastermind/MainStandalone.java) y [MasterMindStandalone](https://github.com/ciscoruiz/mastermind/blob/distributed/src/com/upm/master/mastermind/MasterMindStandalone.java) 
   ejecutan MasterMind como una aplicación todo en uno.
 * [MainServer](https://github.com/ciscoruiz/mastermind/blob/distributed/src/com/upm/master/mastermind/MainServer.java) y [MasterMindServer](https://github.com/ciscoruiz/mastermind/blob/distributed/src/com/upm/master/mastermind/runtime/MasterMindServer.java) 
   que ejecutan el servidor RMI de MasterMind. Esta versión no tendrá ningún tipo de la consola, pero registrará todos 
@@ -144,7 +144,7 @@ Las clases mostradas en el diagrama son:
 * La clase [MasterMindOverModel](https://github.com/ciscoruiz/mastermind/blob/distributed/src/com/upm/master/mastermind/runtime/MasterMindOverModel.java) 
   implementa el interface requerido para instanciar los controladores que trabajan directamente sobre el modelo, además 
   instancia las clases requeridas por el modelo,
-* La clase [MasterMindStandalone](https://github.com/ciscoruiz/mastermind/blob/distributed/src/com/upm/master/mastermind/MainStandalone.java)
+* La clase [MasterMindStandalone](https://github.com/ciscoruiz/mastermind/blob/distributed/src/com/upm/master/mastermind/MasterMindStandalone.java)
   especializa su clase base para ejecutar todo el código en un mismo programa. Configura la clase [ControllersContainer](https://github.com/ciscoruiz/mastermind/blob/distributed/src/com/upm/master/mastermind/controller/ControllersContainer.java) 
   para que el Modelo-Vista-Controlador se desarrolle correctamente.
 * La clase [MasterMindServer](https://github.com/ciscoruiz/mastermind/blob/distributed/src/com/upm/master/mastermind/runtime/MasterMindServer.java)
