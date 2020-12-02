@@ -6,15 +6,21 @@ ControllersContainer --> MasterMind: controller
 
 MasterMind -> ViewsContainer: updateView(controller)
 create ViewsContainerConsole
-ViewsContainer -> ViewsContainerConsole: resolve_inheritance
+ViewsContainer -> ViewsContainerConsole: <<resolve_inheritance>>
 ViewsContainer -> ViewsContainerConsole: updateView(controller)
 
 ViewsContainerConsole -> Controller : accept(this)
 
 create ConcreteController
-Controller -> ConcreteController :  resolve_inheritance
+Controller -> ConcreteController : <<resolve_inheritance>>
 Controller -> ConcreteController : accept(this)
 
 ConcreteController -> ViewsContainerConsole : visit(this)
+
+ViewsContainerConsole -> Visitor : update(Args)
+create ConcreteVisitor
+Visitor -> ConcreteVisitor :  resolve_inheritance
+Visitor -> ConcreteVisitor : update(Args)
+ConcreteVisitor ->] : Perform operation
 
 @enduml
