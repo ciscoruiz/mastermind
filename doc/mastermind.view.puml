@@ -62,46 +62,48 @@ package mastermind.view.console {
        void update(ResumeController resumeController)
    }
 
-   interface ActivationEvaluator <<Lambda>>{
-      {abstract} evaluate(PlayController playController)
+   namespace mastermind.view.console.menu {
+      interface ActivationEvaluator <<Lambda>>{
+         {abstract} evaluate(PlayController playController)
+      }
+
+      class MenuConsole {
+         MenuConsole add(Command command)
+         void choose(PlayController playController)
+      }
+      class Command {
+         Command(PlayConsole, character, title, ActivationEvaluator)
+         {abstract} void execute(PlayController playController);
+      }
+
+      MenuConsole *--> Command
+
+      Command <|--- PlayCommand
+      Command <|-- QuitCommand
+      Command <|--- RedoCommand
+      Command <|-- UndoCommand
+      Command *-right-> ActivationEvaluator
+
+      class PlayCommand {
+         void execute(PlayController playController) <b>{ playConsole.play(playController);  }</b>
+      }
+
+      class QuitCommand {
+         void execute(PlayController playController) <b>{ playConsole.quit(playController);  }</b>
+      }
+
+      class RedoCommand {
+         void execute(PlayController playController) <b>{ playConsole.redo(playController);  }</b>
+      }
+
+      class UndoCommand {
+         void execute(PlayController playController) <b>{ playConsole.undo(playController);  }</b>
+      }
    }
 
-   class MenuConsole {
-      MenuConsole add(Command command)
-      void choose(PlayController playController)
-   }
-   class Command {
-      Command(PlayConsole, character, title, ActivationEvaluator)
-      {abstract} void execute(PlayController playController);
-   }
+   mastermind.view.console.menu.MenuConsole *-left-> CharacterReader
 
-   PlayConsole *--> MenuConsole
-
-   MenuConsole *--> Command
-   MenuConsole *-left-> CharacterReader
-
-   Command <|--- PlayCommand
-   Command <|-- QuitCommand
-   Command <|--- RedoCommand
-   Command <|-- UndoCommand
-   Command *-right-> ActivationEvaluator
-
-   class PlayCommand {
-      void execute(PlayController playController) <b>{ playConsole.play(playController);  }</b>
-   }
-
-   class QuitCommand {
-      void execute(PlayController playController) <b>{ playConsole.quit(playController);  }</b>
-   }
-
-   class RedoCommand {
-      void execute(PlayController playController) <b>{ playConsole.redo(playController);  }</b>
-   }
-
-   class UndoCommand {
-      void execute(PlayController playController) <b>{ playConsole.undo(playController);  }</b>
-   }
-
+   PlayConsole *--> mastermind.view.console.menu.MenuConsole
 }
 
 ViewsContainer <|-- ViewsContainerConsole
