@@ -25,7 +25,7 @@ diferentes versiones de MasterMind, ejecutando partes comunes de código. Las pa
   * El paquete _**mastermind.view.console**_ contiene todas las vistas para interactuar con el usuario usando la consola y el teclado.
 
 * El paquete [`mastermind.controller`](#mastermindcontroller)  contiene todas las definiciones abstractas para **Controladores** necesarios para interactuar
-  las diferentes **Vistas **. [[1]](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller) Acepta entrada y
+  las diferentes **Vistas**. [[1]](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller) Acepta entrada y
   lo convierte en comandos para el modelo o la vista. El enfoque principal de estas clases es acceder al **Modelo** de la 
   forma requerida por la vista. Hasta ahora su paquete tiene dos especializaciones diferentes:
   * El paquete _**mastermind.controller.model**_ contiene todos los **Controladores** que interactúan con el modelo. El modelo,
@@ -66,7 +66,23 @@ barras para la gestión y una vista tabular para los contables.
 
 ![system overview](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/ciscoruiz/mastermind/distributed/doc/mastermind.view.puml)
 
+Para relacionar las vistas con los controladores se emplea el patrón [Visitor](https://en.wikipedia.org/wiki/Visitor_pattern). 
+
+La siguiente secuencia de llamadas visualiza la técnica del doble disparo usada para implementar éste patrón y muestra 
+como evolucionan las llamadas desde que se inician en el _**ViewContainer**_ hasta que llegan a ser procesadas por _**ConcreteVisitor**_ correspondiente.
+
+![system overview](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/ciscoruiz/mastermind/distributed/doc/mastermind.visitor.puml)
+
 Las vistas mantienen por completo el [principio de sustitución de Liskov](https://en.wikipedia.org/wiki/Liskov_substitution_principle).
+
+### mastermind.view.menu
+
+La vista _**PlayConsole**_ es la responsable de presentar las opciones y verificar que el usuario elije una opción válida entre todas las
+posible opciones que pueden estar activas.
+
+![system overview](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/ciscoruiz/mastermind/distributed/doc/mastermind.view.menu.puml)
+
+Hay algunas opciones de menú como (Undo/Redo) que sólo estarán disponibles si el correspondiente _**ActivationEvaluator**_ devuelve **true**.
 
 ## mastermind.controller
 
