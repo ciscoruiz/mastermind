@@ -93,7 +93,7 @@ barras para la gestión y una vista tabular para los contables.
 Para relacionar las vistas con los controladores se emplea el patrón [Visitor](https://en.wikipedia.org/wiki/Visitor_pattern). 
 
 La siguiente secuencia de llamadas visualiza la técnica del doble disparo usada para implementar éste patrón y muestra 
-como evolucionan las llamadas desde que se inician en el [ViewsContainer](https://github.com/ciscoruiz/mastermind/blob/distributed/src/com/upm/master/mastermind/view/ViewsContainer.java) 
+como evolucionan las llamadas desde que se inician en el [Controller](https://github.com/ciscoruiz/mastermind/blob/distributed/src/com/upm/master/mastermind/controller/Controller.java)
 hasta que llegan a ser procesadas por el [ConcreteVisitor](https://github.com/ciscoruiz/mastermind/blob/distributed/src/com/upm/master/mastermind/controller/ControllerVisitor.java) 
 correspondiente.
 
@@ -158,6 +158,13 @@ El siguiente diagrama muestra las clases usadas en la aplicación Server y Stand
   especializa su clase base para que las operaciones requeridas se realizen mediante una la interface RMI definida, cada
   uno de estos métodos tendrá que hacer uso de un correspondiente controller que será el que actúe sobre el modelo.
 
+Ambas versiones de la aplicación usan los mismos [ControllerVisitor](https://github.com/ciscoruiz/mastermind/blob/distributed/src/com/upm/master/mastermind/controller/ControllerVisitor.java) 
+y [ControllerVisitor](https://github.com/ciscoruiz/mastermind/blob/distributed/src/com/upm/master/mastermind/controller/ControllerVisitor.java) 
+ya que las vistas tienen que aplicar las mismas operaciones sobre los mismos controladores, lo único que cambia de una versión 
+a otra es la forma de seleccionar el controlador.
+* En la versión Standalone el controlador se elije en base al estado en el que está la aplicación.
+* En la versión Server el controlador viene fijado por cómo se ha tenido que implementar el método concreto de la interfaz RMI.
+
 ![system overview](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/ciscoruiz/mastermind/distributed/doc/mastermind.runtime.overmodel.puml)
 
 ### Clases que trabajan sobre el interfaz RMI
@@ -166,7 +173,7 @@ El siguiente diagrama muestras las clases usadas en la aplicación Client.
 
 La clase [MasterMindClient](https://github.com/ciscoruiz/mastermind/blob/distributed/src/com/upm/master/mastermind/runtime/MasterMindClient.java)
 implementa el interface requerido para instanciar los controladores que trabajan sobre el cliente RMI, además instancia
-y configura el [ViewsContainer](https://github.com/ciscoruiz/mastermind/blob/distributed/src/com/upm/master/mastermind/view/ViewsContainer.java)
+y establece el [ControllerVisitor](https://github.com/ciscoruiz/mastermind/blob/distributed/src/com/upm/master/mastermind/controller/ControllerVisitor.java)
 y el [ControllersContainer](https://github.com/ciscoruiz/mastermind/blob/distributed/src/com/upm/master/mastermind/controller/ControllersContainer.java)
 que recibe una factoría de controladores que realizan sus operaciones mediante las llamadas a la interfaz RMI.
 
