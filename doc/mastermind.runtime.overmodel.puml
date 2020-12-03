@@ -16,6 +16,12 @@ package mastermind.controller {
       class ControllerModelFactory
    }
 
+   class ControllerVisitor {
+      {abstract} void visit(StartController startController);
+      {abstract} void visit(PlayController playController);
+      {abstract} void visit(ResumeController resumeController);
+   }
+
    ControllerAbstractFactory <|-- ControllerModelFactory
 }
 
@@ -47,6 +53,10 @@ package mastermind.rmi {
    }
 }
 
+class MasterMind {
+   {abstract} void play()
+}
+
 package mastermind.runtime {
    class MasterMindOverModel {
       MasterMindOverModel(ViewsContainer viewsContainer)
@@ -56,13 +66,13 @@ package mastermind.runtime {
       StartController startController
       PlayController playController
       ResumeController resumeController
-      __Every method will use one controller__
+      __Every method will use some controller__
    }
 
    MasterMindOverModel <|-- MasterMindStandalone
    MasterMindOverModel <|-- MasterMindServer
 
-   MasterMindServer *--- MasterMindServerOperations
+   MasterMindServer *--left- MasterMindServerOperations
 
    MasterMindOperations <|--- MasterMindServerOperations
 }
@@ -73,21 +83,16 @@ package mastermind.model {
    class State
 }
 
-package mastermind.view {
-   interface ViewsContainer {
-      {abstract}void updateView(Controller controller);
-   }
-}
+MasterMind <|-- MasterMindOverModel
 
-MasterMind <|--- MasterMindOverModel
+MasterMindOverModel *-up-> Game
+MasterMindOverModel *-up-> State
+MasterMindOverModel *-up-> Configuration
 
-MasterMindOverModel *-> Game
-MasterMindOverModel *-> State
-MasterMindOverModel *--> Configuration
-MasterMindOverModel *-left-> ViewsContainer
 MasterMindOverModel *--> ControllerAbstractFactory
+MasterMindOverModel *--> ControllerVisitor
 
-MasterMindStandalone *-down--> ControllersContainer
+MasterMindStandalone *--> ControllersContainer
 
 @enduml
 

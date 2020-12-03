@@ -55,6 +55,9 @@ package mastermind.controller {
       {abstract}void visit(PlayController playController);
       {abstract}void visit(ResumeController resumeController);
    }
+
+   ControllersContainer *-down-> Controller
+   Controller ..left. ControllerVisitor
 }
 
 package mastermind.controller.model {
@@ -128,8 +131,6 @@ package mastermind.controller.rmi {
     PlayController <|-down- PlayRmiController
     ResumeController <|-down- ResumeRmiController
 }
-
-ControllersContainer  *--> Controller
 
 Controller <|-down- StartController
 Controller <|-down- PlayController

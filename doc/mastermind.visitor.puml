@@ -4,22 +4,20 @@ autonumber "<b>[00]"
 MasterMind -> ControllersContainer: getController(State)
 ControllersContainer --> MasterMind: controller
 
-MasterMind -> ViewsContainer: updateView(controller)
-
-participant "ViewsContainerConsole" as ViewsContainerConsole <<ConcreteVisitor>>
-create ViewsContainerConsole
-ViewsContainer -> ViewsContainerConsole : <<resolve_inheritance>>
-ViewsContainer -> ViewsContainerConsole: updateView(controller)
-
 participant "Controller" as Controller <<Element>>
-ViewsContainerConsole -> Controller : accept(this)
+MasterMind -> Controller : accept(controllerVisitor)
 
 participant "ConcreteController" as ConcreteController <<ConcreteElement>>
 create ConcreteController
 Controller -> ConcreteController : <<resolve_inheritance>>
-Controller -> ConcreteController : accept(this)
+Controller -> ConcreteController : accept(controllerVisitor)
 
-ConcreteController -> ViewsContainerConsole : <<resolve_polymorphism>> visit(this)
-ViewsContainerConsole ->] : Perform operation
+participant "ControllerVisitor" as ControllerVisitor <<ConcreteVisitor>>
+
+ConcreteController -> ControllerVisitor : visit(this)
+ControllerVisitor -> ControllerVisitor : <<resolve_polymorphism>> for visit(ConcreteController)
+ControllerVisitor -> ConcreteController : operation-one
+...
+ControllerVisitor -> ConcreteController : operation-N
 
 @enduml

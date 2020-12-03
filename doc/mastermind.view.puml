@@ -1,19 +1,11 @@
 @startuml
 
-package mastermind.view {
-   interface ViewsContainer {
-      {abstract} void updateView(Controller controller)
-   }
-note left: Some MasterMind instance will call <b>ViewsContainer.updateView</b>
-}
-
 package mastermind.view.console {
    class CharacterReader {
        Character apply(Vector<Character> validKeys);
    }
 
-   class ViewsContainerConsole <<ConcreteVisitor>> {
-       void updateView(Controller controller) <b> { controller.accept(this) }</b>
+   class ControllerVisitorConsole <<ConcreteVisitor>> {
        void visit (StartController controller) <b> { startConsole.update(controller) }</b>
        void visit (PlayController controller) <b> { playConsole.update(controller) }</b>
        void visit (ResumeController controller) <b> { resumeConsole.update(controller) }</b>
@@ -28,12 +20,19 @@ package mastermind.view.console {
    class ResumeConsole {
        void update(ResumeController resumeController)
    }
+
+   ControllerVisitorConsole *--> StartConsole : startConsole
+   ControllerVisitorConsole *--> PlayConsole : playConsole
+   ControllerVisitorConsole *-> ResumeConsole : resumeConsole
+
+   PlayConsole --> CharacterReader
+   ResumeConsole --> CharacterReader
 }
 
 package mastermind.controller {
    interface Controller <<Element>>{
       {abstract} void setNextState()
-      {abstract} void accept(ControllerVisitor controllerVisitor)
+      {abstract} void accept(ControllerVisitor visitor)
    }
 
    interface StartController <<ConcreteElement>>
@@ -45,15 +44,15 @@ package mastermind.controller {
    Controller <|-- ResumeController
 
    class StartController {
-      void accept(Controller controller) <b>{controller.visit(this)}</b>
+      void accept(ControllerVisitor visitor) <b>{visitor.visit(this)}</b>
    }
 
    class PlayController {
-      void accept(Controller controller) <b>{controller.visit(this)}</b>
+      void accept(ControllerVisitor visitor) <b>{visitor.visit(this)}</b>
    }
 
    class ResumeController {
-      void accept(Controller controller) <b>{controller.visit(this)}</b>
+      void accept(ControllerVisitor visitor) <b>{visitor.visit(this)}</b>
    }
 
    interface ControllerVisitor <<Visitor>> {
@@ -61,21 +60,10 @@ package mastermind.controller {
       {abstract} void visit(PlayController playController);
       {abstract} void visit(ResumeController resumeController);
    }
+
+   Controller .left. ControllerVisitor
 }
 
-
-ViewsContainer <|-- ViewsContainerConsole
-ControllerVisitor <|-- ViewsContainerConsole
-
-ViewsContainerConsole *--> StartConsole : startConsole
-ViewsContainerConsole *--> PlayConsole : playConsole
-ViewsContainerConsole *--> ResumeConsole : resumeConsole
-
-PlayConsole --> CharacterReader
-ResumeConsole --> CharacterReader
+ControllerVisitor <|-- ControllerVisitorConsole
 
 @enduml
-
-
-
-

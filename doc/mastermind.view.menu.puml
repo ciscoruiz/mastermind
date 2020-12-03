@@ -1,10 +1,7 @@
 @startuml
 
-package mastermind.view {
-interface ViewsContainer {
-   {abstract} void updateView(Controller controller)
-}
-note right: Some MasterMind instance will call <b>ViewsContainer.updateView</b>
+package mastermind.controller {
+   interface ControllerVisitor
 }
 
 package mastermind.view.console {
@@ -12,23 +9,22 @@ package mastermind.view.console {
        Character apply(Vector<Character> validKeys);
    }
 
-   class ViewsContainerConsole {
-       void updateView(Controller controller) <b> { controller.accept(this) }</b>
+   class ControllerVisitorConsole <<ConcreteVisitor>> {
        void visit (StartController controller) <b> { startConsole.update(controller) }</b>
        void visit (PlayController controller) <b> { playConsole.update(controller) }</b>
        void visit (ResumeController controller) <b> { resumeConsole.update(controller) }</b>
    }
 
-   class StartConsole <<ConcreteVisitor>> {
+   class StartConsole  {
        void update(StartController startController)
    }
-   class PlayConsole <<ConcreteVisitor>> {
+   class PlayConsole {
        void update(PlayController playController)
        void play(PlayController playController)
        void undo(PlayController playController)
        void redo(PlayController playController)
    }
-   class ResumeConsole <<ConcreteVisitor>> {
+   class ResumeConsole {
        void update(ResumeController resumeController)
    }
 
@@ -76,12 +72,11 @@ package mastermind.view.console {
    PlayConsole *--> mastermind.view.console.menu.MenuConsole
 }
 
-ViewsContainer <|-- ViewsContainerConsole
-ControllerVisitor <|-- ViewsContainerConsole
+ControllerVisitor <|-- ControllerVisitorConsole
 
-ViewsContainerConsole *--> StartConsole : startConsole
-ViewsContainerConsole *--> PlayConsole : playConsole
-ViewsContainerConsole *--> ResumeConsole : resumeConsole
+ControllerVisitorConsole *--> StartConsole : startConsole
+ControllerVisitorConsole *--> PlayConsole : playConsole
+ControllerVisitorConsole *--> ResumeConsole : resumeConsole
 
 PlayConsole --> CharacterReader
 ResumeConsole --> CharacterReader

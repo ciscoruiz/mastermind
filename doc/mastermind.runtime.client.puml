@@ -1,11 +1,5 @@
 @startuml
 
-package mastermind.view {
-   interface ViewsContainer {
-      {abstract}void updateView(Controller controller);
-   }
-}
-
 package mastermind.controller {
    class ControllersContainer {
       ControllersContainer(ControllerAbstractFactory)
@@ -16,6 +10,12 @@ package mastermind.controller {
       {abstract}StartController createStartController();
       {abstract}PlayController createPlayController();
       {abstract}ResumeController createResumeController();
+   }
+
+   class ControllerVisitor {
+      {abstract}void visit(StartController startController);
+      {abstract}void visit(PlayController playController);
+      {abstract}void visit(ResumeController resumeController);
    }
 
    package rmi {
@@ -53,13 +53,17 @@ package mastermind.rmi {
    }
 }
 
+class MasterMind {
+   {abstract} void play()
+}
+
 package mastermind.runtime {
-   MasterMindClient *-left-> MasterMindOperations
+   MasterMindClient *-> MasterMindOperations
 }
 
 MasterMind <|-down- MasterMindClient
 
-MasterMindClient *-right-> ViewsContainer
+MasterMindClient *-right-> ControllerVisitor
 MasterMindClient *-down-> ControllersContainer
 MasterMindClient *-down-> ControllerAbstractFactory
 
