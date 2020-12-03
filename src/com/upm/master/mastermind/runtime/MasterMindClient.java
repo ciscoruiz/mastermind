@@ -1,11 +1,11 @@
 package com.upm.master.mastermind.runtime;
 
 import com.upm.master.mastermind.MasterMind;
+import com.upm.master.mastermind.controller.ControllerVisitor;
 import com.upm.master.mastermind.controller.ControllersContainer;
 import com.upm.master.mastermind.controller.rmi.ControllerRmiFactory;
 import com.upm.master.mastermind.rmi.MasterMindOperations;
-import com.upm.master.mastermind.view.ViewsContainer;
-import com.upm.master.mastermind.view.console.ViewsContainerConsole;
+import com.upm.master.mastermind.view.console.ControllerVisitorConsole;
 
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
@@ -13,12 +13,12 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 
 public class MasterMindClient implements MasterMind {
-   private ViewsContainer viewsContainer;
+   private ControllerVisitor controllerVisitor;
    private MasterMindOperations masterMindOperations;
    private ControllersContainer controllersContainer;
 
    static public MasterMind create() {
-      ViewsContainer viewsContainer = new ViewsContainerConsole();
+      ControllerVisitor controllerVisitor = new ControllerVisitorConsole();
       Registry registry = null;
 
       try {
@@ -42,11 +42,11 @@ public class MasterMindClient implements MasterMind {
 
       System.out.println("Client connected to " + MasterMindOperations.SERVICE_NAME + ":" + MasterMindOperations.PORT);
 
-      return new MasterMindClient(viewsContainer, masterMindOperations);
+      return new MasterMindClient(controllerVisitor, masterMindOperations);
    }
 
-   private MasterMindClient(ViewsContainer viewsContainer, MasterMindOperations masterMindOperations) {
-      this.viewsContainer = viewsContainer;
+   private MasterMindClient(ControllerVisitor controllerVisitor, MasterMindOperations masterMindOperations) {
+      this.controllerVisitor = controllerVisitor;
       this.masterMindOperations = masterMindOperations;
       this.controllersContainer = new ControllersContainer(new ControllerRmiFactory(masterMindOperations));
    }
@@ -55,7 +55,7 @@ public class MasterMindClient implements MasterMind {
       try {
          masterMindOperations.reset();
          while (masterMindOperations.stateEnablesContinuePlaying()) {
-            viewsContainer.updateView(controllersContainer.getController(masterMindOperations.getState()));
+            controllersContainer.getController(masterMindOperations.getState()).accept(controllerVisitor);
          }
       }
       catch (RemoteException e) {

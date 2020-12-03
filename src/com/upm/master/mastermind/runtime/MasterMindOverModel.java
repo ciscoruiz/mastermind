@@ -2,19 +2,19 @@ package com.upm.master.mastermind.runtime;
 
 import com.upm.master.mastermind.MasterMind;
 import com.upm.master.mastermind.controller.ControllerAbstractFactory;
+import com.upm.master.mastermind.controller.ControllerVisitor;
 import com.upm.master.mastermind.controller.model.ControllerModelFactory;
 import com.upm.master.mastermind.model.*;
-import com.upm.master.mastermind.view.ViewsContainer;
 
 public abstract class MasterMindOverModel implements MasterMind {
-   protected ViewsContainer viewsContainer;
+   protected ControllerVisitor controllerVisitor;
    protected Game game;
    protected State state = new State();
    protected GameHistoryKeeper gameHistoryKeeper;
    protected ControllerAbstractFactory controllerFactory;
 
-   MasterMindOverModel(ViewsContainer viewsContainer) {
-      this.viewsContainer = viewsContainer;
+   MasterMindOverModel(ControllerVisitor controllerVisitor) {
+      this.controllerVisitor = controllerVisitor;
       this.game = new Game(createHardcodedConfiguration());
       this.gameHistoryKeeper = new GameHistoryKeeper(game);
       this.controllerFactory = new ControllerModelFactory(game, state, gameHistoryKeeper);

@@ -1,26 +1,26 @@
 package com.upm.master.mastermind.runtime;
 
 import com.upm.master.mastermind.MasterMind;
+import com.upm.master.mastermind.controller.ControllerVisitor;
 import com.upm.master.mastermind.controller.ControllersContainer;
-import com.upm.master.mastermind.view.ViewsContainer;
-import com.upm.master.mastermind.view.console.ViewsContainerConsole;
+import com.upm.master.mastermind.view.console.ControllerVisitorConsole;
 
 public class MasterMindStandalone extends MasterMindOverModel {
    private ControllersContainer controllersContainer;
 
    static public MasterMind create() {
-      ViewsContainer viewsContainer = new ViewsContainerConsole();
-      return new MasterMindStandalone(viewsContainer);
+      ControllerVisitor controllerVisitor = new ControllerVisitorConsole();
+      return new MasterMindStandalone(controllerVisitor);
    }
 
-   private MasterMindStandalone(ViewsContainer viewsContainer) {
-      super(viewsContainer);
+   private MasterMindStandalone(ControllerVisitor controllerVisitor) {
+      super(controllerVisitor);
       this.controllersContainer = new ControllersContainer(controllerFactory);
    }
 
    public void play() {
       while (state.continuePlaying()) {
-         viewsContainer.updateView(controllersContainer.getController(state));
+         controllersContainer.getController(state).accept(controllerVisitor);
       }
    }
 }

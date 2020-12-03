@@ -1,20 +1,20 @@
 package com.upm.master.mastermind.runtime;
 
 import com.upm.master.mastermind.MasterMind;
+import com.upm.master.mastermind.controller.ControllerVisitor;
 import com.upm.master.mastermind.rmi.MasterMindOperations;
-import com.upm.master.mastermind.view.ViewsContainer;
-import com.upm.master.mastermind.view.console.ViewsContainerConsole;
+import com.upm.master.mastermind.view.console.ControllerVisitorConsole;
 
 import java.rmi.registry.Registry;
 
 public class MasterMindServer extends MasterMindOverModel {
    static public MasterMind create() {
-      ViewsContainer viewsContainer = new ViewsContainerConsole();
-      return new MasterMindServer(viewsContainer);
+      ControllerVisitor controllerVisitor = new ControllerVisitorConsole();
+      return new MasterMindServer(controllerVisitor);
    }
 
-   private MasterMindServer(ViewsContainer viewsContainer) {
-      super(viewsContainer);
+   private MasterMindServer(ControllerVisitor controllerVisitor) {
+      super(controllerVisitor);
    }
 
    public void play() {
