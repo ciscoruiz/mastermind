@@ -1,0 +1,59 @@
+@startuml
+
+package mastermind.model {
+    class Game
+    class State
+}
+
+package mastermind.controller {
+   interface Controller {
+      {abstract} void setNextState()
+      {abstract} void accept(ControllerVisitor controllerVisitor)
+   }
+
+   interface ControllerAbstractFactory <<Abstract Factory>> {
+      {abstract}StartController createStartController();
+      {abstract}PlayController createPlayController();
+      {abstract}ResumeController createResumeController();
+   }
+
+   interface StartController
+   interface PlayController
+   interface ResumeController
+
+   Controller <|-down-- StartController
+   Controller <|-down- PlayController
+   Controller <|-down- ResumeController
+}
+
+package mastermind.controller.model {
+   class ModelController {
+      ModelController(Game game, State state)
+      void setNextState()
+   }
+   ModelController -up-> Game
+   ModelController -up-> State
+
+   class StarModelController
+   class PlayModelController
+   class ResumeModelController
+
+   ControllerAbstractFactory <|-- ControllerModelFactory
+
+   ModelController <|-down-- StarModelController
+   ModelController <|-down- PlayModelController
+   ModelController <|-down-- ResumeModelController
+
+   StartController <|-down- StarModelController
+   PlayController <|-down- PlayModelController
+   ResumeController <|-down- ResumeModelController
+
+   ControllerModelFactory .up. StarModelController
+   ControllerModelFactory .up. PlayModelController
+   ControllerModelFactory .up. ResumeModelController
+}
+
+Controller <|-down- ModelController
+
+@enduml
+

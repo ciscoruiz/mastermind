@@ -1,0 +1,82 @@
+@startuml
+
+package mastermind.controller {
+   interface Controller {
+      {abstract} void setNextState()
+      {abstract} void accept(ControllerVisitor controllerVisitor)
+   }
+
+   interface ControllerAbstractFactory <<Abstract Factory>> {
+      {abstract}StartController createStartController();
+      {abstract}PlayController createPlayController();
+      {abstract}ResumeController createResumeController();
+   }
+
+   interface StartController
+
+   interface PlayController
+
+   interface ResumeController
+
+   Controller <|-- StartController
+   Controller <|-- PlayController
+   Controller <|-- ResumeController
+}
+
+package mastermind.controller.rmi {
+   interface  mastermind.rmi.MasterMindOperations {
+      {abstract}void setNextState()
+      {abstract}boolean stateEnablesContinuePlaying()
+      {abstract}State getState()
+      {abstract}void reset()
+      {abstract}void initializeGame()
+      {abstract}Code getSecretCode()
+      {abstract}boolean continueGame()
+      {abstract}Response evaluate(Code guessCode)
+      {abstract}ValidFigures getValidFigures()
+      {abstract}int getAttempt()
+      {abstract}int getMaxAttempt()
+      {abstract}void codeBreakerWins()
+      {abstract}void codeMakerWins()
+      {abstract}void registry()
+      {abstract}void undo()
+      {abstract}void redo()
+      {abstract}void quit()
+      {abstract}boolean codeDiscovered()
+      {abstract}boolean isAborted()
+      {abstract}boolean canApplyUndo()
+      {abstract}boolean canApplyRedo()
+      {abstract}void resume()
+      {abstract}void stop()
+   }
+   class RmiController {
+      #MasterMindOperations masterMindOperations
+      RmiController(RmiController(MasterMindOperations)
+   }
+
+   RmiController *-up-> mastermind.rmi.MasterMindOperations
+
+   class StarRmiController
+   class PlayRmiController
+   class ResumeRmiController
+
+   ControllerAbstractFactory <|-- ControllerRmiFactory
+
+   ControllerRmiFactory .up. StarRmiController
+   ControllerRmiFactory .up. PlayRmiController
+   ControllerRmiFactory .up. ResumeRmiController
+
+   RmiController <|-down-- StarRmiController
+   RmiController <|-down- PlayRmiController
+   RmiController <|-down-- ResumeRmiController
+
+   StartController <|-down- StarRmiController
+   PlayController <|-down- PlayRmiController
+   ResumeController <|-down- ResumeRmiController
+}
+
+
+Controller <|-down- RmiController
+
+@enduml
+

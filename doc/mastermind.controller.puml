@@ -1,10 +1,5 @@
 @startuml
 
-package mastermind.model {
-    class Game
-    class State
-}
-
 package mastermind.controller {
    interface Controller {
       {abstract} void setNextState()
@@ -23,31 +18,31 @@ package mastermind.controller {
    }
 
    interface StartController {
-      void initializeGame();
-      Code getSecretCode();
+      {abstract}void initializeGame();
+      {abstract}Code getSecretCode();
    }
 
    interface PlayController {
-       boolean continueGame();
-       Response evaluate(Code guessCode);
-       ValidFigures getValidFigures();
-       int getAttempt();
-       int getMaxAttempt();
-       void codeBreakerWins();
-       void codeMakerWins();
-       void registry();
-       void undo();
-       void redo();
-       void quit();
-       boolean codeDiscovered();
-       boolean isAborted();
-       boolean canApplyUndo();
-       boolean canApplyRedo();
+       {abstract}boolean continueGame();
+       {abstract}Response evaluate(Code guessCode);
+       {abstract}ValidFigures getValidFigures();
+       {abstract}int getAttempt();
+       {abstract}int getMaxAttempt();
+       {abstract}void codeBreakerWins();
+       {abstract}void codeMakerWins();
+       {abstract}void registry();
+       {abstract}void undo();
+       {abstract}void redo();
+       {abstract}void quit();
+       {abstract}boolean codeDiscovered();
+       {abstract}boolean isAborted();
+       {abstract}boolean canApplyUndo();
+       {abstract}boolean canApplyRedo();
    }
 
    interface ResumeController {
-      void resume();
-      void stop();
+      {abstract}void resume();
+      {abstract}void stop();
    }
 
    interface ControllerVisitor {
@@ -58,90 +53,19 @@ package mastermind.controller {
 
    ControllersContainer *-down-> Controller
    Controller ..left. ControllerVisitor
+
+   Controller <|-down- StartController
+   Controller <|-down- PlayController
+   Controller <|-down- ResumeController
+
+   ControllerVisitor -[dashed]-> StartController
+   ControllerVisitor -[dashed]-> PlayController
+   ControllerVisitor -[dashed]-> ResumeController
+
+   ControllerAbstractFactory .up.  StartController
+   ControllerAbstractFactory .up.  PlayController
+   ControllerAbstractFactory .up.  ResumeController
 }
-
-package mastermind.controller.model {
-    class ModelController {
-       void setNextState()
-    }
-    note right: Performs operations based on Game and State
-    ModelController -up-> Game
-    ModelController -up-> State
-
-    class StarModelController
-    class PlayModelController
-    class ResumeModelController
-
-    ControllerAbstractFactory <|-- ControllerModelFactory
-
-    ModelController <|-down-- StarModelController
-    ModelController <|-down- PlayModelController
-    ModelController <|-down-- ResumeModelController
-
-    StartController <|-down- StarModelController
-    PlayController <|-down- PlayModelController
-    ResumeController <|-down- ResumeModelController
-}
-
-package mastermind.controller.rmi {
-    class RmiController {
-       void setNextState()
-    }
-    note left: Performs operations based on RMI interface
-
-    interface  mastermind.rmi.MasterMindOperations {
-       {abstract}void setNextState()
-       {abstract}boolean stateEnablesContinuePlaying()
-       {abstract}State getState()
-       {abstract}void reset()
-       {abstract}void initializeGame()
-       {abstract}Code getSecretCode()
-       {abstract}boolean continueGame()
-       {abstract}Response evaluate(Code guessCode)
-       {abstract}ValidFigures getValidFigures()
-       {abstract}int getAttempt()
-       {abstract}int getMaxAttempt()
-       {abstract}void codeBreakerWins()
-       {abstract}void codeMakerWins()
-       {abstract}void registry()
-       {abstract}void undo()
-       {abstract}void redo()
-       {abstract}void quit()
-       {abstract}boolean codeDiscovered()
-       {abstract}boolean isAborted()
-       {abstract}boolean canApplyUndo()
-       {abstract}boolean canApplyRedo()
-       {abstract}void resume()
-       {abstract}void stop()
-    }
-
-    RmiController *-up-> mastermind.rmi.MasterMindOperations
-
-    class StarRmiController
-    class PlayRmiController
-    class ResumeRmiController
-
-    ControllerAbstractFactory <|-- ControllerRmiFactory
-
-    RmiController <|-down-- StarRmiController
-    RmiController <|-down- PlayRmiController
-    RmiController <|-down-- ResumeRmiController
-
-    StartController <|-down- StarRmiController
-    PlayController <|-down- PlayRmiController
-    ResumeController <|-down- ResumeRmiController
-}
-
-Controller <|-down- StartController
-Controller <|-down- PlayController
-Controller <|-down- ResumeController
-
-Controller <|-down- ModelController
-Controller <|-down- RmiController
-
-ControllerVisitor -[dashed]-> StartController
-ControllerVisitor -[dashed]-> PlayController
-ControllerVisitor -[dashed]-> ResumeController
 
 @enduml
 
