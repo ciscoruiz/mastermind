@@ -59,26 +59,28 @@ directamente los datos, la lógica y reglas de la aplicación. Las clases [maste
 y [mastermind.model.State](https://github.com/ciscoruiz/mastermind/blob/distributed/src/com/upm/master/mastermind/model/State.java) 
 podrían considerarse como las clases más importantes para este paquete.
 
-![system overview](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/ciscoruiz/mastermind/distributed/doc/mastermind.model.puml)
-
-Las clases mostradas en el diagrama son:
-* [Game](https://github.com/ciscoruiz/mastermind/blob/distributed/src/com/upm/master/mastermind/model/Game.java): contiene 
+Las clases contenidas en este paquete son las siguientes:
+* [Game](https://github.com/ciscoruiz/mastermind/blob/distributed/src/com/upm/master/mastermind/model/Game.java): contiene
   todos los detalles referentes al juego en curso, como número de reintentos, número máximo de reintentos, etc
-* [Configuration](https://github.com/ciscoruiz/mastermind/blob/distributed/src/com/upm/master/mastermind/model/Configuration.java): 
+* [Configuration](https://github.com/ciscoruiz/mastermind/blob/distributed/src/com/upm/master/mastermind/model/Configuration.java):
   establece los parámetros del juego, como las letras válidas para formar los códigos a descubrir, nº de reintentos.
-* Mediante el valor de [State](https://github.com/ciscoruiz/mastermind/blob/distributed/src/com/upm/master/mastermind/model/State.java) 
+* Mediante el valor de [State](https://github.com/ciscoruiz/mastermind/blob/distributed/src/com/upm/master/mastermind/model/State.java)
   se establece el vínculo apropiado entre una Vista y un Controlador. Cada valor de [State](https://github.com/ciscoruiz/mastermind/blob/distributed/src/com/upm/master/mastermind/model/State.java)
   tendrá asociado un controlador, que recibirá las operaciones de la vista en curso.
-* [CodeMaker](https://github.com/ciscoruiz/mastermind/blob/distributed/src/com/upm/master/mastermind/model/CodeMaker.java): 
-  genera el código secreto [Code](https://github.com/ciscoruiz/mastermind/blob/distributed/src/com/upm/master/mastermind/model/Code.java) 
-  que el usuario del juego debe descubrir, además evalúa la calidad de las claves  que el usuario va seleccionando. 
+* [CodeMaker](https://github.com/ciscoruiz/mastermind/blob/distributed/src/com/upm/master/mastermind/model/CodeMaker.java):
+  genera el código secreto [Code](https://github.com/ciscoruiz/mastermind/blob/distributed/src/com/upm/master/mastermind/model/Code.java)
+  que el usuario del juego debe descubrir, además evalúa la calidad de las claves  que el usuario va seleccionando.
   La evaluación de la clave se devolverá como una instancia de [Response](https://github.com/ciscoruiz/mastermind/blob/distributed/src/com/upm/master/mastermind/model/Response.java)
   a la que se puede interrogar sobre si el código ha sido descubierto o en qué modo faltan partes por descubrir.
-* [ValidFigures](https://github.com/ciscoruiz/mastermind/blob/distributed/src/com/upm/master/mastermind/model/ValidFigures.java): 
-  contiene la lista de caracteres válidos para generar/descubrir la clave secreta.   
+* [ValidFigures](https://github.com/ciscoruiz/mastermind/blob/distributed/src/com/upm/master/mastermind/model/ValidFigures.java):
+  contiene la lista de caracteres válidos para generar/descubrir la clave secreta.
 * [GameHistoryKeeper](https://github.com/ciscoruiz/mastermind/blob/distributed/src/com/upm/master/mastermind/model/GameHistoryKeeper.java)
-  y [Game.Memento](https://github.com/ciscoruiz/mastermind/blob/ead474cbbe7370310082ae1a40787709aa77bb1d/src/com/upm/master/mastermind/model/Game.java#L9) 
+  y [Game.Memento](https://github.com/ciscoruiz/mastermind/blob/ead474cbbe7370310082ae1a40787709aa77bb1d/src/com/upm/master/mastermind/model/Game.java#L9)
   son las clases usadas para implementar el [patrón memento](https://en.wikipedia.org/wiki/Memento_pattern).
+
+En el siguiente diagrama se muestran los métodos más relevantes y las relaciones entre clases:
+
+![system overview](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/ciscoruiz/mastermind/distributed/doc/mastermind.model.puml)
 
 ## mastermind.view
 
@@ -101,27 +103,25 @@ Las vistas mantienen por completo el [principio de sustitución de Liskov](https
 
 ### mastermind.view.console
 
+El componente [PlayConsole](https://github.com/ciscoruiz/mastermind/blob/distributed/src/com/upm/master/mastermind/view/console/PlayConsole.java)
+es el responsable de invocar al [MenuConsole](https://github.com/ciscoruiz/mastermind/blob/distributed/src/com/upm/master/mastermind/view/console/menu/MenuConsole.java)
+, éste es el encargado de gestionar las opciones y verificar que el usuario elija una opción válida entre todas las posibles
+opciones que pueden estar activas. Hay algunas opciones de menú como (Undo/Redo) que sólo estarán disponibles si el
+correspondiente [ActivationEvaluator](https://github.com/ciscoruiz/mastermind/blob/ead474cbbe7370310082ae1a40787709aa77bb1d/src/com/upm/master/mastermind/view/console/menu/Command.java#L7)
+devuelve **true**.
+
 El siguiente diagrama muestras las clases requeridas para interactuar con el usuario mediante la consola y el teclado.
 
 ![system overview](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/ciscoruiz/mastermind/distributed/doc/mastermind.view.menu.puml)
-
-El componente [PlayConsole](https://github.com/ciscoruiz/mastermind/blob/distributed/src/com/upm/master/mastermind/view/console/PlayConsole.java) 
-es el responsable de invocar al [MenuConsole](https://github.com/ciscoruiz/mastermind/blob/distributed/src/com/upm/master/mastermind/view/console/menu/MenuConsole.java)
-, éste es el encargado de gestionar las opciones y verificar que el usuario elija una opción válida entre todas las posibles 
-opciones que pueden estar activas. Hay algunas opciones de menú como (Undo/Redo) que sólo estarán disponibles si el 
-correspondiente [ActivationEvaluator](https://github.com/ciscoruiz/mastermind/blob/ead474cbbe7370310082ae1a40787709aa77bb1d/src/com/upm/master/mastermind/view/console/menu/Command.java#L7)
-devuelve **true**.
 
 Las opciones de menú se han implementado siguiente el patrón [Command](https://en.wikipedia.org/wiki/Command_pattern).
 
 ## mastermind.controller
 
-The **Controller**[[1]](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller) acepta la entrada y lo convierte 
+The **Controller**[[1]](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller) acepta la entrada y la convierte 
 en comandos para el modelo o la vista.
 
-![system overview](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/ciscoruiz/mastermind/distributed/doc/mastermind.controller.puml)
-
-En el diagrama de clases se puede apreciar que hay tres partes totalmente definidas. El paquete con las clases abstractas 
+En el diagrama de clases se puede apreciar que hay tres partes totalmente definidas. El paquete con las clases abstractas
 que sólo definen las interfaces que serán usadas por el resto de la aplicación, el paquete de controladores que trabajan
 directamente sobre las clases del modelo y el paquete de controladores que usan peticiones RMI para acceder a las diferentes
 operaciones que se pueden realizar sobre el modelo.
@@ -131,42 +131,45 @@ que implementa el patrón [Abstract Factory](https://en.wikipedia.org/wiki/Abstr
 para facilitar la instanciación de los distintos controladores necesarios para cada una de las aplicaciones que podemos
 ejecutar.
 
-Los controladores del paquete [mastermind.controller.model](https://github.com/ciscoruiz/mastermind/tree/distributed/src/com/upm/master/mastermind/controller/model) 
-será usados por las aplicaciones Standalone y por la parte Server de la aplicación distribuida. 
+Los controladores del paquete [mastermind.controller.model](https://github.com/ciscoruiz/mastermind/tree/distributed/src/com/upm/master/mastermind/controller/model)
+será usados por las aplicaciones Standalone y por la parte Server de la aplicación distribuida.
 
-Los controladores del paquete [mastermind.controller.rmi](https://github.com/ciscoruiz/mastermind/tree/distributed/src/com/upm/master/mastermind/controller/rmi) 
+Los controladores del paquete [mastermind.controller.rmi](https://github.com/ciscoruiz/mastermind/tree/distributed/src/com/upm/master/mastermind/controller/rmi)
 serán usados por la parte Cliente de la aplicación distribuida.
+
+![system overview](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/ciscoruiz/mastermind/distributed/doc/mastermind.controller.puml)
 
 ## mastermind.runtime
 
+### Clases que trabajan sobre el modelo
 Este paquete contiene las diferentes implementaciones para la interfaz [Mastermind](https://github.com/ciscoruiz/mastermind/blob/distributed/src/com/upm/master/mastermind/MasterMind.java) 
 (Cliente, Servidor y Standalone).
 
 El siguiente diagrama muestra las clases usadas en la aplicación Server y Standalone:
+* El interface [Mastermind](https://github.com/ciscoruiz/mastermind/blob/distributed/src/com/upm/master/mastermind/MasterMind.java)
+  establece cómo se realiza la ejecución del juego.
+* La clase [MasterMindOverModel](https://github.com/ciscoruiz/mastermind/blob/distributed/src/com/upm/master/mastermind/runtime/MasterMindOverModel.java)
+  implementa el interface requerido para instanciar los controladores que trabajan directamente sobre el modelo, además
+  instancia las clases requeridas por el modelo,
+* La clase [MasterMindStandalone](https://github.com/ciscoruiz/mastermind/blob/distributed/src/com/upm/master/mastermind/runtime/MasterMindStandalone.java)
+  especializa su clase base para ejecutar todo el código en un mismo programa. Configura la clase [ControllersContainer](https://github.com/ciscoruiz/mastermind/blob/distributed/src/com/upm/master/mastermind/controller/ControllersContainer.java)
+  para que el Modelo-Vista-Controlador se desarrolle correctamente.
+* La clase [MasterMindServer](https://github.com/ciscoruiz/mastermind/blob/distributed/src/com/upm/master/mastermind/runtime/MasterMindServer.java)
+  especializa su clase base para que las operaciones requeridas se realizen mediante una la interface RMI definida, cada
+  uno de estos métodos tendrá que hacer uso de un correspondiente controller que será el que actúe sobre el modelo.
 
 ![system overview](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/ciscoruiz/mastermind/distributed/doc/mastermind.runtime.overmodel.puml)
 
-Las clases mostradas en el diagrama son:
-* El interface [Mastermind](https://github.com/ciscoruiz/mastermind/blob/distributed/src/com/upm/master/mastermind/MasterMind.java)
-  establece cómo se realiza la ejecución del juego.
-* La clase [MasterMindOverModel](https://github.com/ciscoruiz/mastermind/blob/distributed/src/com/upm/master/mastermind/runtime/MasterMindOverModel.java) 
-  implementa el interface requerido para instanciar los controladores que trabajan directamente sobre el modelo, además 
-  instancia las clases requeridas por el modelo,
-* La clase [MasterMindStandalone](https://github.com/ciscoruiz/mastermind/blob/distributed/src/com/upm/master/mastermind/runtime/MasterMindStandalone.java)
-  especializa su clase base para ejecutar todo el código en un mismo programa. Configura la clase [ControllersContainer](https://github.com/ciscoruiz/mastermind/blob/distributed/src/com/upm/master/mastermind/controller/ControllersContainer.java) 
-  para que el Modelo-Vista-Controlador se desarrolle correctamente.
-* La clase [MasterMindServer](https://github.com/ciscoruiz/mastermind/blob/distributed/src/com/upm/master/mastermind/runtime/MasterMindServer.java)
-  especializa su clase base para que las operaciones requeridas se realizen mediante una la interface RMI definida, cada 
-  uno de estos métodos tendrá que hacer uso de un correspondiente controller que será el que actúe sobre el modelo.
-  
-El siguiente diagrama muestras las clases usadas en la aplicación Client:
+### Clases que trabajan sobre el interfaz RMI
 
-![system overview](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/ciscoruiz/mastermind/distributed/doc/mastermind.runtime.client.puml)
+El siguiente diagrama muestras las clases usadas en la aplicación Client.
 
-La clase [MasterMindClient](https://github.com/ciscoruiz/mastermind/blob/distributed/src/com/upm/master/mastermind/runtime/MasterMindClient.java) 
-implementa el interface requerido para instanciar los controladores que trabajan sobre el cliente RMI, además instancia 
+La clase [MasterMindClient](https://github.com/ciscoruiz/mastermind/blob/distributed/src/com/upm/master/mastermind/runtime/MasterMindClient.java)
+implementa el interface requerido para instanciar los controladores que trabajan sobre el cliente RMI, además instancia
 y configura el [ViewsContainer](https://github.com/ciscoruiz/mastermind/blob/distributed/src/com/upm/master/mastermind/view/ViewsContainer.java)
 y el [ControllersContainer](https://github.com/ciscoruiz/mastermind/blob/distributed/src/com/upm/master/mastermind/controller/ControllersContainer.java)
 que recibe una factoría de controladores que realizan sus operaciones mediante las llamadas a la interfaz RMI.
+
+![system overview](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/ciscoruiz/mastermind/distributed/doc/mastermind.runtime.client.puml)
 
 Los controladores usados por este módulo transfieren todas sus operaciones al interfaz RMI que han recibido en su constructor.
