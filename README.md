@@ -94,7 +94,7 @@ Para relacionar las vistas con los controladores se emplea el patrón [Visitor](
 
 La siguiente secuencia de llamadas visualiza la técnica del doble disparo usada para implementar éste patrón y muestra 
 como evolucionan las llamadas desde que se inician en el [Controller](https://github.com/ciscoruiz/mastermind/blob/distributed/src/com/upm/master/mastermind/controller/Controller.java)
-hasta que llegan a ser procesadas por el [ConcreteVisitor](https://github.com/ciscoruiz/mastermind/blob/distributed/src/com/upm/master/mastermind/controller/ControllerVisitor.java) 
+hasta que llegan a ser procesadas por el [ControllerVisitor](https://github.com/ciscoruiz/mastermind/blob/distributed/src/com/upm/master/mastermind/controller/ControllerVisitor.java) 
 correspondiente.
 
 ![system overview](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/ciscoruiz/mastermind/distributed/doc/mastermind.visitor.puml)
@@ -102,6 +102,10 @@ correspondiente.
 Las vistas mantienen por completo el [principio de sustitución de Liskov](https://en.wikipedia.org/wiki/Liskov_substitution_principle).
 
 ### mastermind.view.console
+
+Una vez que el [ControllerVisitorConsole](https://github.com/ciscoruiz/mastermind/blob/distributed/src/com/upm/master/mastermind/view/console/ControllerVisitorConsole.java) 
+actuando como **ConcreteVisitor** recibe la petición de acceso, éste se progresa hacia un manejador dedicado que será el 
+que haga de intermediario entre el usuario y el UI presentado en pantalla. 
 
 El componente [PlayConsole](https://github.com/ciscoruiz/mastermind/blob/distributed/src/com/upm/master/mastermind/view/console/PlayConsole.java)
 es el responsable de invocar al [MenuConsole](https://github.com/ciscoruiz/mastermind/blob/distributed/src/com/upm/master/mastermind/view/console/menu/MenuConsole.java)
@@ -131,13 +135,52 @@ que implementa el patrón [Abstract Factory](https://en.wikipedia.org/wiki/Abstr
 para facilitar la instanciación de los distintos controladores necesarios para cada una de las aplicaciones que podemos
 ejecutar.
 
+Las clases contenidas en este paquete
+* [Controller](https://github.com/ciscoruiz/mastermind/blob/distributed/src/com/upm/master/mastermind/controller/Controller.java)
+  es una de las piezas fundamentales que facilita el desarrollo de la aplicación. En el patrón [Visitor](https://en.wikipedia.org/wiki/Visitor_pattern)
+  actúa como *Element* del sistema de mensajes. Todos los **Controllers** deberán implementar el método 'accept(ControllerVisitor)'.
+* [ControllerVisitor](https://github.com/ciscoruiz/mastermind/blob/distributed/src/com/upm/master/mastermind/controller/ControllerVisitor.java)
+intertace que deben implementar los **Visitors** para gestionar las operaciones requeridas.
+* [ControllersContainer](https://github.com/ciscoruiz/mastermind/blob/distributed/src/com/upm/master/mastermind/controller/ControllersContainer.java)
+establece una asociación unívoca entre el [State](https://github.com/ciscoruiz/mastermind/blob/distributed/src/com/upm/master/mastermind/model/State.java)
+  de la aplicación y el [Controller](https://github.com/ciscoruiz/mastermind/blob/distributed/src/com/upm/master/mastermind/controller/Controller.java)
+  que se debe usar en cada caso. Sólo es usado por la aplicación **Client** y la aplicación **Standalone**. Para instanciar
+  los objetos que tiene que guardar hará uso de una [ControllerAbstractFactory](https://github.com/ciscoruiz/mastermind/blob/distributed/src/com/upm/master/mastermind/controller/ControllerAbstractFactory.java)
+  que recibirá como parámetro.
+* [ControllerAbstractFactory](https://github.com/ciscoruiz/mastermind/blob/distributed/src/com/upm/master/mastermind/controller/ControllerAbstractFactory.java)
+  interfaz genérica que permitirá conseguir los distintos tipos de controladores requeridos por la aplicación, pero sin 
+  conocer el tipo particular de controlador. 
+
+![system overview](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/ciscoruiz/mastermind/distributed/doc/mastermind.controller.puml)
+
+### mastermind.controller.model
+
 Los controladores del paquete [mastermind.controller.model](https://github.com/ciscoruiz/mastermind/tree/distributed/src/com/upm/master/mastermind/controller/model)
 será usados por las aplicaciones Standalone y por la parte Server de la aplicación distribuida.
+
+La particularidad que tiene los controladores de este paquete es que heredan de la clase base [ModelController](https://github.com/ciscoruiz/mastermind/blob/distributed/src/com/upm/master/mastermind/controller/model/ModelController.java)
+que tiene acceso a los objetos más relevantes del [Modelo](https://github.com/ciscoruiz/mastermind/tree/distributed/src/com/upm/master/mastermind/model)
+y por tanto sabe cómo cambiar de estado usando el [State](https://github.com/ciscoruiz/mastermind/blob/distributed/src/com/upm/master/mastermind/model/State.java).
+
+Especializa la factoría de controladores mediante la clase [ControllerModelFactory](https://github.com/ciscoruiz/mastermind/blob/distributed/src/com/upm/master/mastermind/controller/model/ControllerModelFactory.java)
+que instancia cada uno los tipos de controlador requerido en cada método de la factoría.
+
+![system overview](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/ciscoruiz/mastermind/distributed/doc/mastermind.controller.model.puml)
+
+### mastermind.controller.rmi
 
 Los controladores del paquete [mastermind.controller.rmi](https://github.com/ciscoruiz/mastermind/tree/distributed/src/com/upm/master/mastermind/controller/rmi)
 serán usados por la parte Cliente de la aplicación distribuida.
 
-![system overview](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/ciscoruiz/mastermind/distributed/doc/mastermind.controller.puml)
+La particularidad que tiene los controladores de este paquete es que heredan de la clase base [RmiController](https://github.com/ciscoruiz/mastermind/blob/distributed/src/com/upm/master/mastermind/controller/rmi/RmiController.java)
+que tiene acceso la interfaz [RMI-cliente](https://github.com/ciscoruiz/mastermind/blob/distributed/src/com/upm/master/mastermind/rmi/MasterMindOperations.java) 
+que será usada para enviar las peticiones requeridas para desarrollar el juevo.
+
+Especializa la factoría de controladores mediante la clase [ControllerRmiFactory](https://github.com/ciscoruiz/mastermind/blob/distributed/src/com/upm/master/mastermind/controller/rmi/ControllerRmiFactory.java) 
+que instancia cada uno los tipos de controlador requerido en cada método de la factoría.
+
+![system overview](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/ciscoruiz/mastermind/distributed/doc/mastermind.controller.rmi.puml)
+
 
 ## mastermind.runtime
 
