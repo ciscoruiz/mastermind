@@ -19,19 +19,19 @@ public class PlayModelController extends ModelController implements PlayControll
 
    public boolean continueGame() { return game.continuePlaying() && state.getValue() == State.Value.PLAYING; }
 
-   public Response evaluate(Code guessCode) {  return game.evaluate(guessCode);  }
+   public Response evaluate(Code guessCode) { return game.evaluate(guessCode);  }
 
-   public ValidFigures getValidFigures() {  return game.getValidFigures();  }
+   public ValidFigures getValidFigures() { return game.getValidFigures();  }
 
-   public int getAttempt() {  return game.getAttempt();  }
+   public int getAttempt() { return game.getAttempt();  }
 
    public int getMaxAttempt() { return game.getMaxAttempt(); }
 
    public void codeBreakerWins() { setNextState();  }
 
-   public void codeMakerWins() {  setNextState();  }
+   public void codeMakerWins() { setNextState();  }
 
-   public void registry() {  gameHistoryKeeper.registry(); }
+   public void registry() { gameHistoryKeeper.registry(); }
 
    public void undo() { gameHistoryKeeper.undo(); }
 
@@ -43,7 +43,7 @@ public class PlayModelController extends ModelController implements PlayControll
 
    public boolean isAborted() { return state.getValue() == State.Value.QUIT; }
 
-   public boolean canApplyUndo() {  return gameHistoryKeeper.canApplyUndo(); }
+   public boolean canApplyUndo() { return gameHistoryKeeper.canApplyUndo(); }
 
-   public boolean canApplyRedo() {  return gameHistoryKeeper.canApplyRedo(); }
+   public boolean canApplyRedo() { return gameHistoryKeeper.canApplyRedo(); }
 }
