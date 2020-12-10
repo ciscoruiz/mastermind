@@ -5,7 +5,7 @@ package mastermind.controller {
 }
 
 package mastermind.view.console {
-   class CharacterReader {
+   class KeyboardReader {
        Character apply(Vector<Character> validKeys);
    }
 
@@ -67,7 +67,7 @@ package mastermind.view.console {
       }
    }
 
-   mastermind.view.console.menu.MenuConsole *-left-> CharacterReader
+   mastermind.view.console.menu.MenuConsole *-left-> KeyboardReader
 
    PlayConsole *--> mastermind.view.console.menu.MenuConsole
 }
@@ -78,8 +78,8 @@ ControllerVisitorConsole *--> StartConsole : startConsole
 ControllerVisitorConsole *--> PlayConsole : playConsole
 ControllerVisitorConsole *--> ResumeConsole : resumeConsole
 
-PlayConsole --> CharacterReader
-ResumeConsole --> CharacterReader
+PlayConsole --> KeyboardReader
+ResumeConsole --> KeyboardReader
 
 @enduml
 
