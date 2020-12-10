@@ -1,7 +1,7 @@
 package com.upm.master.mastermind.view.console.menu;
 
 import com.upm.master.mastermind.controller.PlayController;
-import com.upm.master.mastermind.view.console.CharacterReader;
+import com.upm.master.mastermind.view.console.KeyboardReader;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,7 +9,7 @@ import java.util.Vector;
 
 public class MenuConsole {
    private List<Command> commands = new ArrayList<>();
-   private CharacterReader reader = new CharacterReader();
+   private KeyboardReader reader = new KeyboardReader();
 
    public MenuConsole add(Command command) {
       commands.add(command);
@@ -26,7 +26,7 @@ public class MenuConsole {
          }
       }
 
-      Character option = reader.apply("Choose an option", validOptions);
+      Character option = reader.readCharacter("Choose an option", validOptions);
 
       for (Command command : commands)  {
          if (command.getCharacter().equals(option)) {

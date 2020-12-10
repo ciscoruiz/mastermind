@@ -9,7 +9,7 @@ import com.upm.master.mastermind.view.console.menu.*;
 import java.util.Vector;
 
 public class PlayConsole {
-   private final CharacterReader reader = new CharacterReader();
+   private final KeyboardReader reader = new KeyboardReader();
    private final MenuConsole menuConsole = new MenuConsole();
    private Command undoCommand;
 
@@ -77,8 +77,10 @@ public class PlayConsole {
 
       Vector<Character> figures = playController.getValidFigures().getFigures();
       Code.Builder builder = new Code.Builder();
-      while (builder.size() < Game.FIGURES_TO_GUESS) {
-         builder.add(reader.apply("Press key for one character", figures));
+
+      String code = reader.readString("Press key for one character", Game.FIGURES_TO_GUESS, figures);
+      for (int ii = 0; ii < code.length(); ++ ii) {
+         builder.add(code.charAt(ii));
       }
       return builder.build();
    }
