@@ -39,8 +39,6 @@ public class PlayConsole {
 
       showResponse(guessCode, response);
 
-      System.out.println("codewasbroken=" + response.codeWasBroken());
-
       if (response.codeWasBroken()) {
          playController.codeBreakerWins();
          System.out.println("CodeBreaker WINS!!");

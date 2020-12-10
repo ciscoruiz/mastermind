@@ -31,13 +31,14 @@ public final class CodeMaker {
       Response result = new Response(code.size());
 
       if (code.size() != guess.size()) {
-         return result;
+         throw new RuntimeException("Code size is not valid");
       }
 
       for (int ii = 0; ii < guess.size(); ++ii) {
          Character guessFigure = guess.figureAt(ii);
+         Character codeFigure = code.figureAt(ii);
 
-         if (code.figureAt(ii) == guessFigure) {
+         if (codeFigure.equals(guessFigure)) {
             result.putBlack(ii);
          } else if (figuresWithoutRepetition.contains(guessFigure)) {
             result.putWhite(ii);
