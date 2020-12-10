@@ -68,14 +68,16 @@ public class MasterMindServerOperations extends UnicastRemoteObject implements M
    // Play
    @Override
    public boolean continueGame() throws RemoteException {
-      logger.info("Result=" + playController.continueGame());
-      return playController.continueGame();
+      boolean result = playController.continueGame();
+      logger.info("Result=" + result);
+      return result;
    }
 
    @Override
    public Response evaluate(Code guessCode) throws RemoteException {
-      logger.info("Result=" + playController.evaluate(guessCode));
-      return playController.evaluate(guessCode);
+      Response response = playController.evaluate(guessCode);
+      logger.info("GuessCode=" + guessCode + ",Result=" + response);
+      return response;
    }
 
    @Override
