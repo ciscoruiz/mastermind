@@ -6,8 +6,10 @@ import com.upm.master.mastermind.model.Response;
 import com.upm.master.mastermind.model.ValidFigures;
 import com.upm.master.mastermind.view.GameView;
 
+import java.util.Vector;
+
 public class GameConsole implements GameView {
-   CharacterReader reader = new CharacterReader();
+   KeyboardReader reader = new KeyboardReader();
 
    @Override
    public void showSecretCode(Game game) {
@@ -31,9 +33,12 @@ public class GameConsole implements GameView {
          game.getAttempt() + " of " + game.getMaxAttempt()
       );
 
+      Vector<Character> figures = game.getValidFigures().getFigures();
       Code.Builder builder = new Code.Builder();
-      while (builder.size() < Game.FIGURES_TO_GUESS) {
-         builder.add(readValidFigure(game));
+
+      String code = reader.readString("Press key for one character", Game.FIGURES_TO_GUESS, figures);
+      for (int ii = 0; ii < code.length(); ++ ii) {
+         builder.add(code.charAt(ii));
       }
       return builder.build();
    }
@@ -41,34 +46,5 @@ public class GameConsole implements GameView {
    @Override
    public void showResponse(Code code, Response response) {
       System.out.println(code.toString() + " -> " + response.toString());
-   }
-
-   private void printValidFigures(ValidFigures validFigures) {
-      System.out.print("   Press key for one of character on the list { ");
-      for (int ii = 0; ii < validFigures.size(); ++ ii) {
-         System.out.print(validFigures.at(ii));
-         System.out.print(" ");
-      }
-      System.out.println("}");
-   }
-
-   private Character readValidFigure(Game game) {
-      Character result;
-      ValidFigures validFigures = game.getValidFigures();
-
-      while (true) {
-         printValidFigures(validFigures);
-
-         if ((result = reader.apply()) == null)
-            continue;
-
-         if (validFigures.contains(result)) {
-            break;
-         }
-
-         System.out.println("Character " + result + " is not a valid selection");
-      }
-
-      return result;
    }
 }

@@ -8,7 +8,6 @@ public final class MasterMindController {
    private final MasterMindView view;
    private final ConfigurationController configurationController;
    private final GameController gameController;
-   MasterMind masterMind = null;
 
    public MasterMindController(MasterMindView view, ConfigurationController configurationController, GameController gameController) {
       this.view = view;
@@ -19,7 +18,7 @@ public final class MasterMindController {
    public void play() {
       Configuration configuration = configurationController.requestConfiguration();
 
-      masterMind = new MasterMind(configuration);
+      MasterMind masterMind  = new MasterMind(configuration);
 
       boolean startNewGame = true;
 

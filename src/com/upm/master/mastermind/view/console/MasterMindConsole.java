@@ -4,8 +4,12 @@ import com.upm.master.mastermind.model.MasterMind;
 import com.upm.master.mastermind.model.Rating;
 import com.upm.master.mastermind.view.MasterMindView;
 
+import java.util.Arrays;
+import java.util.Vector;
+
 public class MasterMindConsole implements MasterMindView {
-   private CharacterReader reader = new CharacterReader();
+   private KeyboardReader reader = new KeyboardReader();
+   private final Character characters[] = { 'Y', 'N' };
 
    @Override
    public void startGame(MasterMind masterMind) {
@@ -14,27 +18,11 @@ public class MasterMindConsole implements MasterMindView {
 
    @Override
    public boolean askPlayNewGame(MasterMind masterMind) {
-      Character character = null;
+      Character character = reader.readCharacter("Do you want to start a new game?", new Vector<>(Arrays.asList(characters)));
 
-      while (character == null) {
-         System.out.println("Do you want to start a new game (Y/N)?");
-         character = reader.apply();
+      character = Character.toUpperCase(character);
 
-         if (character == null)
-            continue;
-
-         character = Character.toUpperCase(character);
-
-         if (character.equals('N'))
-            return false;
-
-         if (character.equals('Y'))
-            return true;
-
-         character = null;
-      }
-
-      return false;
+      return character.equals('Y');
    }
 
    @Override
