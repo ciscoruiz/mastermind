@@ -6,18 +6,16 @@ import com.upm.master.mastermind.view.MasterMindView;
 
 public final class MasterMindController {
    private final MasterMindView view;
-   private final ConfigurationController configurationController;
+   private final Configuration configuration;
    private final GameController gameController;
 
-   public MasterMindController(MasterMindView view, ConfigurationController configurationController, GameController gameController) {
+   public MasterMindController(MasterMindView view, Configuration configuration, GameController gameController) {
       this.view = view;
-      this.configurationController = configurationController;
+      this.configuration = configuration;
       this.gameController = gameController;
    }
 
    public void play() {
-      Configuration configuration = configurationController.requestConfiguration();
-
       MasterMind masterMind  = new MasterMind(configuration);
 
       boolean startNewGame = true;
