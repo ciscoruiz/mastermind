@@ -20,8 +20,8 @@ public final class MasterMindController {
 
       do {
          view.startGame(masterMind);
-         masterMind.summarize(gameController.play(configuration));
+         masterMind.annotateResult(gameController.play(configuration));
          view.endGame(masterMind);
-      } while (masterMind.continuePlaying() && view.askPlayNewGame(masterMind));
+      } while (view.askPlayNewGame(masterMind));
    }
 }

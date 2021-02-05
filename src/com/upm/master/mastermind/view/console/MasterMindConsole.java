@@ -13,7 +13,7 @@ public class MasterMindConsole implements MasterMindView {
 
    @Override
    public void startGame(MasterMind masterMind) {
-      System.out.println("Start play number " + masterMind.getNplay() + " of " + masterMind.getMaxPlay());
+      System.out.println("Start play MasterMind");
    }
 
    @Override
