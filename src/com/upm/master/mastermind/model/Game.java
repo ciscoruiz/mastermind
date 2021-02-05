@@ -3,7 +3,7 @@ package com.upm.master.mastermind.model;
 public class Game {
    static final public int FIGURES_TO_GUESS = 4;
    private final Configuration configuration;
-   private int attempt = 0;
+   private int attempt = 1;
    private CodeMaker codeMaker;
 
    public Game(Configuration configuration) {
@@ -12,7 +12,7 @@ public class Game {
       this.codeMaker.generateSecretCode();
    }
 
-   public boolean breakerCanRetry() { ++ attempt; return attempt < configuration.getMaxAttempt(); }
+   public boolean breakerCanRetry() { ++ attempt; return attempt <= configuration.getMaxAttempt(); }
 
    public Response evaluate(Code guessCode) {
       return codeMaker.evaluate(guessCode);
@@ -22,9 +22,7 @@ public class Game {
       return codeMaker.getCode();
    }
 
-   public int getAttempt() {
-      return attempt;
-   }
+   public int getAttempt() { return attempt; }
 
    public int getMaxAttempt() {
       return configuration.getMaxAttempt();
