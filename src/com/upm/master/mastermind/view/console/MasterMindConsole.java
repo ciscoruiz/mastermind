@@ -17,7 +17,7 @@ public class MasterMindConsole implements MasterMindView {
    }
 
    @Override
-   public boolean askPlayNewGame(MasterMind masterMind) {
+   public boolean wantToPlayNewGame(MasterMind masterMind) {
       Character character = reader.readCharacter("Do you want to start a new game?", new Vector<>(Arrays.asList(characters)));
 
       character = Character.toUpperCase(character);

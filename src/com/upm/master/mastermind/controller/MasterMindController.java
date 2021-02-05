@@ -22,6 +22,6 @@ public final class MasterMindController {
          view.startGame(masterMind);
          masterMind.annotateResult(gameController.play(configuration));
          view.endGame(masterMind);
-      } while (view.askPlayNewGame(masterMind));
+      } while (view.wantToPlayNewGame(masterMind));
    }
 }
