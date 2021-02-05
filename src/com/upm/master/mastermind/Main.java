@@ -21,9 +21,6 @@ public class Main {
       Configuration configuration = new Configuration();
 
       configuration.setMaxAttempt(5);
-      configuration.setMaxPlay(4);
-
-
       ValidFigures validFigures = new ValidFigures();
       validFigures.add('A').add('B').add('C').add('D').add('E').add('F');
       configuration.setValidFigures(validFigures);
