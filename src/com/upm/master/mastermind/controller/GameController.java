@@ -16,24 +16,28 @@ public class GameController {
 
       view.showSecretCode(game);
 
-      boolean codeRemainsSecret;
+      if (playerBreaksCode(game)) {
+         result.setBreakerWins();
+         view.breakerWins(game);
+      }
+      else {
+         result.setMakerWins();
+         view.makerWins(game);
+      }
+
+      return result;
+   }
+
+   private boolean playerBreaksCode(Game game) {
+      boolean codeIsBroken;
 
       do {
          Code code = view.askGuessCode(game);
          Response response = game.evaluate(code);
          view.showResponse(code, response);
-         codeRemainsSecret = !response.codeWasBroken();
-      } while (game.breakerCanRetry() && codeRemainsSecret);
+         codeIsBroken = response.codeWasBroken();
+      } while (game.breakerCanRetry() && !codeIsBroken);
 
-      if (codeRemainsSecret) {
-         result.setMakerWins();
-         view.makerWins(game);
-      }
-      else {
-         result.setBreakerWins();
-         view.breakerWins(game);
-      }
-
-      return result;
+      return codeIsBroken;
    }
 }
