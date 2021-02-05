@@ -14,24 +14,26 @@ public class GameController {
       Game game = new Game(configuration);
       Rating result = new Rating();
 
-      game.generateSecretCode();
       view.showSecretCode(game);
 
-      while (game.continuePlaying()) {
+      boolean codeRemainsSecret;
+
+      do {
          Code code = view.askGuessCode(game);
          Response response = game.evaluate(code);
-
          view.showResponse(code, response);
+         codeRemainsSecret = !response.codeWasBroken();
+      } while (game.breakerCanRetry() && codeRemainsSecret);
 
-         if (response.codeWasBroken()) {
-            result.setBreakerWins();
-            view.breakerWins(game);
-            return result;
-         }
+      if (codeRemainsSecret) {
+         result.setMakerWins();
+         view.makerWins(game);
+      }
+      else {
+         result.setBreakerWins();
+         view.breakerWins(game);
       }
 
-      result.setMakerWins();
-      view.makerWins(game);
       return result;
    }
 }

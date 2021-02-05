@@ -9,13 +9,10 @@ public class Game {
    public Game(Configuration configuration) {
       this.configuration = configuration;
       this.codeMaker = new CodeMaker(configuration);
+      this.codeMaker.generateSecretCode();
    }
 
-   public boolean continuePlaying() { return ++ attempt < configuration.getMaxAttempt(); }
-
-   public void generateSecretCode() {
-      codeMaker.generateSecretCode();
-   }
+   public boolean breakerCanRetry() { ++ attempt; return attempt < configuration.getMaxAttempt(); }
 
    public Response evaluate(Code guessCode) {
       return codeMaker.evaluate(guessCode);
