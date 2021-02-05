@@ -18,13 +18,10 @@ public final class MasterMindController {
    public void play() {
       MasterMind masterMind  = new MasterMind(configuration);
 
-      boolean startNewGame = true;
-
-      while (startNewGame) {
+      do {
          view.startGame(masterMind);
          masterMind.summarize(gameController.play(configuration));
          view.endGame(masterMind);
-         startNewGame = masterMind.continuePlaying() && view.askPlayNewGame(masterMind);
-      }
+      } while (masterMind.continuePlaying() && view.askPlayNewGame(masterMind));
    }
 }
