@@ -35,9 +35,6 @@ class Game {
    int getAttempt()
    int getMaxAttempt()
    ValidFigures getValidFigures()
-   -- Memento --
-   Game.Memento createMemento()
-   void restore(Game.Memento)
 }
 
 

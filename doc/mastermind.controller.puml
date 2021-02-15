@@ -1,0 +1,66 @@
+@startuml
+
+package mastermind.controller {
+   class GameController {
+      void play(Configuration)
+   }
+   class MasterMindController {
+      MasterMindController(MasterMindView view, Configuration configuration, GameController gameController)
+      void play()
+   }
+
+   MasterMindController --> GameController
+}
+
+package mastermind.view {
+   interface GameView {
+      {abstract}void showSecretCode(Game game);
+      {abstract}void playerWins(Game game);
+      {abstract}void makerWins(Game game);
+      {abstract}Code askGuessCode(Game game);
+      {abstract}void showResponse(Code code, Response response);
+   }
+
+   interface MasterMindView {
+      {abstract}void startGame(MasterMind masterMind);
+      {abstract}boolean wantToPlayNewGame(MasterMind masterMind);
+      {abstract}void endGame(MasterMind masterMind);
+   }
+}
+
+package mastermind.model {
+   class MasterMind {}
+
+   class Game {}
+
+   class Configuration {}
+
+   class Code {}
+
+   class Response {}
+}
+
+MasterMindController --> MasterMindView
+GameController --> GameView
+
+GameView ..> Game
+GameView ..> Code
+GameView ..> Response
+
+MasterMindView ..> MasterMind
+GameController ..> Configuration
+MasterMindController ..> Configuration
+
+package mastermind.view.console {
+   class GameConsole
+
+   class MasterMindConsole
+
+   class KeyboardReader
+}
+
+GameView <|--- GameConsole
+MasterMindView <|--- MasterMindConsole
+
+@enduml
+
