@@ -3,7 +3,6 @@ package com.upm.master.mastermind.view.console;
 import com.upm.master.mastermind.model.Code;
 import com.upm.master.mastermind.model.Game;
 import com.upm.master.mastermind.model.Response;
-import com.upm.master.mastermind.model.ValidFigures;
 import com.upm.master.mastermind.view.GameView;
 
 import java.util.Vector;
@@ -17,7 +16,7 @@ public class GameConsole implements GameView {
    }
 
    @Override
-   public void breakerWins(Game game) {
+   public void playerWins(Game game) {
       System.out.println("CodeBreaker WINS!!");
    }
 
