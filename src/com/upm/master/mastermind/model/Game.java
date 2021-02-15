@@ -12,7 +12,7 @@ public class Game {
       this.codeMaker.generateSecretCode();
    }
 
-   public boolean breakerCanRetry() { ++ attempt; return attempt <= configuration.getMaxAttempt(); }
+   public boolean playerCanRetry() { ++ attempt; return attempt <= configuration.getMaxAttempt(); }
 
    public Response evaluate(Code guessCode) {
       return codeMaker.evaluate(guessCode);

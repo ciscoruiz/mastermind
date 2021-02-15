@@ -36,7 +36,7 @@ public class GameController {
          Response response = game.evaluate(code);
          view.showResponse(code, response);
          codeIsBroken = response.codeWasBroken();
-      } while (game.breakerCanRetry() && !codeIsBroken);
+      } while (game.playerCanRetry() && !codeIsBroken);
 
       return codeIsBroken;
    }
