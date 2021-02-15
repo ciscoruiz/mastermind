@@ -70,7 +70,7 @@ Las clases más relevantes de esta asociación son:
 * [MasterMindController](https://github.com/ciscoruiz/mastermind/blob/mvc-supervisor-controller/src/com/upm/master/mastermind/controller/MasterMindController.java): 
   Inicia el juego cada vez que fuera necesario y usa la vista asociada [MasterMainView](https://github.com/ciscoruiz/mastermind/blob/mvc-supervisor-controller/src/com/upm/master/mastermind/view/MasterMindView.java)
   para interaccionar con la consola y el jugador.
-* [GameContoller](https://github.com/ciscoruiz/mastermind/blob/mvc-supervisor-controller/src/com/upm/master/mastermind/controller/GameController.java): desarrolla
+* [GameController](https://github.com/ciscoruiz/mastermind/blob/mvc-supervisor-controller/src/com/upm/master/mastermind/controller/GameController.java): desarrolla
   las iteraciones que van dando la jugador la posibilidad de descubir el código que se ha calculado. Usa la vista  [GameView](https://github.com/ciscoruiz/mastermind/blob/mvc-supervisor-controller/src/com/upm/master/mastermind/view/GameView.java)
   para interaccionar con la consola y el jugador. 
 
