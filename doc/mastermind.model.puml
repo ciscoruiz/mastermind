@@ -1,0 +1,64 @@
+@startuml
+
+
+package mastermind.model {
+class Code {
+   int size();
+   Character figureAt(int pos);
+}
+
+class Code.Builder {
+    Builder add(Character cc)
+    int size()
+    Code build()
+}
+
+class CodeMaker {
+ void generateSecretCode()
+ Response evaluate(Code guessedCode)
+}
+
+class Configuration {
+int getMaxAttempt()
+void setMaxAttempt(int maxAttempt)
+ValidFigures getValidFigures()
+void setValidFigures(ValidFigures validFigures)
+}
+
+class Game {
+   Game(Configuration configuration)
+   void initialize()
+   boolean continuePlaying()
+   void generateSecretCode()
+   Response evaluate(Code guessedCode)
+   Code getSecretCode()
+   int getAttempt()
+   int getMaxAttempt()
+   ValidFigures getValidFigures()
+   -- Memento --
+   Game.Memento createMemento()
+   void restore(Game.Memento)
+}
+
+
+class Response {
+   void putBlack(int ii);
+   void putWhite(int ii);
+   boolean codeWasBroken();
+}
+
+Configuration *-right-> ValidFigures
+
+}
+
+Code.Builder -[dashed]-> Code
+CodeMaker  *--> Code
+CodeMaker --[dashed]-> Code.Builder
+CodeMaker --[dashed]-> Response
+
+Game --> Configuration
+Game *--> CodeMaker
+Game -[dashed]-> Response
+Game -[dashed]-> ValidFigures
+
+@enduml

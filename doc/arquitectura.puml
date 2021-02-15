@@ -1,0 +1,39 @@
+@startuml
+package mastermind #DDDDDD {
+}
+
+package mastermind.controller #DDDDDD {
+}
+
+package mastermind.model #DDDDDD {
+}
+
+package mastermind.view #DDDDDD {
+}
+
+package mastermind.view.console #DDDDDD {
+}
+
+package java.util #DDDDFF {
+}
+
+package java.io #DDDDFF {
+}
+
+mastermind -[dashed]-> mastermind.controller
+mastermind -[dashed]-> mastermind.model
+mastermind -[dashed]-> mastermind.view.console
+
+mastermind.view.console -[dashed]-> mastermind.view
+mastermind.view.console -[dashed]-> mastermind.model
+mastermind.view.console -[dashed]-> java.io
+mastermind.view -[dashed]-> mastermind.model
+
+mastermind.controller -[dashed]--> java.util
+mastermind.controller -[dashed]--> mastermind.model
+mastermind.controller -[dashed]-> mastermind.view
+
+mastermind.model -[dashed].-> java.util
+
+@enduml
+
