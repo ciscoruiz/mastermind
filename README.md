@@ -23,7 +23,7 @@ base para este diseño.
   lo convierte en comandos para el modelo o la vista. El enfoque principal de estas clases es acceder al **Modelo** de la 
   forma requerida por la vista. 
  
-![system overview](https://raw.githubusercontent.com/ciscoruiz/mastermind/mvc-supervisor-controller/doc/arquitectura.puml)
+![system overview](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/ciscoruiz/mastermind/mvc-supervisor-controller/doc/arquitectura.puml)
 
 # Diagrama de Clases por paquetes
 
