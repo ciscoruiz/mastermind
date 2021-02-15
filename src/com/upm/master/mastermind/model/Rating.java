@@ -14,7 +14,7 @@ public final class Rating {
       return maker;
    }
 
-   public void setBreakerWins() { breaker = 1; }
+   public void setPlayerWins() { breaker = 1; }
    public void setMakerWins() { maker = 1; }
 
    public void summarize(Rating other) {

@@ -17,8 +17,8 @@ public class GameController {
       view.showSecretCode(game);
 
       if (playerBreaksCode(game)) {
-         result.setBreakerWins();
-         view.breakerWins(game);
+         result.setPlayerWins();
+         view.playerWins(game);
       }
       else {
          result.setMakerWins();
